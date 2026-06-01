@@ -1,0 +1,607 @@
+import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+const resendApiKey = Deno.env.get("RESEND_API_KEY");
+const supabaseUrl = Deno.env.get("SUPABASE_URL")!;
+const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
+const anthropicApiKey = Deno.env.get("ANTHROPIC_API_KEY");
+
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers":
+    "authorization, x-client-info, apikey, content-type",
+};
+
+interface TicketData {
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  description: string;
+  priority?: "low" | "medium" | "high" | "critical";
+  source?: string;
+}
+
+function getNextWorkingDay(date: Date): Date {
+  const d = new Date(date);
+  const day = d.getDay();
+  if (day === 0) d.setDate(d.getDate() + 1);
+  else if (day === 6) d.setDate(d.getDate() + 2);
+  return d;
+}
+
+function calculateExpectedResolution(
+  createdAt: Date,
+  priorityHours: number
+): string {
+  const WORK_START = 9;
+  const WORK_END = 18;
+
+  const istOffset = 5.5 * 60 * 60 * 1000;
+  let current = new Date(createdAt.getTime() + istOffset);
+  let remainingHours = priorityHours;
+
+  const currentHour = current.getUTCHours() + current.getUTCMinutes() / 60;
+  if (currentHour >= WORK_END || currentHour < WORK_START) {
+    if (currentHour >= WORK_END) {
+      current.setUTCDate(current.getUTCDate() + 1);
+    }
+    current.setUTCHours(WORK_START, 0, 0, 0);
+    current = getNextWorkingDay(current);
+  }
+
+  while (remainingHours > 0) {
+    current = getNextWorkingDay(current);
+    const hour = current.getUTCHours() + current.getUTCMinutes() / 60;
+    const availableToday = Math.max(0, WORK_END - Math.max(hour, WORK_START));
+
+    if (remainingHours <= availableToday) {
+      current.setUTCHours(
+        Math.max(hour, WORK_START) + Math.floor(remainingHours),
+        (remainingHours % 1) * 60,
+        0,
+        0
+      );
+      remainingHours = 0;
+    } else {
+      remainingHours -= availableToday;
+      current.setUTCDate(current.getUTCDate() + 1);
+      current.setUTCHours(WORK_START, 0, 0, 0);
+    }
+  }
+
+  const resultUTC = new Date(current.getTime() - istOffset);
+  return resultUTC.toISOString();
+}
+
+function getPriorityHours(priority: string): number {
+  switch (priority) {
+    case "critical":
+      return 4;
+    case "high":
+      return 9;
+    case "medium":
+      return 18;
+    case "low":
+      return 36;
+    default:
+      return 18;
+  }
+}
+
+function formatDateIST(isoString: string): string {
+  const date = new Date(isoString);
+  return date.toLocaleString("en-IN", {
+    timeZone: "Asia/Kolkata",
+    weekday: "short",
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+// --- Claude AI Auto-Response ---
+async function getAIResponse(ticket: {
+  subject: string;
+  description: string;
+  category?: string;
+  priority: string;
+}): Promise<string | null> {
+  if (!anthropicApiKey) {
+    console.error("ANTHROPIC_API_KEY not configured");
+    return null;
+  }
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": anthropicApiKey,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "claude-haiku-4-5-20251001",
+        max_tokens: 500,
+        system: `You are a friendly and helpful support assistant for In-Sync CRM, an AI-powered customer relationship management platform based in India.
+
+Your job is to provide an immediate, helpful first response to support tickets. Be concise, professional, and empathetic.
+
+Guidelines:
+- Acknowledge the issue clearly
+- If it's a common issue (login, billing, integration, feature request), provide relevant quick steps or info
+- If you can suggest a potential solution or workaround, do so
+- If it needs human investigation, say the team will look into it
+- Keep response under 150 words
+- Use a warm, professional tone
+- Don't make up features that don't exist
+- For bugs, ask for any additional details that might help
+- End with a reassuring note
+
+In-Sync CRM features: Sales automation, WhatsApp integration, field force tracking, multi-channel marketing, lead management, ticketing system, AI voice, drip marketing, auto-dialer.
+Working hours: Mon-Fri, 9 AM - 6 PM IST.`,
+        messages: [
+          {
+            role: "user",
+            content: `New support ticket:\nSubject: ${ticket.subject}\nDescription: ${ticket.description}\nPriority: ${ticket.priority}`,
+          },
+        ],
+      }),
+    });
+
+    if (!response.ok) {
+      const err = await response.text();
+      console.error("Claude API error:", err);
+      return null;
+    }
+
+    const result = await response.json();
+    if (result.content && result.content.length > 0) {
+      return result.content[0].text;
+    }
+    return null;
+  } catch (err) {
+    console.error("Failed to get AI response:", err);
+    return null;
+  }
+}
+
+async function sendClientEmail(
+  ticket: {
+    ticket_number: string;
+    name: string;
+    email: string;
+    subject: string;
+    priority: string;
+    created_at: string;
+  },
+  expectedResolution: string,
+  aiResponse: string | null
+) {
+  if (!resendApiKey) {
+    console.error("RESEND_API_KEY not configured");
+    return;
+  }
+
+  const priorityColors: Record<string, string> = {
+    low: "#22c55e",
+    medium: "#f59e0b",
+    high: "#f97316",
+    critical: "#ef4444",
+  };
+
+  const priorityLabel =
+    ticket.priority.charAt(0).toUpperCase() + ticket.priority.slice(1);
+  const color = priorityColors[ticket.priority] || "#f59e0b";
+
+  const aiSection = aiResponse
+    ? `
+              <!-- AI Response -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f5f3ff;border:1px solid #ddd6fe;border-radius:8px;margin:0 0 24px;">
+                <tr>
+                  <td style="padding:20px;">
+                    <p style="color:#6d28d9;font-size:14px;margin:0 0 8px;font-weight:700;">
+                      <span style="display:inline-block;width:20px;height:20px;background:#8b5cf6;border-radius:50%;text-align:center;color:#fff;font-size:12px;line-height:20px;margin-right:6px;">AI</span>
+                      Quick Response from In-Sync AI
+                    </p>
+                    <p style="color:#374151;font-size:14px;line-height:1.7;margin:0;white-space:pre-wrap;">${aiResponse}</p>
+                    <p style="color:#9ca3af;font-size:11px;margin:12px 0 0;font-style:italic;">This is an automated AI response. Our support team will follow up during business hours if needed.</p>
+                  </td>
+                </tr>
+              </table>`
+    : "";
+
+  const html = `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0;padding:0;background-color:#f4f4f5;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f4f4f5;padding:40px 20px;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+          <!-- Header -->
+          <tr>
+            <td style="background:linear-gradient(135deg,#1e40af,#3b82f6);padding:32px 40px;text-align:center;">
+              <h1 style="color:#ffffff;margin:0;font-size:24px;font-weight:700;">In-Sync Support</h1>
+              <p style="color:#bfdbfe;margin:8px 0 0;font-size:14px;">Your ticket has been received</p>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:40px;">
+              <p style="color:#374151;font-size:16px;margin:0 0 20px;">Hi <strong>${ticket.name}</strong>,</p>
+              <p style="color:#6b7280;font-size:15px;line-height:1.6;margin:0 0 24px;">
+                Thank you for reaching out to us. We have received your support request and a ticket has been created. Our team will review it and get back to you shortly.
+              </p>
+
+              ${aiSection}
+
+              <!-- Ticket Card -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;margin:0 0 24px;">
+                <tr>
+                  <td style="padding:24px;">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding:0 0 16px;">
+                          <span style="color:#6b7280;font-size:13px;text-transform:uppercase;letter-spacing:0.5px;">Ticket Number</span><br>
+                          <span style="color:#1e40af;font-size:22px;font-weight:700;letter-spacing:1px;">${ticket.ticket_number}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:0 0 12px;border-top:1px solid #e2e8f0;padding-top:16px;">
+                          <span style="color:#6b7280;font-size:13px;">Subject</span><br>
+                          <span style="color:#1f2937;font-size:15px;font-weight:500;">${ticket.subject}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:0 0 12px;">
+                          <span style="color:#6b7280;font-size:13px;">Priority</span><br>
+                          <span style="display:inline-block;background-color:${color};color:#fff;padding:3px 12px;border-radius:12px;font-size:13px;font-weight:600;">${priorityLabel}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:0 0 12px;">
+                          <span style="color:#6b7280;font-size:13px;">Submitted On</span><br>
+                          <span style="color:#1f2937;font-size:14px;">${formatDateIST(ticket.created_at)}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:0;">
+                          <span style="color:#6b7280;font-size:13px;">Expected Resolution By</span><br>
+                          <span style="color:#1f2937;font-size:14px;font-weight:500;">${formatDateIST(expectedResolution)}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Working Hours Note -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#eff6ff;border-left:4px solid #3b82f6;border-radius:0 8px 8px 0;margin:0 0 24px;">
+                <tr>
+                  <td style="padding:16px 20px;">
+                    <p style="color:#1e40af;font-size:14px;margin:0;font-weight:600;">Working Hours</p>
+                    <p style="color:#3b82f6;font-size:13px;margin:4px 0 0;line-height:1.5;">
+                      Monday to Friday, 9:00 AM - 6:00 PM IST<br>
+                      Resolution times are calculated based on business hours only.
+                    </p>
+                  </td>
+                </tr>
+              </table>
+
+              <p style="color:#6b7280;font-size:14px;line-height:1.6;margin:0 0 8px;">
+                You can reply to this email to add more information to your ticket. Please include your ticket number <strong>${ticket.ticket_number}</strong> in all communications.
+              </p>
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="background-color:#f8fafc;padding:24px 40px;border-top:1px solid #e2e8f0;text-align:center;">
+              <p style="color:#9ca3af;font-size:12px;margin:0;">
+                &copy; ${new Date().getFullYear()} In-Sync CRM. All rights reserved.<br>
+                <a href="https://in-sync-crm.com" style="color:#3b82f6;text-decoration:none;">in-sync-crm.com</a> |
+                <a href="mailto:delight@in-sync.co.in" style="color:#3b82f6;text-decoration:none;">delight@in-sync.co.in</a>
+              </p>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`;
+
+  const response = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "In-Sync Support <amina@in-sync.co.in>",
+      to: [ticket.email],
+      subject: `[${ticket.ticket_number}] Ticket Received: ${ticket.subject}`,
+      html,
+      reply_to: "amina@in-sync.co.in",
+    }),
+  });
+
+  if (!response.ok) {
+    const err = await response.text();
+    console.error("Failed to send client email:", err);
+  } else {
+    console.log("Client confirmation email sent to:", ticket.email);
+  }
+}
+
+async function sendTeamEmail(
+  ticket: {
+    ticket_number: string;
+    name: string;
+    email: string;
+    phone?: string;
+    subject: string;
+    description: string;
+    priority: string;
+    source: string;
+    created_at: string;
+  },
+  aiResponse: string | null
+) {
+  if (!resendApiKey) return;
+
+  const aiSection = aiResponse
+    ? `<h3>AI Suggested Response</h3>
+<div style="background:#f5f3ff;border:1px solid #ddd6fe;padding:16px;border-radius:8px;margin:0 0 16px;">
+  <p style="white-space:pre-wrap;color:#374151;font-size:14px;line-height:1.6;margin:0;">${aiResponse}</p>
+  <p style="color:#9ca3af;font-size:11px;margin:8px 0 0;font-style:italic;">This AI response was sent to the customer automatically.</p>
+</div>`
+    : "";
+
+  const html = `
+<h2>New Support Ticket: ${ticket.ticket_number}</h2>
+${aiSection}
+<table style="border-collapse:collapse;width:100%;max-width:600px;">
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Ticket #</td><td style="padding:8px;border:1px solid #ddd;">${ticket.ticket_number}</td></tr>
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Name</td><td style="padding:8px;border:1px solid #ddd;">${ticket.name}</td></tr>
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Email</td><td style="padding:8px;border:1px solid #ddd;">${ticket.email}</td></tr>
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Phone</td><td style="padding:8px;border:1px solid #ddd;">${ticket.phone || "N/A"}</td></tr>
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Subject</td><td style="padding:8px;border:1px solid #ddd;">${ticket.subject}</td></tr>
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Priority</td><td style="padding:8px;border:1px solid #ddd;text-transform:uppercase;font-weight:bold;">${ticket.priority}</td></tr>
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Source</td><td style="padding:8px;border:1px solid #ddd;">${ticket.source}</td></tr>
+  <tr><td style="padding:8px;border:1px solid #ddd;font-weight:bold;">Created</td><td style="padding:8px;border:1px solid #ddd;">${formatDateIST(ticket.created_at)}</td></tr>
+</table>
+<h3>Description</h3>
+<p style="background:#f5f5f5;padding:16px;border-radius:8px;white-space:pre-wrap;">${ticket.description}</p>
+<hr>
+<p><small>Source: ${ticket.source} | Submitted at ${formatDateIST(ticket.created_at)}</small></p>`;
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "In-Sync Tickets <amina@in-sync.co.in>",
+      to: ["amina@in-sync.co.in"],
+      subject: `[${ticket.priority.toUpperCase()}] New Ticket ${ticket.ticket_number}: ${ticket.subject}`,
+      html,
+      reply_to: ticket.email,
+    }),
+  });
+}
+
+// --- CRM Integration ---
+const CRM_SUPABASE_URL = "https://knuewnenaswscgaldjej.supabase.co";
+const CRM_SERVICE_ROLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtudWV3bmVuYXN3c2NnYWxkamVqIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MjY2NDkwNywiZXhwIjoyMDg4MjQwOTA3fQ.QftfznfeN8CdQ-7aGLIx9u9AhGTPGEtPHdaenXzkgE8";
+const CRM_ORG_ID = "65e22e43-f23d-4c0a-9d84-2eba65ad0e12";
+const CRM_DEFAULT_USER_ID = "a8e93829-a8dd-4bc1-bc92-a3093abcb168";
+
+async function pushToCRM(ticket: {
+  ticket_number: string;
+  name: string;
+  email: string;
+  phone?: string;
+  subject: string;
+  description: string;
+  priority: string;
+  source: string;
+  status: string;
+  created_at: string;
+  expected_resolution?: string;
+}) {
+  try {
+    const crmSupabase = createClient(CRM_SUPABASE_URL, CRM_SERVICE_ROLE_KEY);
+
+    const { data, error } = await crmSupabase
+      .from("support_tickets")
+      .insert({
+        org_id: CRM_ORG_ID,
+        created_by: CRM_DEFAULT_USER_ID,
+        assigned_to: CRM_DEFAULT_USER_ID,
+        ticket_number: ticket.ticket_number,
+        subject: ticket.subject,
+        description: ticket.description,
+        category: "support",
+        priority: ticket.priority,
+        status: ticket.status === "open" ? "open" : ticket.status,
+        contact_name: ticket.name,
+        contact_email: ticket.email,
+        contact_phone: ticket.phone || null,
+        source: ticket.source,
+        due_at: ticket.expected_resolution || null,
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("CRM push failed:", error.message);
+    } else {
+      console.log("Ticket pushed to CRM:", data.id);
+    }
+  } catch (err) {
+    console.error("CRM push error:", err);
+  }
+}
+
+const handler = async (req: Request): Promise<Response> => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
+
+  try {
+    const data: TicketData = await req.json();
+
+    // Validate required fields
+    if (!data.name || !data.email || !data.subject || !data.description) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          error: "Name, email, subject, and description are required",
+        }),
+        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseServiceKey);
+    const priority = data.priority || "medium";
+    const source = data.source || "website";
+
+    // Generate ticket number
+    const { data: ticketNumResult } = await supabase.rpc(
+      "generate_ticket_number"
+    );
+    const ticketNumber = ticketNumResult || `TKT-${Date.now()}`;
+
+    // Get AI response (non-blocking — we still create the ticket even if AI fails)
+    const aiResponsePromise = getAIResponse({
+      subject: data.subject,
+      description: data.description,
+      priority,
+    });
+
+    // Insert ticket
+    const { data: ticket, error } = await supabase
+      .from("support_tickets")
+      .insert({
+        ticket_number: ticketNumber,
+        name: data.name,
+        email: data.email,
+        phone: data.phone || null,
+        subject: data.subject,
+        description: data.description,
+        priority,
+        source,
+        status: "open",
+      })
+      .select()
+      .single();
+
+    if (error) {
+      console.error("Database error:", error);
+      throw new Error(`Failed to create ticket: ${error.message}`);
+    }
+
+    // Wait for AI response
+    const aiResponse = await aiResponsePromise;
+
+    // Save AI response to database if we got one
+    if (aiResponse) {
+      await supabase
+        .from("support_tickets")
+        .update({ ai_response: aiResponse })
+        .eq("ticket_number", ticketNumber);
+    }
+
+    // Calculate expected resolution
+    const priorityHours = getPriorityHours(priority);
+    const expectedResolution = calculateExpectedResolution(
+      new Date(ticket.created_at),
+      priorityHours
+    );
+
+    // Send emails and push to CRM in parallel
+    await Promise.allSettled([
+      sendClientEmail(
+        {
+          ticket_number: ticket.ticket_number,
+          name: ticket.name,
+          email: ticket.email,
+          subject: ticket.subject,
+          priority: ticket.priority,
+          created_at: ticket.created_at,
+        },
+        expectedResolution,
+        aiResponse
+      ),
+      sendTeamEmail(
+        {
+          ticket_number: ticket.ticket_number,
+          name: ticket.name,
+          email: ticket.email,
+          phone: ticket.phone,
+          subject: ticket.subject,
+          description: ticket.description,
+          priority: ticket.priority,
+          source: ticket.source,
+          created_at: ticket.created_at,
+        },
+        aiResponse
+      ),
+      pushToCRM({
+        ticket_number: ticket.ticket_number,
+        name: ticket.name,
+        email: ticket.email,
+        phone: ticket.phone,
+        subject: ticket.subject,
+        description: ticket.description,
+        priority: ticket.priority,
+        source: ticket.source,
+        status: ticket.status,
+        created_at: ticket.created_at,
+        ai_response: aiResponse,
+        expected_resolution: expectedResolution,
+      }),
+    ]);
+
+    return new Response(
+      JSON.stringify({
+        success: true,
+        ticket_number: ticket.ticket_number,
+        expected_resolution: expectedResolution,
+        expected_resolution_formatted: formatDateIST(expectedResolution),
+        priority,
+        ai_response: aiResponse || null,
+        message: `Ticket ${ticket.ticket_number} created successfully. A confirmation has been sent to ${ticket.email}.`,
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      }
+    );
+  } catch (error: any) {
+    console.error("Error in submit-ticket:", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        error: error.message || "Failed to create ticket",
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      }
+    );
+  }
+};
+
+serve(handler);
