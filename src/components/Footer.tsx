@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import insyncLogo from "@/assets/insync-logo-color.png";
 import DemoRequestModal from "./DemoRequestModal";
+import { COMPANY } from "@/lib/company";
 
 const Footer = () => {
   const footerLinks = {
@@ -76,19 +77,19 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
                   <Phone className="h-4 w-4 text-accent" />
                 </div>
-                <span>+91 92288 24668</span>
+                <span>{COMPANY.phone}</span>
               </div>
               <div className="flex items-center gap-3 text-sm text-white/70 hover:text-white transition-colors">
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
                   <Mail className="h-4 w-4 text-accent" />
                 </div>
-                <span>delight@in-sync.co.in</span>
+                <span>{COMPANY.email}</span>
               </div>
               <div className="flex items-start gap-3 text-sm text-white/70 hover:text-white transition-colors">
                 <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
                   <MapPin className="h-4 w-4 text-accent" />
                 </div>
-                <span>Gurgaon, Haryana, India - 122002</span>
+                <span>{COMPANY.address.line1}, {COMPANY.address.line2}, {COMPANY.address.city}, {COMPANY.address.state} {COMPANY.address.pin}</span>
               </div>
             </div>
 
@@ -205,15 +206,18 @@ const Footer = () => {
           <div className="container mx-auto px-4 py-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="flex flex-col md:flex-row items-center gap-6 text-sm text-white/70 font-body">
-                <span className="font-medium">© 2024 ECR Technical Innovations Pvt Ltd. All rights reserved.</span>
-                <div className="flex gap-6">
+                <span className="font-medium">© 2026 {COMPANY.legalName}. All rights reserved.</span>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 justify-center">
                   <Link to="/privacy" className="hover:text-accent transition-colors">Privacy Policy</Link>
-                  <Link to="/terms" className="hover:text-accent transition-colors">Terms of Service</Link>
+                  <Link to="/terms" className="hover:text-accent transition-colors">Terms &amp; Conditions</Link>
+                  <Link to="/refund" className="hover:text-accent transition-colors">Refund Policy</Link>
+                  <Link to="/shipping" className="hover:text-accent transition-colors">Shipping Policy</Link>
                   <Link to="/cookies" className="hover:text-accent transition-colors">Cookie Policy</Link>
+                  <Link to="/contact-us" className="hover:text-accent transition-colors">Contact Us</Link>
                 </div>
               </div>
               <div className="text-sm text-white/60 font-body">
-                <span>CIN: U62090MH2023PTC413647 | GST: 06AAHCE8667P1ZR</span>
+                <span>CIN: {COMPANY.cin} | GSTIN: {COMPANY.gstin}</span>
               </div>
             </div>
           </div>

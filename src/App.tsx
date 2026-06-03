@@ -29,6 +29,9 @@ import BlogPost from "./pages/BlogPost";
 import Cookies from "./pages/Cookies";
 import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
+import Refund from "./pages/Refund";
+import Shipping from "./pages/Shipping";
+import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import SupportPage from "./pages/SupportPage";
 import SupportAdmin from "./pages/SupportAdmin";
@@ -76,6 +79,9 @@ const App = () => (
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/refund" element={<Refund />} />
+          <Route path="/shipping" element={<Shipping />} />
+          <Route path="/contact-us" element={<Contact />} />
           <Route path="/support" element={<SupportPage />} />
           <Route path="/support/admin" element={<SupportAdmin />} />
           <Route path="/rss-feed" element={<RSSRedirect />} />

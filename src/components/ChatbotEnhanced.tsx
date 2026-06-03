@@ -46,9 +46,9 @@ const ChatbotEnhanced = () => {
       "Mobile CRM application",
       "Advanced security and compliance"
     ],
-    pricing: "For detailed pricing information, please contact our team at +91 92288 24668 or delight@in-sync.co.in for a custom quote based on your specific needs.",
+    pricing: "For detailed pricing information, please contact our team at +91 92115 14326 or delight@in-sync.co.in for a custom quote based on your specific needs.",
     contact: {
-      phone: "+91 92288 24668",
+      phone: "+91 92115 14326",
       email: "delight@in-sync.co.in"
     },
     industries: [

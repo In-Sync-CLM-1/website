@@ -1,16 +1,16 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { Alert, AlertDescription } from "@/components/ui/alert";
 import Footer from "@/components/Footer";
-import { FileText, AlertTriangle, Scale } from "lucide-react";
+import { FileText, Scale } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
+import { COMPANY, COMPANY_ADDRESS_ONELINE } from "@/lib/company";
 
 const Terms = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
-        <title>Terms of Service - In-Sync CRM Platform</title>
-        <meta name="description" content="Read the In-Sync Terms of Service by ECR Technical Innovations Pvt Ltd. Understand your rights and responsibilities when using our platform." />
-        <meta name="keywords" content="terms of service, terms of use, legal agreement, In-Sync, ECR Technical Innovations" />
+        <title>Terms & Conditions - In-Sync</title>
+        <meta name="description" content={`Terms & Conditions for the In-Sync platform, operated by ${COMPANY.legalName}.`} />
+        <meta name="keywords" content="terms and conditions, terms of service, legal agreement, In-Sync, Prosync AI Solutions" />
       </Helmet>
 
       <main>
@@ -21,12 +21,13 @@ const Terms = () => {
               <div className="flex items-center justify-center gap-3 mb-6">
                 <FileText className="w-12 h-12 text-primary" />
                 <h1 className="text-5xl font-bold text-primary">
-                  Terms of Service
+                  Terms &amp; Conditions
                 </h1>
               </div>
               <p className="text-xl text-muted-foreground">
-                In-Sync Terms of Service by ECR Technical Innovations Pvt Ltd
+                The In-Sync platform is owned and operated by {COMPANY.legalName}.
               </p>
+              <p className="text-sm text-muted-foreground mt-3">Last updated: 3 June 2026</p>
             </div>
           </div>
         </section>
@@ -35,163 +36,164 @@ const Terms = () => {
         <section className="py-12">
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto space-y-8">
-              
+
               {/* Introduction */}
               <Card>
                 <CardContent className="p-8">
                   <p className="text-muted-foreground leading-relaxed">
-                    In-Sync, a platform by ECR Technical Innovations Pvt Ltd ("In-Sync," "our," "we," or "us") provides messaging, Internet calling, and other services to users around the world. Please read our Terms of Service so you understand what's up with your use of In-Sync. You agree to our Terms of Service ("Terms") by installing, accessing, or using our apps, services, features, software, or website (together, "Services").
+                    These Terms &amp; Conditions ("Terms") govern your access to and use of the
+                    websites, applications, software, and services offered under the "In-Sync" brand
+                    (collectively, the "Services"). The Services are owned and operated by{" "}
+                    <strong>{COMPANY.legalName}</strong> ("In-Sync," "Company," "we," "our," or "us"),
+                    a company incorporated in India (CIN {COMPANY.cin}) with its registered office at{" "}
+                    {COMPANY_ADDRESS_ONELINE}. By accessing, registering for, subscribing to, or using
+                    the Services, you agree to be bound by these Terms. If you do not agree, please do
+                    not use the Services.
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Emergency Services Alert */}
-              <Alert className="border-destructive/50 bg-destructive/5">
-                <AlertTriangle className="h-4 w-4 text-destructive" />
-                <AlertDescription className="text-destructive">
-                  <strong>NO ACCESS TO EMERGENCY SERVICES</strong><br />
-                  Our Services do not provide access to emergency services such as police, fire, or hospitals. You must ensure you can reach emergency services through a mobile, fixed-line telephone, or other means.
-                </AlertDescription>
-              </Alert>
-
-              {/* Arbitration Notice */}
-              <Alert className="border-primary/50 bg-primary/5">
-                <Scale className="h-4 w-4 text-primary" />
-                <AlertDescription>
-                  <strong>ARBITRATION NOTICE FOR USERS IN THE UNITED STATES OR CANADA</strong><br />
-                  If you are an In-Sync user located in the United States or Canada, our Terms contain a binding arbitration provision. Except if you opt out and except for certain disputes, In-Sync and you agree to resolve disputes through binding individual arbitration, waiving the right to a judge, jury, or class actions. See "Special Arbitration Provision for United States or Canada Users."
-                </AlertDescription>
-              </Alert>
-
-              {/* About Our Services */}
+              {/* 1. Eligibility & Accounts */}
               <Card>
                 <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">About Our Services</h2>
+                  <h2 className="text-2xl font-bold text-primary mb-4">1. Eligibility &amp; Accounts</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    You must be at least 18 years of age and capable of forming a binding contract to
+                    use the Services. When you create an account, you agree to provide accurate and
+                    complete information and to keep it up to date. You are responsible for maintaining
+                    the confidentiality of your login credentials and for all activity that occurs under
+                    your account.
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* 2. Services & Subscriptions */}
+              <Card>
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-primary mb-4">2. Services &amp; Subscriptions</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    (unchanged – registration, devices, fees, etc.)
+                    In-Sync provides cloud-based business software, including customer relationship
+                    management (CRM), communication, and workflow automation tools, on a
+                    subscription basis. The specific features, usage limits, and price applicable to you
+                    are those shown at the point of purchase or in your subscription plan. We may add,
+                    modify, or discontinue features from time to time to improve the Services.
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Privacy Policy and User Data */}
+              {/* 3. Fees, Billing & Payments */}
               <Card>
                 <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Privacy Policy and User Data</h2>
+                  <h2 className="text-2xl font-bold text-primary mb-4">3. Fees, Billing &amp; Payments</h2>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Subscription fees and applicable usage charges are billed in advance and are stated exclusive of taxes unless specified otherwise. Goods and Services Tax (GST) is added where applicable.</li>
+                    <li>• Online payments are processed through our payment partner, {COMPANY.paymentProcessor} ("Razorpay"). By making a payment, you also agree to Razorpay's terms and policies. We do not store your full card or banking credentials.</li>
+                    <li>• Subscriptions renew for successive terms unless cancelled before the renewal date. You authorise us (and our payment partner) to charge the applicable fees for each renewal term.</li>
+                    <li>• Failure to pay may result in suspension or termination of access to the Services.</li>
+                    <li>• Cancellations and refunds are governed by our <a href="/refund" className="text-primary hover:underline">Cancellation &amp; Refund Policy</a>.</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* 4. Acceptable Use */}
+              <Card>
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-primary mb-4">4. Acceptable Use</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">You agree not to use the Services to:</p>
+                  <ul className="space-y-2 text-muted-foreground">
+                    <li>• Violate any applicable law, regulation, or third-party right;</li>
+                    <li>• Send unlawful, fraudulent, defamatory, obscene, or unsolicited bulk communications (spam);</li>
+                    <li>• Upload malware or attempt to gain unauthorised access to our systems or other users' data;</li>
+                    <li>• Reverse engineer, resell, or sublicense the Services except as expressly permitted;</li>
+                    <li>• Use the Services in any manner that could damage, disable, or impair them.</li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              {/* 5. Intellectual Property */}
+              <Card>
+                <CardContent className="p-8">
+                  <h2 className="text-2xl font-bold text-primary mb-4">5. Intellectual Property</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    (unchanged – reference to In-Sync Privacy Policy)
+                    All software, content, trademarks, logos, and materials comprising the Services are
+                    owned by {COMPANY.legalName} or its licensors. We grant you a limited, non-exclusive,
+                    non-transferable, revocable licence to use the Services for your internal business
+                    purposes during your subscription. You retain ownership of the data you upload ("Your
+                    Data"); you grant us a licence to process Your Data solely to provide the Services.
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Acceptable Use */}
+              {/* 6. Disclaimers & Limitation of Liability */}
               <Card>
                 <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Acceptable Use of Our Services</h2>
+                  <h2 className="text-2xl font-bold text-primary mb-4">6. Disclaimers &amp; Limitation of Liability</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    (unchanged – legal and acceptable use, prohibited activities)
+                    The Services are provided on an "as is" and "as available" basis without warranties
+                    of any kind, whether express or implied. To the maximum extent permitted by law, our
+                    total aggregate liability arising out of or relating to the Services shall not exceed
+                    the amount paid by you to us for the Services in the twelve (12) months preceding the
+                    event giving rise to the claim. We shall not be liable for any indirect, incidental,
+                    or consequential damages.
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Third-Party Services */}
+              {/* 7. Indemnification */}
               <Card>
                 <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Third-Party Services</h2>
+                  <h2 className="text-2xl font-bold text-primary mb-4">7. Indemnification</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    (unchanged)
+                    You agree to indemnify and hold harmless {COMPANY.legalName}, its directors,
+                    employees, and partners from any claims, losses, or expenses arising out of your
+                    use of the Services, Your Data, or your breach of these Terms.
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Licenses */}
+              {/* 8. Term & Termination */}
               <Card>
                 <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Licenses</h2>
+                  <h2 className="text-2xl font-bold text-primary mb-4">8. Term &amp; Termination</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    (unchanged – your rights, In-Sync's rights, mutual licenses)
+                    These Terms remain in effect while you use the Services. You may stop using the
+                    Services at any time. We may suspend or terminate your access if you breach these
+                    Terms, fail to pay applicable fees, or use the Services in a manner that may cause
+                    harm or legal liability. On termination, your right to use the Services ceases; you
+                    may request export of Your Data within 30 days, after which it may be deleted.
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Disclaimers & Limitation of Liability */}
+              {/* 9. Governing Law & Jurisdiction */}
               <Card>
                 <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Disclaimers & Limitation of Liability</h2>
+                  <h2 className="text-2xl font-bold text-primary mb-4">9. Governing Law &amp; Jurisdiction</h2>
                   <p className="text-muted-foreground leading-relaxed">
-                    (unchanged – "as is," limited liability capped at $100 or past 12 months' fees)
+                    These Terms are governed by the laws of India. Any dispute arising out of or in
+                    connection with these Terms or the Services shall be subject to the exclusive
+                    jurisdiction of the competent courts at {COMPANY.jurisdiction}.
                   </p>
                 </CardContent>
               </Card>
 
-              {/* Indemnification */}
+              {/* 10. Changes & Contact */}
               <Card>
                 <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Indemnification</h2>
-                  <p className="text-muted-foreground leading-relaxed">
-                    (unchanged)
+                  <h2 className="text-2xl font-bold text-primary mb-4">10. Changes &amp; Contact</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    We may update these Terms from time to time. Material changes will be posted on this
+                    page with a revised "Last updated" date. Continued use of the Services after changes
+                    take effect constitutes acceptance of the revised Terms. For any questions, contact us at:
                   </p>
-                </CardContent>
-              </Card>
-
-              {/* Dispute Resolution */}
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-6">Dispute Resolution</h2>
-                  <div className="space-y-4">
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2">United States/Canada Users</h3>
-                      <p className="text-muted-foreground">
-                        Arbitration rules under the "Special Arbitration Provision" apply.
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2">Other Users</h3>
-                      <p className="text-muted-foreground">
-                        If you are not located in the United States or Canada, you agree that any claim or dispute ("Dispute") relating to our Terms, us, or our Services shall be exclusively resolved in the competent courts of Mumbai, Maharashtra, India, and you agree to submit to the jurisdiction of those courts.
-                      </p>
-                    </div>
-                    <div>
-                      <h3 className="text-lg font-semibold mb-2">Governing Law</h3>
-                      <p className="text-muted-foreground">
-                        These Terms, as well as any disputes, are governed by the laws of India, without regard to conflict of law principles.
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Availability and Termination */}
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Availability and Termination</h2>
-                  <p className="text-muted-foreground leading-relaxed">
-                    (unchanged – rights to suspend/terminate services)
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Other Provisions */}
-              <Card>
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Other Provisions</h2>
-                  <p className="text-muted-foreground leading-relaxed">
-                    (unchanged – entire agreement, export compliance, translations, amendments, assignment, consumer rights, feedback use)
-                  </p>
-                </CardContent>
-              </Card>
-
-              {/* Special Arbitration Provision */}
-              <Card className="border-primary/20">
-                <CardContent className="p-8">
-                  <h2 className="text-2xl font-bold text-primary mb-4">Special Arbitration Provision for United States or Canada Users</h2>
                   <div className="bg-muted/50 p-6 rounded-lg">
-                    <h3 className="text-lg font-semibold mb-3">Arbitration Opt-Out Address:</h3>
-                    <div className="space-y-2 text-muted-foreground">
-                      <p><strong>ECR Technical Innovations Pvt Ltd</strong></p>
-                      <p>Arbitration Opt-Out</p>
-                      <p>C042C, 4th Floor, DLF Phase 4</p>
-                      <p>Gurugram, Haryana 122002</p>
-                      <p>India</p>
+                    <div className="space-y-1 text-muted-foreground">
+                      <p><strong>{COMPANY.legalName}</strong></p>
+                      <p>{COMPANY.address.line1}, {COMPANY.address.line2}</p>
+                      <p>{COMPANY.address.city}, {COMPANY.address.state} {COMPANY.address.pin}, {COMPANY.address.country}</p>
+                      <p>CIN: {COMPANY.cin} &nbsp;|&nbsp; GSTIN: {COMPANY.gstin}</p>
+                      <p>📧 <a href={`mailto:${COMPANY.email}`} className="text-primary hover:underline">{COMPANY.email}</a></p>
+                      <p>📞 <a href={`tel:${COMPANY.phone.replace(/\s/g, "")}`} className="text-primary hover:underline">{COMPANY.phone}</a></p>
                     </div>
                   </div>
                 </CardContent>
@@ -208,10 +210,10 @@ const Terms = () => {
               <Scale className="w-12 h-12 text-primary mx-auto mb-4" />
               <h2 className="text-2xl font-bold mb-4">Legal Agreement</h2>
               <p className="text-muted-foreground mb-6">
-                By using In-Sync services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+                By using In-Sync services, you acknowledge that you have read, understood, and agree to be bound by these Terms &amp; Conditions.
               </p>
               <p className="text-sm text-muted-foreground">
-                These terms constitute a legally binding agreement between you and ECR Technical Innovations Pvt Ltd.
+                These Terms constitute a legally binding agreement between you and {COMPANY.legalName}.
               </p>
             </div>
           </div>

@@ -10,6 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, FileText, Users, CreditCard, Download } from "lucide-react";
+import { COMPANY, COMPANY_ADDRESS_ONELINE } from "@/lib/company";
 import jsPDF from "jspdf";
 
 const partnershipSchema = z.object({
@@ -77,8 +78,8 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
     
     // In-Sync details
     doc.text("and", 20, 145);
-    doc.text("In-Sync: ECR Technical Innovations Pvt Ltd", 20, 155);
-    doc.text("Address: C042C, 4th Floor, DLF Phase 4, Gurugram, Haryana 122002", 20, 165);
+    doc.text(`In-Sync: ${COMPANY.legalName}`, 20, 155);
+    doc.text(`Address: ${COMPANY_ADDRESS_ONELINE}`, 20, 165);
     
     // Agreement sections
     doc.setFontSize(14);
@@ -112,7 +113,7 @@ export default function PartnershipEnrollment({ onSuccess }: PartnershipEnrollme
     doc.text("Signatures", 20, 110);
     doc.text(`Partner: ${data.fullName}`, 20, 125);
     doc.text(`Date: ${currentDate}`, 20, 135);
-    doc.text("ECR Technical Innovations Pvt Ltd (In-Sync)", 20, 155);
+    doc.text(`${COMPANY.legalName} (In-Sync)`, 20, 155);
     doc.text("By: Flt Lt Amit Sengupta, Director", 20, 165);
     doc.text(`Date: ${currentDate}`, 20, 175);
     

@@ -2,14 +2,15 @@ import { Card, CardContent } from "@/components/ui/card";
 import Footer from "@/components/Footer";
 import { Shield, Cookie } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
+import { COMPANY } from "@/lib/company";
 
 const Cookies = () => {
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>Cookies Policy - In-Sync CRM Platform</title>
-        <meta name="description" content="Learn about how ECR Technical Innovations Pvt Ltd uses cookies and similar technologies on the In-Sync platform." />
-        <meta name="keywords" content="cookies policy, privacy, data protection, In-Sync, ECR Technical Innovations" />
+        <meta name="description" content={`Learn about how ${COMPANY.legalName} uses cookies and similar technologies on the In-Sync platform.`} />
+        <meta name="keywords" content="cookies policy, privacy, data protection, In-Sync, Prosync AI Solutions" />
       </Helmet>
 
       <main>
@@ -24,12 +25,10 @@ const Cookies = () => {
                 </h1>
               </div>
               <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground mb-6">
-                <span>Effective Date: [Insert Date]</span>
-                <span>•</span>
-                <span>Last Updated: [Insert Date]</span>
+                <span>Last updated: 3 June 2026</span>
               </div>
               <p className="text-xl text-muted-foreground">
-                Learn how ECR Technical Innovations Pvt Ltd uses cookies and similar technologies to improve your experience with our platform.
+                Learn how {COMPANY.legalName} uses cookies and similar technologies to improve your experience with our platform.
               </p>
             </div>
           </div>
@@ -44,7 +43,7 @@ const Cookies = () => {
               <Card>
                 <CardContent className="p-8">
                   <p className="text-muted-foreground leading-relaxed">
-                    ECR Technical Innovations Pvt Ltd ("In-Sync," "we," "our," or "us") uses cookies and similar technologies to improve your experience with our platform, apps, and website ("Services"). This Cookies Policy explains what cookies are, how we use them, and how you can manage your preferences.
+                    {COMPANY.legalName} ("In-Sync," "we," "our," or "us") uses cookies and similar technologies to improve your experience with our platform, apps, and website ("Services"). This Cookies Policy explains what cookies are, how we use them, and how you can manage your preferences.
                   </p>
                 </CardContent>
               </Card>
@@ -177,11 +176,10 @@ const Cookies = () => {
                   </p>
                   <div className="bg-muted/50 p-6 rounded-lg">
                     <div className="space-y-2 text-muted-foreground">
-                      <p><strong>ECR Technical Innovations Pvt Ltd</strong></p>
-                      <p>C042C, 4th Floor, DLF Phase 4</p>
-                      <p>Gurugram, Haryana 122002</p>
-                      <p>India</p>
-                      <p>📧 <a href="mailto:privacy@in-sync.co.in" className="text-primary hover:underline">privacy@in-sync.co.in</a></p>
+                      <p><strong>{COMPANY.legalName}</strong></p>
+                      <p>{COMPANY.address.line1}, {COMPANY.address.line2}</p>
+                      <p>{COMPANY.address.city}, {COMPANY.address.state} {COMPANY.address.pin}, {COMPANY.address.country}</p>
+                      <p>📧 <a href={`mailto:${COMPANY.email}`} className="text-primary hover:underline">{COMPANY.email}</a></p>
                     </div>
                   </div>
                 </CardContent>
