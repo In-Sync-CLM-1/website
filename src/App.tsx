@@ -4,11 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
-import ChatbotEnhanced from "@/components/ChatbotEnhanced";
-import FloatingAgent from "@/components/ServiceAgent/FloatingAgent";
 import Header from "@/components/Header";
 import Index from "./pages/Index";
-import Auth from "./pages/Auth";
 import Features from "./pages/Features";
 import UseCases from "./pages/UseCases";
 import Integrations from "./pages/Integrations";
@@ -33,8 +30,6 @@ import Refund from "./pages/Refund";
 import Shipping from "./pages/Shipping";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
-import SupportPage from "./pages/SupportPage";
-import SupportAdmin from "./pages/SupportAdmin";
 import EventSyncPage from "./pages/products/EventSync";
 import EmailBroadcastPage from "./pages/products/EmailBroadcast";
 import FieldSyncPage from "./pages/products/FieldSync";
@@ -43,15 +38,8 @@ import PaisaaSaarthiPage from "./pages/products/PaisaaSaarthi";
 import ExpensePage from "./pages/products/Expense";
 import WhatsAppCampaignsPage from "./pages/products/WhatsAppCampaigns";
 import WorkSyncPage from "./pages/products/WorkSync";
-import { useEffect, type ReactNode } from "react";
+import { type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
-
-const RSSRedirect = () => {
-  useEffect(() => {
-    window.location.href = "https://upnhhrhobvdmpfnldvgb.supabase.co/functions/v1/rss-feed";
-  }, []);
-  return null;
-};
 
 const queryClient = new QueryClient();
 
@@ -60,8 +48,6 @@ function SiteShell({ children }: { children: ReactNode }) {
   const isProductPage = pathname.startsWith('/products/');
   return (
     <>
-      {!isProductPage && <ChatbotEnhanced />}
-      {!isProductPage && <FloatingAgent />}
       {!isProductPage && <Header />}
       {children}
     </>
@@ -74,8 +60,6 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <ChatbotEnhanced />
-        <FloatingAgent />
         <BrowserRouter>
         <SiteShell>
         <Routes>
@@ -96,7 +80,6 @@ const App = () => (
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/resources" element={<Resources />} />
           <Route path="/blog/:id" element={<BlogPost />} />
-          <Route path="/auth" element={<Auth />} />
           <Route path="/partnership" element={<Partnership />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/privacy" element={<Privacy />} />
@@ -104,9 +87,6 @@ const App = () => (
           <Route path="/refund" element={<Refund />} />
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/contact-us" element={<Contact />} />
-          <Route path="/support" element={<SupportPage />} />
-          <Route path="/support/admin" element={<SupportAdmin />} />
-          <Route path="/rss-feed" element={<RSSRedirect />} />
           <Route path="/products/eventsync" element={<EventSyncPage />} />
           <Route path="/products/email-broadcast" element={<EmailBroadcastPage />} />
           <Route path="/products/field-sync" element={<FieldSyncPage />} />

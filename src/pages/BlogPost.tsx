@@ -1,17 +1,27 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import Footer from "@/components/Footer";
 import { ArrowLeft, Calendar, Clock, User, Tag, Mail } from "lucide-react";
 import { Helmet } from "react-helmet-async";
-import { useBlogOperations, type BlogPost as BlogPostType } from "@/hooks/useBlogOperations";
 import { getAuthorProfile } from "@/utils/authorProfiles";
 import { SocialShare } from "@/components/SocialShare";
 
-// Sample blog data - in a real app, this would come from a backend/database
-const blogData = [
+export type BlogPostEntry = {
+  id: number;
+  title: string;
+  excerpt: string;
+  content: string;
+  author: string;
+  date: string;
+  category: string;
+  readTime: string;
+  tags: string[];
+  imageUrl: string;
+};
+
+export const blogData: BlogPostEntry[] = [
   {
     id: 1,
     title: "AI-Powered CRM: The Future of Customer Relationship Management",
@@ -1484,44 +1494,7 @@ const blogData = [
 const BlogPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [blog, setBlog] = useState<BlogPostType | null>(null);
-  const [loading, setLoading] = useState(true);
-  const { fetchBlogs } = useBlogOperations();
-
-  useEffect(() => {
-    const loadBlog = async () => {
-      try {
-        const blogs = await fetchBlogs();
-        const blogId = parseInt(id || "1");
-        const foundBlog = blogs.find(b => b.id === blogId);
-        
-        if (foundBlog) {
-          setBlog(foundBlog);
-        } else {
-          // Redirect to resources if blog not found
-          navigate('/resources');
-        }
-      } catch (error) {
-        console.error("Error loading blog:", error);
-        navigate('/resources');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadBlog();
-  }, [id, navigate, fetchBlogs]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-primary mx-auto mb-4"></div>
-          <p className="text-muted-foreground">Loading blog post...</p>
-        </div>
-      </div>
-    );
-  }
+  const blog = blogData.find(b => b.id === parseInt(id || "1")) ?? null;
 
   if (!blog) {
     return (

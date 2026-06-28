@@ -11,7 +11,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
 import { X } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
+
+const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
 const demoRequestSchema = z.object({
   name: z.string().min(2, "Name is required"),
@@ -98,22 +99,26 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
 
   const onSubmit = async (data: DemoRequestFormData) => {
     try {
-      // Call local edge function which saves to DB and forwards to external webhook
-      const { data: result, error } = await supabase.functions.invoke('submit-demo-request', {
-        body: {
+      const res = await fetch(INTAKE_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product: 'In-Sync CRM',
           name: data.name,
           phone: data.phone,
           email: data.email,
           company: data.company,
-          industry: data.industry,
-          bestTimeToContact: data.bestTimeToContact,
-          problemDescription: data.problemDescription,
-        },
+          designation: data.industry,
+          notes: [
+            data.bestTimeToContact ? `Best time: ${data.bestTimeToContact}` : '',
+            data.problemDescription ? `Needs: ${data.problemDescription}` : '',
+            data.referredBy ? `Referred by: ${data.referredBy}` : '',
+          ].filter(Boolean).join(' | '),
+          source_url: window.location.href,
+        }),
       });
 
-      if (error) {
-        throw error;
-      }
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
       setIsSubmitted(true);
       toast({

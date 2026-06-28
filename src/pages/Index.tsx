@@ -9,7 +9,6 @@ import ROICalculator from "@/components/ROICalculator";
 import CRMShowcase from "@/components/CRMShowcase";
 import TestimonialsShowcase from "@/components/TestimonialsShowcase";
 import StepByStepGuide from "@/components/StepByStepGuide";
-import AcademicWhitepaperShowcase from "@/components/AcademicWhitepaperShowcase";
 import Footer from "@/components/Footer";
 import { defaultSEOConfig, getOrganizationSchema, getSoftwareApplicationSchema } from "@/utils/seo";
 
@@ -53,7 +52,6 @@ const Index = () => {
         <main>
           <HeroSection />
           <FeaturesOverview />
-          <AcademicWhitepaperShowcase />
           <IndustryResults />
           
           <section className="py-20 bg-background" id="features-overview">
