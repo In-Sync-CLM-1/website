@@ -12,6 +12,7 @@ export default function Header() {
   const { user, isAdmin, signOut } = useAuth();
 
   const navigation = [
+    { name: "Products", href: "/products/eventsync" },
     { name: "Features", href: "/features" },
     { name: "Industries", href: "/industries" },
     { name: "Use Cases", href: "/use-cases" },

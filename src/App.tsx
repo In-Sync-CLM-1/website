@@ -35,7 +35,16 @@ import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import SupportPage from "./pages/SupportPage";
 import SupportAdmin from "./pages/SupportAdmin";
-import { useEffect } from "react";
+import EventSyncPage from "./pages/products/EventSync";
+import EmailBroadcastPage from "./pages/products/EmailBroadcast";
+import FieldSyncPage from "./pages/products/FieldSync";
+import ATSPage from "./pages/products/ATS";
+import PaisaaSaarthiPage from "./pages/products/PaisaaSaarthi";
+import ExpensePage from "./pages/products/Expense";
+import WhatsAppCampaignsPage from "./pages/products/WhatsAppCampaigns";
+import WorkSyncPage from "./pages/products/WorkSync";
+import { useEffect, type ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 
 const RSSRedirect = () => {
   useEffect(() => {
@@ -46,6 +55,19 @@ const RSSRedirect = () => {
 
 const queryClient = new QueryClient();
 
+function SiteShell({ children }: { children: ReactNode }) {
+  const { pathname } = useLocation();
+  const isProductPage = pathname.startsWith('/products/');
+  return (
+    <>
+      {!isProductPage && <ChatbotEnhanced />}
+      {!isProductPage && <FloatingAgent />}
+      {!isProductPage && <Header />}
+      {children}
+    </>
+  );
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <HelmetProvider>
@@ -55,7 +77,7 @@ const App = () => (
         <ChatbotEnhanced />
         <FloatingAgent />
         <BrowserRouter>
-        <Header />
+        <SiteShell>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/features" element={<Features />} />
@@ -85,9 +107,18 @@ const App = () => (
           <Route path="/support" element={<SupportPage />} />
           <Route path="/support/admin" element={<SupportAdmin />} />
           <Route path="/rss-feed" element={<RSSRedirect />} />
+          <Route path="/products/eventsync" element={<EventSyncPage />} />
+          <Route path="/products/email-broadcast" element={<EmailBroadcastPage />} />
+          <Route path="/products/field-sync" element={<FieldSyncPage />} />
+          <Route path="/products/ats" element={<ATSPage />} />
+          <Route path="/products/paisaa-saarthi" element={<PaisaaSaarthiPage />} />
+          <Route path="/products/expense" element={<ExpensePage />} />
+          <Route path="/products/whatsapp-campaigns" element={<WhatsAppCampaignsPage />} />
+          <Route path="/products/worksync" element={<WorkSyncPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </SiteShell>
         </BrowserRouter>
       </TooltipProvider>
     </HelmetProvider>

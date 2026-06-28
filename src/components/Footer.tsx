@@ -40,6 +40,16 @@ const Footer = () => {
       { name: "Tutorials", href: "/resources?tab=tutorials" },
       { name: "FAQs", href: "/resources?tab=faqs" }
     ],
+    products: [
+      { name: "EventSync", href: "/products/eventsync" },
+      { name: "Email Broadcast", href: "/products/email-broadcast" },
+      { name: "Field-Sync", href: "/products/field-sync" },
+      { name: "In-Sync ATS", href: "/products/ats" },
+      { name: "Paisaa Saarthi LOS", href: "/products/paisaa-saarthi" },
+      { name: "Expense Claims", href: "/products/expense" },
+      { name: "WhatsApp Campaigns", href: "/products/whatsapp-campaigns" },
+      { name: "Work-Sync", href: "/products/worksync" },
+    ],
     company: [
       { name: "Partnership", href: "/partnership" },
       { name: "Features", href: "/features" },
@@ -108,7 +118,7 @@ const Footer = () => {
           </div>
 
           {/* Links Sections */}
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 lg:col-span-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 lg:grid-cols-5 gap-8 lg:col-span-4">
             {/* Platform */}
             <div>
               <h4 className="font-heading font-semibold mb-5 text-white relative inline-block">
@@ -117,6 +127,27 @@ const Footer = () => {
               </h4>
               <ul className="space-y-3">
                 {footerLinks.platform.map((link, index) => (
+                  <li key={index}>
+                    <Link
+                      to={link.href}
+                      className="text-sm text-white/75 hover:text-accent hover:pl-1 transition-all duration-300 inline-flex items-center gap-1 group font-body"
+                    >
+                      {link.name}
+                      <ArrowRight className="h-3 w-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Products */}
+            <div>
+              <h4 className="font-heading font-semibold mb-5 text-white relative inline-block">
+                Products
+                <span className="absolute -bottom-1 left-0 w-8 h-0.5 bg-accent rounded-full" />
+              </h4>
+              <ul className="space-y-3">
+                {footerLinks.products.map((link, index) => (
                   <li key={index}>
                     <Link
                       to={link.href}
