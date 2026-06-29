@@ -17,6 +17,7 @@ import { COMPANY } from "@/lib/company";
 const Footer = () => {
   const footerLinks = {
     platform: [
+      { name: "Solutions", href: "/solutions" },
       { name: "Features", href: "/features" },
       { name: "Integrations", href: "/integrations" },
       { name: "Pricing", href: "/pricing" },

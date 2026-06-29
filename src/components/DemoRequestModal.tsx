@@ -21,6 +21,7 @@ const demoRequestSchema = z.object({
   email: z.string().email("Valid email is required"),
   company: z.string().min(2, "Company name is required"),
   industry: z.string().min(1, "Please select an industry"),
+  productInterest: z.string().optional(),
   problemDescription: z.string().min(10, "Please describe the problem you're trying to solve"),
   referredBy: z.string().optional(),
 });
@@ -30,6 +31,18 @@ type DemoRequestFormData = z.infer<typeof demoRequestSchema>;
 interface DemoRequestModalProps {
   trigger?: React.ReactNode;
 }
+
+const productOptions = [
+  "General / Not sure yet",
+  "EventSync — Event Management",
+  "Email Broadcast",
+  "Field-Sync — Field Force Management",
+  "In-Sync ATS — Recruitment",
+  "Paisaa Saarthi — Loan Origination",
+  "Expense Claims",
+  "WhatsApp Campaigns",
+  "Work-Sync — Task Management",
+];
 
 const problemOptions = [
   "Sales Monitoring",
@@ -78,6 +91,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
       email: "",
       company: "",
       industry: "",
+      productInterest: "",
       problemDescription: "",
       referredBy: "",
     },
@@ -110,6 +124,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
           company: data.company,
           designation: data.industry,
           notes: [
+            data.productInterest ? `Product interest: ${data.productInterest}` : '',
             data.bestTimeToContact ? `Best time: ${data.bestTimeToContact}` : '',
             data.problemDescription ? `Needs: ${data.problemDescription}` : '',
             data.referredBy ? `Referred by: ${data.referredBy}` : '',
@@ -308,6 +323,29 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
                     )}
                   />
                 </div>
+
+                <FormField
+                  control={form.control}
+                  name="productInterest"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Product of Interest</FormLabel>
+                      <Select onValueChange={field.onChange} defaultValue={field.value}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Which product would you like to demo? (optional)" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {productOptions.map((p) => (
+                            <SelectItem key={p} value={p}>{p}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
 
                 <FormField
                   control={form.control}

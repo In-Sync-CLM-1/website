@@ -9,7 +9,7 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: "Products", href: "/products/eventsync" },
+    { name: "Solutions", href: "/solutions" },
     { name: "Features", href: "/features" },
     { name: "Industries", href: "/industries" },
     { name: "Use Cases", href: "/use-cases" },

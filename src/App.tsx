@@ -38,6 +38,7 @@ import PaisaaSaarthiPage from "./pages/products/PaisaaSaarthi";
 import ExpensePage from "./pages/products/Expense";
 import WhatsAppCampaignsPage from "./pages/products/WhatsAppCampaigns";
 import WorkSyncPage from "./pages/products/WorkSync";
+import Solutions from "./pages/Solutions";
 import { type ReactNode } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -87,6 +88,7 @@ const App = () => (
           <Route path="/refund" element={<Refund />} />
           <Route path="/shipping" element={<Shipping />} />
           <Route path="/contact-us" element={<Contact />} />
+          <Route path="/solutions" element={<Solutions />} />
           <Route path="/products/eventsync" element={<EventSyncPage />} />
           <Route path="/products/email-broadcast" element={<EmailBroadcastPage />} />
           <Route path="/products/field-sync" element={<FieldSyncPage />} />
