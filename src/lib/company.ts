@@ -16,7 +16,8 @@ export const COMPANY = {
     country: "India",
   },
   email: "delight@in-sync.co.in",
-  phone: "+91 92115 14326",
+  phone: "+91 77389 19680",
+  contactPerson: "Amit Sengupta",
   // Jurisdiction for dispute resolution / governing law.
   jurisdiction: "Gurugram, Haryana, India",
   paymentProcessor: "Razorpay Software Private Limited",

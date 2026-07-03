@@ -65,6 +65,7 @@ const Contact = () => {
                     <div>
                       <h3 className="font-semibold mb-1">Phone</h3>
                       <a href={`tel:${COMPANY.phone.replace(/\s/g, "")}`} className="text-primary hover:underline">{COMPANY.phone}</a>
+                      <p className="text-sm text-muted-foreground">{COMPANY.contactPerson}, Director</p>
                     </div>
                   </div>
                 </CardContent>
