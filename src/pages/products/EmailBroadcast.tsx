@@ -1,10 +1,12 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { EmailScene } from '@/components/heroScenes';
 import { Mail, BarChart3, Users, Zap, Shield, CheckCircle, Bell, Layers, Flag, Clock } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'EmailBroadcast',
   productName: 'Email Broadcast',
   signInUrl: 'https://email-sync.pages.dev',
+  heroBackdrop: <EmailScene />,
   navLinks: [
     { href: '#problem', label: 'Why Email Broadcast' },
     { href: '#features', label: 'Features' },
@@ -22,9 +24,9 @@ const data: ProductPageData = {
     gradientFrom: 'from-blue-600',
     gradientTo: 'to-indigo-700',
     hero: {
-      base: 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 35%, #4f46e5 70%, #312e81 100%)',
-      glow1: 'rgba(96,165,250,0.45)',
-      glow2: 'rgba(129,140,248,0.35)',
+      base: 'linear-gradient(130deg, #1e40af 0%, #2563eb 35%, #3b82f6 60%, #0891b2 108%)',
+      glow1: 'rgba(103,232,249,0.42)',
+      glow2: 'rgba(129,140,248,0.4)',
     },
     textAccent: 'text-blue-600',
     bgLight: 'bg-blue-500/10',

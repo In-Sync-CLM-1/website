@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useSearchParams, Link } from "react-router-dom";
-import { ArrowRight, Calendar, Mail, MapPin, Users, FileText, Receipt, MessageSquare, CheckCircle } from "lucide-react";
+import { ArrowRight, Calendar, Mail, MapPin, Users, FileText, Receipt, MessageSquare, CheckCircle, Kanban, ShieldCheck } from "lucide-react";
 import SEOHelmet from "@/components/SEOHelmet";
 import HeroSection from "@/components/HeroSection";
 import FeaturesOverview from "@/components/FeaturesOverview";
@@ -60,7 +60,7 @@ const Index = () => {
               <div className="flex items-end justify-between mb-10">
                 <div>
                   <p className="text-sm font-semibold uppercase tracking-widest text-accent mb-2">Our Solutions</p>
-                  <h2 className="text-3xl font-heading font-bold text-foreground">Eight products, one platform</h2>
+                  <h2 className="text-3xl font-heading font-bold text-foreground">Ten products, one platform</h2>
                 </div>
                 <Link
                   to="/solutions"
@@ -71,6 +71,8 @@ const Index = () => {
               </div>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
+                  { name: "In-Sync CRM", tagline: "Sales pipeline & campaigns", icon: Kanban, color: "text-teal-700", bg: "bg-teal-500/10", href: "/products/crm" },
+                  { name: "Vendor Verification", tagline: "Financial due diligence", icon: ShieldCheck, color: "text-sky-700", bg: "bg-sky-500/10", href: "/products/vendor-verification" },
                   { name: "EventSync", tagline: "Event management", icon: Calendar, color: "text-teal-600", bg: "bg-teal-500/10", href: "/products/eventsync" },
                   { name: "Field-Sync", tagline: "Field force tracking", icon: MapPin, color: "text-green-600", bg: "bg-green-500/10", href: "/products/field-sync" },
                   { name: "WhatsApp Campaigns", tagline: "Bulk messaging", icon: MessageSquare, color: "text-emerald-600", bg: "bg-emerald-500/10", href: "/products/whatsapp-campaigns" },

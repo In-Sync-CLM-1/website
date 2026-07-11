@@ -1,10 +1,12 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { ATSScene } from '@/components/heroScenes';
 import { Users, FileText, Phone, Shield, BarChart3, CheckCircle, Bell, Layers, Flag, Clock } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'InSyncATS',
   productName: 'In-Sync ATS',
   signInUrl: 'https://ats.pages.dev',
+  heroBackdrop: <ATSScene />,
   navLinks: [
     { href: '#problem', label: 'Why In-Sync ATS' },
     { href: '#features', label: 'Features' },
@@ -22,9 +24,9 @@ const data: ProductPageData = {
     gradientFrom: 'from-violet-600',
     gradientTo: 'to-purple-700',
     hero: {
-      base: 'linear-gradient(135deg, #6d28d9 0%, #7c3aed 35%, #9333ea 70%, #4c1d95 100%)',
-      glow1: 'rgba(167,139,250,0.45)',
-      glow2: 'rgba(192,132,252,0.35)',
+      base: 'linear-gradient(130deg, #5b21b6 0%, #7c3aed 40%, #9333ea 70%, #c026d3 118%)',
+      glow1: 'rgba(240,171,252,0.4)',
+      glow2: 'rgba(167,139,250,0.45)',
     },
     textAccent: 'text-violet-600',
     bgLight: 'bg-violet-500/10',

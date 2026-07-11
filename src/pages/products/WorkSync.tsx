@@ -1,10 +1,12 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { WorkSyncScene } from '@/components/heroScenes';
 import { Phone, Mail, Shield, CheckCircle, BarChart3, Bell, Flag, Users, Clock, Sparkles } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'WorkSync',
   productName: 'Work-Sync',
   signInUrl: 'https://work-sync.pages.dev',
+  heroBackdrop: <WorkSyncScene />,
   navLinks: [
     { href: '#problem', label: 'Why Work-Sync' },
     { href: '#features', label: 'Features' },
@@ -22,9 +24,9 @@ const data: ProductPageData = {
     gradientFrom: 'from-violet-600',
     gradientTo: 'to-purple-700',
     hero: {
-      base: 'linear-gradient(135deg, #7e22ce 0%, #9333ea 35%, #7c3aed 70%, #581c87 100%)',
-      glow1: 'rgba(192,132,252,0.45)',
-      glow2: 'rgba(167,139,250,0.35)',
+      base: 'linear-gradient(130deg, #581c87 0%, #7e22ce 35%, #7c3aed 65%, #4f46e5 112%)',
+      glow1: 'rgba(196,181,253,0.42)',
+      glow2: 'rgba(129,140,248,0.4)',
     },
     textAccent: 'text-violet-600',
     bgLight: 'bg-violet-500/10',

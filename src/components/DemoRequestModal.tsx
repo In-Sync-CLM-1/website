@@ -34,6 +34,8 @@ interface DemoRequestModalProps {
 
 const productOptions = [
   "General / Not sure yet",
+  "In-Sync CRM — Sales Pipeline & Campaigns",
+  "Vendor Verification — Financial Due Diligence",
   "EventSync — Event Management",
   "Email Broadcast",
   "Field-Sync — Field Force Management",

@@ -60,6 +60,8 @@ export interface ProductPageData {
   productKey: string;
   productName: string;
   signInUrl: string;
+  /** Industry-specific decorative SVG scene layered into the hero */
+  heroBackdrop?: ReactNode;
   navLinks: { href: string; label: string }[];
   headline1: string;
   headline2: string;
@@ -149,7 +151,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
   useEffect(() => { captureAttribution(); }, []);
 
   const {
-    productKey, productName, signInUrl, navLinks, headline1, headline2, description,
+    productKey, productName, signInUrl, heroBackdrop, navLinks, headline1, headline2, description,
     heroBadges, theme, painPoints, problemHeadline1, problemHeadline2, problemIntro,
     howItWorks, howItWorksHeadline, howItWorksFlow, features, featuresHeadline1,
     featuresHeadline2, featuresSubtext, stats, verticals, testimonial, reviews,
@@ -215,6 +217,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             backgroundSize: '32px 32px',
           }}
         />
+        {heroBackdrop}
 
         <div id="demo-form" className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
           {/* Left pitch */}

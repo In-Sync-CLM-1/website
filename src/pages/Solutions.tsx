@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Calendar, Mail, MapPin, Users, FileText, Receipt, MessageSquare, CheckCircle } from "lucide-react";
+import { ArrowRight, Calendar, Mail, MapPin, Users, FileText, Receipt, MessageSquare, CheckCircle, Kanban, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import SEOHelmet from "@/components/SEOHelmet";
 import Footer from "@/components/Footer";
@@ -7,6 +7,28 @@ import DemoRequestModal from "@/components/DemoRequestModal";
 import { LogoMarquee } from "@/components/LogoMarquee";
 
 const products = [
+  {
+    name: "In-Sync CRM",
+    href: "/products/crm",
+    icon: Kanban,
+    tagline: "Sales pipeline & campaigns",
+    description: "Pipeline, campaigns, calling, and AI lead scoring — built for sales teams that need every lead tracked and every deal closed.",
+    color: "text-teal-600",
+    bg: "bg-teal-500/10",
+    border: "border-teal-200/60",
+    gradient: "from-slate-800 to-teal-700",
+  },
+  {
+    name: "Vendor Verification",
+    href: "/products/vendor-verification",
+    icon: ShieldCheck,
+    tagline: "Financial due diligence",
+    description: "Credit score, bank statement, GST & PAN checks against live government APIs — know your vendor's financial health before you commit.",
+    color: "text-sky-700",
+    bg: "bg-sky-500/10",
+    border: "border-sky-200/60",
+    gradient: "from-sky-700 to-blue-900",
+  },
   {
     name: "EventSync",
     href: "/products/eventsync",
@@ -103,7 +125,7 @@ export default function Solutions() {
       <SEOHelmet
         config={{
           title: "Solutions | In-Sync",
-          description: "Explore In-Sync's suite of products — from event management and field force tracking to loan origination and WhatsApp campaigns. One platform, eight focused tools.",
+          description: "Explore In-Sync's suite of products — from CRM and vendor verification to field force tracking, loan origination, and WhatsApp campaigns. One platform, ten focused tools.",
           canonical: "/solutions",
         }}
       />
@@ -141,7 +163,7 @@ export default function Solutions() {
                 Our Solutions
               </span>
               <h1 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-6 leading-tight">
-                Eight products. One platform.<br />
+                Ten products. One platform.<br />
                 <span className="text-accent">Pick what you need.</span>
               </h1>
               <p className="text-lg text-white/80 mb-8 leading-relaxed">
