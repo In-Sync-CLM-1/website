@@ -287,10 +287,16 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       </section>
 
       {/* ── Stats bar ───────────────────────── */}
-      <section className="bg-card border-b border-border py-8 px-6">
-        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+      <section className="bg-card border-b border-border py-10 px-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-y-8 md:divide-x md:divide-border/70">
           {stats.map((s) => (
-            <Counter key={s.label} target={s.target} suffix={s.suffix} label={s.label} accentClass={theme.textAccent} />
+            <Counter
+              key={s.label}
+              target={s.target}
+              suffix={s.suffix}
+              label={s.label}
+              accentClass={`bg-gradient-to-r ${theme.gradientFrom} ${theme.gradientTo} bg-clip-text text-transparent`}
+            />
           ))}
         </div>
       </section>
@@ -299,8 +305,12 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       <LogoMarquee />
 
       {/* ── Problem ─────────────────────────── */}
-      <section id="problem" className="border-t border-border/50 py-24 sm:py-32 px-6">
-        <div className="max-w-6xl mx-auto">
+      <section id="problem" className="relative border-t border-border/50 py-24 sm:py-32 px-6 overflow-hidden">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{ background: 'radial-gradient(ellipse 60% 45% at 50% 0%, rgba(244,63,94,0.07), transparent)' }}
+        />
+        <div className="relative max-w-6xl mx-auto">
           <Animated className="text-center mb-20">
             <motion.div
               variants={fadeUp}
@@ -322,10 +332,10 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
               <motion.div
                 key={p.title}
                 variants={fadeUp}
-                className={`rounded-2xl border ${theme.problemBorder} ${theme.problemBg} p-7`}
+                className="rounded-2xl border border-border bg-card p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
               >
-                <div className={`h-12 w-12 rounded-xl ${theme.problemIconBg} flex items-center justify-center mb-5`}>
-                  <p.icon className={`h-6 w-6 ${theme.problemIconText}`} />
+                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-red-500 to-rose-600 shadow-lg shadow-red-500/25 flex items-center justify-center mb-5">
+                  <p.icon className="h-6 w-6 text-white" />
                 </div>
                 <h3 className="font-semibold text-lg mb-2">{p.title}</h3>
                 <p className="text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
@@ -336,8 +346,9 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       </section>
 
       {/* ── How it works ────────────────────── */}
-      <section id="how-it-works" className="border-t border-border/50 bg-muted/30">
-        <div className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+      <section id="how-it-works" className="relative border-t border-border/50 bg-muted/30 overflow-hidden">
+        <div className={`absolute -top-32 left-1/2 -translate-x-1/2 w-[700px] h-[380px] rounded-full ${theme.bgLight} blur-[120px] pointer-events-none`} />
+        <div className="relative mx-auto max-w-6xl px-6 py-24 sm:py-32">
           <Animated className="mx-auto max-w-2xl text-center">
             <motion.div
               variants={fadeUp}
@@ -356,12 +367,12 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             <div className="pointer-events-none absolute top-14 left-[12%] right-[12%] hidden h-px bg-gradient-to-r from-transparent via-border to-transparent lg:block" />
             {howItWorks.map((s) => (
               <motion.div key={s.title} variants={fadeUp} className="relative text-center">
-                <div className="relative mx-auto mb-6 flex h-28 w-28 items-center justify-center">
-                  <div className={`absolute inset-0 rounded-full ${theme.bgLight} ring-1 ${theme.badgeBg}`} />
-                  <div className={`absolute -top-1 -right-1 flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} text-xs font-bold text-white shadow-lg`}>
+                <div className="relative mx-auto mb-7 flex h-24 w-24 items-center justify-center">
+                  <div className={`absolute inset-0 rounded-3xl bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} shadow-xl rotate-3 transition-transform duration-300 hover:rotate-0`} />
+                  <div className={`absolute -top-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-card border border-border text-sm font-bold ${theme.textAccent} shadow-md`}>
                     {s.step}
                   </div>
-                  <s.icon className={`h-10 w-10 ${theme.textAccent}`} />
+                  <s.icon className="relative h-10 w-10 text-white" />
                 </div>
                 <h3 className="text-lg font-semibold">{s.title}</h3>
                 <p className="mx-auto mt-2 max-w-[240px] text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
@@ -397,52 +408,62 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
                 variants={fadeUp}
                 whileHover={{ y: -6, scale: 1.01 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                className={`rounded-2xl border bg-gradient-to-br ${f.gradient} p-7 h-full`}
+                className="group relative rounded-2xl border border-border bg-card p-7 h-full overflow-hidden shadow-sm hover:shadow-xl transition-shadow duration-300"
               >
-                <div className={`h-12 w-12 rounded-xl ${theme.bgLight} flex items-center justify-center mb-5`}>
-                  <f.icon className={`h-6 w-6 ${theme.textAccent}`} />
+                <div className={`absolute inset-0 bg-gradient-to-br ${f.gradient} opacity-70 group-hover:opacity-100 transition-opacity duration-300`} />
+                <div className="relative">
+                  <div className={`h-12 w-12 rounded-xl bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} shadow-lg flex items-center justify-center mb-5`}>
+                    <f.icon className="h-6 w-6 text-white" />
+                  </div>
+                  <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{f.title}</h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
               </motion.div>
             ))}
           </Animated>
         </div>
       </section>
 
-      {/* ── Target verticals ────────────────── */}
-      <section className="border-t border-border/50 py-16 px-6">
-        <div className="max-w-4xl mx-auto text-center">
+      {/* ── Verticals + Testimonial (dark band) ── */}
+      <section className="relative overflow-hidden py-20 sm:py-24 px-6 text-white" style={{ background: theme.hero.base }}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute -top-24 right-[12%] w-96 h-96 rounded-full"
+            style={{ background: `radial-gradient(circle, ${theme.hero.glow1}, transparent 70%)`, filter: 'blur(60px)' }}
+          />
+          <div
+            className="absolute -bottom-24 left-[8%] w-80 h-80 rounded-full"
+            style={{ background: `radial-gradient(circle, ${theme.hero.glow2}, transparent 70%)`, filter: 'blur(55px)' }}
+          />
+          <div
+            className="absolute inset-0 opacity-[0.05]"
+            style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}
+          />
+        </div>
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Animated>
-            <motion.p variants={fadeUp} className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-6">
+            <motion.p variants={fadeUp} className="text-xs font-semibold text-white/60 uppercase tracking-[0.2em] mb-7">
               Built for teams in
             </motion.p>
             <motion.div variants={fadeUp} className="flex flex-wrap items-center justify-center gap-3">
               {verticals.map((v) => (
                 <span
                   key={v}
-                  className={`px-4 py-2 rounded-full border bg-background text-sm font-medium hover:${theme.badgeBg} hover:${theme.badgeText} transition-colors`}
+                  className="px-4 py-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm text-sm font-medium text-white/90 hover:bg-white/20 transition-colors"
                 >
                   {v}
                 </span>
               ))}
             </motion.div>
-          </Animated>
-        </div>
-      </section>
-
-      {/* ── Testimonial ─────────────────────── */}
-      <section className="border-t border-border/50 bg-muted/30 py-20 px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <Animated>
+            <motion.div variants={fadeUp} className="mx-auto my-14 h-px max-w-lg bg-white/15" />
             <motion.div variants={fadeUp}>
-              <div className={`text-5xl mb-6 ${theme.textAccent} font-serif`}>"</div>
-              <blockquote className="text-xl sm:text-2xl font-medium leading-relaxed">
+              <div className="text-6xl mb-4 font-serif text-white/30 leading-none">"</div>
+              <blockquote className="text-xl sm:text-2xl font-medium leading-relaxed max-w-3xl mx-auto">
                 {testimonial.quote}
               </blockquote>
               <div className="mt-8">
                 <p className="font-semibold">{testimonial.author}</p>
-                <p className="text-sm text-muted-foreground">{testimonial.role}</p>
+                <p className="text-sm text-white/60">{testimonial.role}</p>
               </div>
             </motion.div>
           </Animated>
@@ -466,7 +487,11 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
           </Animated>
           <Animated className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {reviews.map((r) => (
-              <motion.div key={r.name} variants={fadeUp} className="rounded-2xl border bg-card p-7">
+              <motion.div
+                key={r.name}
+                variants={fadeUp}
+                className="rounded-2xl border border-border bg-card p-7 shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+              >
                 <div className="flex gap-0.5 mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star
@@ -477,7 +502,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
                 </div>
                 <p className="text-sm leading-relaxed text-muted-foreground mb-5">"{r.text}"</p>
                 <div className="flex items-center gap-3">
-                  <div className={`h-9 w-9 rounded-full ${theme.bgLight} flex items-center justify-center text-sm font-bold ${theme.textAccent}`}>
+                  <div className={`h-9 w-9 rounded-full bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} flex items-center justify-center text-sm font-bold text-white shadow-md`}>
                     {r.name.charAt(0)}
                   </div>
                   <div>
