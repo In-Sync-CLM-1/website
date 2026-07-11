@@ -1,5 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
-import { ExpenseScene } from '@/components/heroScenes';
+import { ExpenseScene, ExpenseFloats } from '@/components/heroScenes';
 import { Receipt, CheckCircle, Bell, BarChart3, Shield, Layers, Clock, Users, Flag, CreditCard } from 'lucide-react';
 
 const data: ProductPageData = {
@@ -7,6 +7,7 @@ const data: ProductPageData = {
   productName: 'Expense Claims',
   signInUrl: 'https://expense-sync.pages.dev',
   heroBackdrop: <ExpenseScene />,
+  heroFloats: <ExpenseFloats />,
   navLinks: [
     { href: '#problem', label: 'Why Expense Claims' },
     { href: '#features', label: 'Features' },
@@ -24,10 +25,11 @@ const data: ProductPageData = {
     gradientFrom: 'from-rose-600',
     gradientTo: 'to-pink-700',
     hero: {
-      base: 'linear-gradient(130deg, #9f1239 0%, #e11d48 40%, #db2777 75%, #a21caf 120%)',
-      glow1: 'rgba(253,164,175,0.4)',
-      glow2: 'rgba(240,171,252,0.35)',
+      base: 'linear-gradient(118deg, #e11d48 0%, #ec4899 45%, #d946ef 90%, #8b5cf6 130%)',
+      glow1: 'rgba(253,164,175,0.45)',
+      glow2: 'rgba(240,171,252,0.45)',
     },
+    headlineAccent: 'from-rose-200 via-pink-100 to-fuchsia-200',
     textAccent: 'text-rose-600',
     bgLight: 'bg-rose-500/10',
     badgeBg: 'bg-rose-500/10',

@@ -1,5 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
-import { CRMScene } from '@/components/heroScenes';
+import { CRMScene, CRMFloats } from '@/components/heroScenes';
 import { Users, Kanban, Mail, MessageSquare, Phone, Brain, UserPlus, Upload, Send, Target, FileSpreadsheet, Bell, EyeOff } from 'lucide-react';
 
 const data: ProductPageData = {
@@ -7,6 +7,7 @@ const data: ProductPageData = {
   productName: 'In-Sync CRM',
   signInUrl: 'https://crm.in-sync.co.in/login',
   heroBackdrop: <CRMScene />,
+  heroFloats: <CRMFloats />,
   navLinks: [
     { href: '#problem', label: 'Why In-Sync CRM' },
     { href: '#features', label: 'Features' },
@@ -24,10 +25,11 @@ const data: ProductPageData = {
     gradientFrom: 'from-teal-600',
     gradientTo: 'to-cyan-700',
     hero: {
-      base: 'linear-gradient(130deg, #0f172a 0%, #1e293b 30%, #115e59 65%, #0f172a 108%)',
-      glow1: 'rgba(45,212,191,0.5)',
-      glow2: 'rgba(139,92,246,0.35)',
+      base: 'linear-gradient(118deg, #0f172a 0%, #134e4a 45%, #0d9488 80%, #7c3aed 135%)',
+      glow1: 'rgba(45,212,191,0.55)',
+      glow2: 'rgba(139,92,246,0.45)',
     },
+    headlineAccent: 'from-teal-200 via-cyan-100 to-violet-200',
     textAccent: 'text-teal-600',
     bgLight: 'bg-teal-500/10',
     badgeBg: 'bg-teal-500/10',

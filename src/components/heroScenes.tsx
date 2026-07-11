@@ -362,3 +362,175 @@ export const heroScenes = {
   CRM: CRMScene,
   Vendor: VendorScene,
 };
+
+/* ══════════════════════════════════════════════════════════
+   Floating "live product" UI cards shown around the demo form
+   ══════════════════════════════════════════════════════════ */
+
+import { motion } from 'framer-motion';
+import {
+  CheckCircle2, MapPin as PinIcon, QrCode, MailOpen, TrendingUp, UserCheck as UserCheckIcon,
+  IndianRupee, ReceiptText, MessageCircle, CalendarCheck, ListChecks, Brain as BrainIcon,
+  Trophy, ShieldCheck as ShieldIcon, ScanLine, Sparkles as SparklesIcon,
+} from 'lucide-react';
+
+function FloatCard({ className = '', delay = 0, children }: { className?: string; delay?: number; children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 14 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.8 + delay, duration: 0.6 }}
+      className={`absolute z-20 hidden lg:block ${className}`}
+    >
+      <motion.div
+        animate={{ y: [0, -7, 0] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay }}
+        className="flex items-center gap-3 rounded-2xl border border-black/5 bg-white/95 backdrop-blur px-4 py-3 shadow-2xl"
+      >
+        {children}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function FloatBody({ icon, iconBg, title, sub }: { icon: React.ReactNode; iconBg: string; title: string; sub: string }) {
+  return (
+    <>
+      <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${iconBg}`}>{icon}</div>
+      <div className="min-w-0">
+        <p className="text-sm font-semibold text-slate-900 leading-tight whitespace-nowrap">{title}</p>
+        <p className="text-xs text-slate-500 leading-tight mt-0.5 whitespace-nowrap">{sub}</p>
+      </div>
+    </>
+  );
+}
+
+export function FieldSyncFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<CheckCircle2 className="h-5 w-5 text-emerald-600" />} iconBg="bg-emerald-100" title="Visit verified" sub="GPS matched · 2 min ago" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<PinIcon className="h-5 w-5 text-cyan-600" />} iconBg="bg-cyan-100" title="23 visits logged today" sub="Team Mumbai West" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function EventSyncFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<QrCode className="h-5 w-5 text-teal-600" />} iconBg="bg-teal-100" title="Aarav Shah checked in" sub="QR scan · Gate 2" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<SparklesIcon className="h-5 w-5 text-fuchsia-600" />} iconBg="bg-fuchsia-100" title="1,240 attendees live" sub="98% check-in accuracy" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function EmailFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<MailOpen className="h-5 w-5 text-blue-600" />} iconBg="bg-blue-100" title="Campaign delivered" sub="10,000 sent · 12 min" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<TrendingUp className="h-5 w-5 text-cyan-600" />} iconBg="bg-cyan-100" title="Open rate 42%" sub="↑ 9% vs last campaign" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function ATSFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<CalendarCheck className="h-5 w-5 text-violet-600" />} iconBg="bg-violet-100" title="Interview scheduled" sub="Priya M. · Tomorrow 11 AM" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<UserCheckIcon className="h-5 w-5 text-fuchsia-600" />} iconBg="bg-fuchsia-100" title="12 shortlisted" sub="Aadhaar + PAN verified" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function PaisaaFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<IndianRupee className="h-5 w-5 text-amber-600" />} iconBg="bg-amber-100" title="Loan sanctioned ₹5,00,000" sub="Application to sanction: 2 days" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<CheckCircle2 className="h-5 w-5 text-emerald-600" />} iconBg="bg-emerald-100" title="KYC verified" sub="Aadhaar + PAN · instant" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function ExpenseFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<ReceiptText className="h-5 w-5 text-rose-600" />} iconBg="bg-rose-100" title="Claim approved ₹4,250" sub="Receipt attached · L2 sign-off" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<ListChecks className="h-5 w-5 text-fuchsia-600" />} iconBg="bg-fuchsia-100" title="3 pending approvals" sub="Auto-reminder sent" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function WhatsAppFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<CheckCircle2 className="h-5 w-5 text-green-600" />} iconBg="bg-green-100" title="Delivered ✓✓" sub="9,847 of 10,000 messages" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<MessageCircle className="h-5 w-5 text-emerald-600" />} iconBg="bg-emerald-100" title={'Reply: "Interested!"'} sub="Lead pushed to CRM" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function WorkSyncFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<CheckCircle2 className="h-5 w-5 text-violet-600" />} iconBg="bg-violet-100" title="Task completed" sub="Site survey · confirmed by manager" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<ListChecks className="h-5 w-5 text-indigo-600" />} iconBg="bg-indigo-100" title="5 tasks due today" sub="WhatsApp alerts sent" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function CRMFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<Trophy className="h-5 w-5 text-teal-600" />} iconBg="bg-teal-100" title="Deal won — ₹4.2L" sub="Moved to Closed in pipeline" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<BrainIcon className="h-5 w-5 text-violet-600" />} iconBg="bg-violet-100" title="AI: call Rahul first" sub="Highest conversion score today" />
+      </FloatCard>
+    </>
+  );
+}
+
+export function VendorFloats() {
+  return (
+    <>
+      <FloatCard className="-left-32 -top-7">
+        <FloatBody icon={<ShieldIcon className="h-5 w-5 text-sky-600" />} iconBg="bg-sky-100" title="Vendor approved" sub="Full audit trail · PDF ready" />
+      </FloatCard>
+      <FloatCard className="-right-12 -bottom-7" delay={1.6}>
+        <FloatBody icon={<ScanLine className="h-5 w-5 text-orange-600" />} iconBg="bg-orange-100" title="Fraud check passed" sub="6/6 government APIs · live" />
+      </FloatCard>
+    </>
+  );
+}

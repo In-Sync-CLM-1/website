@@ -1,5 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
-import { FieldSyncScene } from '@/components/heroScenes';
+import { FieldSyncScene, FieldSyncFloats } from '@/components/heroScenes';
 import { MapPin, Wifi, FileText, Clock, BarChart3, Shield, CheckCircle, Bell, Users, Flag } from 'lucide-react';
 
 const data: ProductPageData = {
@@ -7,6 +7,7 @@ const data: ProductPageData = {
   productName: 'Field-Sync',
   signInUrl: 'https://field-sync.pages.dev',
   heroBackdrop: <FieldSyncScene />,
+  heroFloats: <FieldSyncFloats />,
   navLinks: [
     { href: '#problem', label: 'Why Field-Sync' },
     { href: '#features', label: 'Features' },
@@ -24,10 +25,11 @@ const data: ProductPageData = {
     gradientFrom: 'from-green-600',
     gradientTo: 'to-emerald-700',
     hero: {
-      base: 'linear-gradient(130deg, #047857 0%, #059669 35%, #10b981 65%, #0e7490 110%)',
-      glow1: 'rgba(163,230,53,0.35)',
-      glow2: 'rgba(45,212,191,0.42)',
+      base: 'linear-gradient(118deg, #047857 0%, #10b981 35%, #06b6d4 75%, #3b82f6 120%)',
+      glow1: 'rgba(163,230,53,0.5)',
+      glow2: 'rgba(34,211,238,0.5)',
     },
+    headlineAccent: 'from-lime-200 via-emerald-100 to-cyan-200',
     textAccent: 'text-green-600',
     bgLight: 'bg-green-500/10',
     badgeBg: 'bg-green-500/10',

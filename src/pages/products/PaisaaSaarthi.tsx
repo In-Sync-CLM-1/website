@@ -1,5 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
-import { PaisaaScene } from '@/components/heroScenes';
+import { PaisaaScene, PaisaaFloats } from '@/components/heroScenes';
 import { FileText, Shield, CheckCircle, BarChart3, Bell, Layers, Clock, Users, Flag, CreditCard } from 'lucide-react';
 
 const data: ProductPageData = {
@@ -7,6 +7,7 @@ const data: ProductPageData = {
   productName: 'Paisaa Saarthi',
   signInUrl: 'https://paisaasaarthi.pages.dev',
   heroBackdrop: <PaisaaScene />,
+  heroFloats: <PaisaaFloats />,
   navLinks: [
     { href: '#problem', label: 'Why Paisaa Saarthi' },
     { href: '#features', label: 'Features' },
@@ -24,10 +25,11 @@ const data: ProductPageData = {
     gradientFrom: 'from-amber-600',
     gradientTo: 'to-orange-700',
     hero: {
-      base: 'linear-gradient(130deg, #92400e 0%, #d97706 35%, #ea580c 70%, #b91c1c 120%)',
-      glow1: 'rgba(253,224,71,0.42)',
-      glow2: 'rgba(251,146,60,0.4)',
+      base: 'linear-gradient(118deg, #d97706 0%, #f59e0b 35%, #f97316 70%, #e11d48 120%)',
+      glow1: 'rgba(253,224,71,0.5)',
+      glow2: 'rgba(251,146,60,0.45)',
     },
+    headlineAccent: 'from-yellow-200 via-amber-100 to-orange-200',
     textAccent: 'text-amber-600',
     bgLight: 'bg-amber-500/10',
     badgeBg: 'bg-amber-500/10',

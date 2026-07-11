@@ -1,5 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
-import { WhatsAppScene } from '@/components/heroScenes';
+import { WhatsAppScene, WhatsAppFloats } from '@/components/heroScenes';
 import { MessageSquare, BarChart3, CheckCircle, Bell, Shield, Layers, Users, Flag, Phone, Zap } from 'lucide-react';
 
 const data: ProductPageData = {
@@ -7,6 +7,7 @@ const data: ProductPageData = {
   productName: 'WhatsApp Campaigns',
   signInUrl: 'https://wa-sync.pages.dev',
   heroBackdrop: <WhatsAppScene />,
+  heroFloats: <WhatsAppFloats />,
   navLinks: [
     { href: '#problem', label: 'Why WhatsApp Campaigns' },
     { href: '#features', label: 'Features' },
@@ -24,10 +25,11 @@ const data: ProductPageData = {
     gradientFrom: 'from-emerald-600',
     gradientTo: 'to-green-700',
     hero: {
-      base: 'linear-gradient(130deg, #064e3b 0%, #047857 35%, #059669 65%, #16a34a 108%)',
-      glow1: 'rgba(74,222,128,0.45)',
-      glow2: 'rgba(37,211,102,0.35)',
+      base: 'linear-gradient(118deg, #047857 0%, #10b981 40%, #25d366 80%, #a3e635 130%)',
+      glow1: 'rgba(37,211,102,0.5)',
+      glow2: 'rgba(163,230,53,0.4)',
     },
+    headlineAccent: 'from-lime-200 via-green-100 to-emerald-200',
     textAccent: 'text-emerald-600',
     bgLight: 'bg-emerald-500/10',
     badgeBg: 'bg-emerald-500/10',

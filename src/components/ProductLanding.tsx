@@ -46,6 +46,8 @@ export interface ProductTheme {
   gradientTo: string;
   /** Layered hero background: multi-stop base gradient + two coloured radial glows */
   hero: { base: string; glow1: string; glow2: string };
+  /** Bright gradient stops for the second headline line (e.g. 'from-lime-200 via-emerald-100 to-cyan-200') */
+  headlineAccent: string;
   textAccent: string;
   bgLight: string;
   badgeBg: string;
@@ -62,6 +64,8 @@ export interface ProductPageData {
   signInUrl: string;
   /** Industry-specific decorative SVG scene layered into the hero */
   heroBackdrop?: ReactNode;
+  /** Floating "live product" UI cards rendered around the demo form */
+  heroFloats?: ReactNode;
   navLinks: { href: string; label: string }[];
   headline1: string;
   headline2: string;
@@ -86,6 +90,11 @@ export interface ProductPageData {
   ctaHeadline: string;
   ctaSubtext: string;
 }
+
+/* ── Texture ────────────────────────────────── */
+
+const GRAIN =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
 
 /* ── Animation helpers ──────────────────────── */
 
@@ -151,7 +160,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
   useEffect(() => { captureAttribution(); }, []);
 
   const {
-    productKey, productName, signInUrl, heroBackdrop, navLinks, headline1, headline2, description,
+    productKey, productName, signInUrl, heroBackdrop, heroFloats, navLinks, headline1, headline2, description,
     heroBadges, theme, painPoints, problemHeadline1, problemHeadline2, problemIntro,
     howItWorks, howItWorksHeadline, howItWorksFlow, features, featuresHeadline1,
     featuresHeadline2, featuresSubtext, stats, verticals, testimonial, reviews,
@@ -198,17 +207,18 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       <section className="relative overflow-hidden text-white" style={{ background: theme.hero.base }}>
         <div className="absolute inset-0 pointer-events-none">
           <div
-            className="absolute -top-32 right-[8%] w-[520px] h-[520px] rounded-full"
-            style={{ background: `radial-gradient(circle, ${theme.hero.glow1}, transparent 70%)`, filter: 'blur(70px)' }}
+            className="absolute -top-40 right-[5%] w-[680px] h-[680px] rounded-full"
+            style={{ background: `radial-gradient(circle, ${theme.hero.glow1}, transparent 70%)`, filter: 'blur(80px)' }}
           />
           <div
-            className="absolute -bottom-24 left-[4%] w-[420px] h-[420px] rounded-full"
-            style={{ background: `radial-gradient(circle, ${theme.hero.glow2}, transparent 70%)`, filter: 'blur(60px)' }}
+            className="absolute -bottom-32 left-[2%] w-[540px] h-[540px] rounded-full"
+            style={{ background: `radial-gradient(circle, ${theme.hero.glow2}, transparent 70%)`, filter: 'blur(70px)' }}
           />
           <div
             className="absolute inset-0"
-            style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 20%, transparent 75%, rgba(0,0,0,0.18) 100%)' }}
+            style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.07) 0%, transparent 20%, transparent 75%, rgba(0,0,0,0.22) 100%)' }}
           />
+          <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay" style={{ backgroundImage: GRAIN }} />
         </div>
         <div
           className="absolute inset-0 opacity-[0.07] pointer-events-none"
@@ -239,10 +249,10 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.12 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white"
+              className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tighter leading-[1.06] text-white"
             >
               {headline1}{' '}
-              <span className="bg-gradient-to-r from-white via-white/85 to-white/55 bg-clip-text text-transparent">
+              <span className={`bg-gradient-to-r ${theme.headlineAccent} bg-clip-text text-transparent`}>
                 {headline2}
               </span>
             </motion.h1>
@@ -274,14 +284,20 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             </motion.div>
           </div>
 
-          {/* Right: inline demo form */}
+          {/* Right: inline demo form + floating product cards */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.4 }}
-            className="mx-auto w-full max-w-md lg:mx-0 rounded-2xl shadow-2xl ring-1 ring-white/30"
+            className="relative mx-auto w-full max-w-md lg:mx-0"
           >
-            <HeroLeadForm product={productKey} />
+            <div className="rounded-2xl shadow-2xl ring-1 ring-white/30">
+              <HeroLeadForm
+                product={productKey}
+                accentClass={`bg-gradient-to-r ${theme.gradientFrom} ${theme.gradientTo} border-0 shadow-lg hover:opacity-90`}
+              />
+            </div>
+            {heroFloats}
           </motion.div>
         </div>
       </section>
@@ -439,6 +455,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             className="absolute inset-0 opacity-[0.05]"
             style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '30px 30px' }}
           />
+          <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay" style={{ backgroundImage: GRAIN }} />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <Animated>
@@ -537,6 +554,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
                 className="absolute inset-0 opacity-[0.06]"
                 style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }}
               />
+              <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay" style={{ backgroundImage: GRAIN }} />
               <div className="relative z-10">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-4">{ctaHeadline}</h2>
                 <p className="text-white/80 mb-10 max-w-md mx-auto text-lg">{ctaSubtext}</p>

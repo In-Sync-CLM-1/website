@@ -44,14 +44,11 @@ export function LogoMarquee({ className = '' }: { className?: string }) {
                 }`}
               >
                 {doubled.map((logo, i) => (
-                  <div
-                    key={`${row}-${i}`}
-                    className="flex h-14 w-32 shrink-0 items-center justify-center rounded-xl border border-border/40 bg-background/80 px-4 py-2 grayscale opacity-50 transition-all duration-300 hover:border-border hover:opacity-100 hover:grayscale-0 hover:shadow-md"
-                  >
+                  <div key={`${row}-${i}`} className="flex h-12 w-28 shrink-0 items-center justify-center">
                     <img
                       src={logo.src}
                       alt={logo.alt}
-                      className="max-h-full max-w-full object-contain"
+                      className="max-h-full max-w-full object-contain grayscale opacity-55 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
                       loading="lazy"
                     />
                   </div>

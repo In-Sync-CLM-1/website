@@ -1,5 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
-import { EventSyncScene } from '@/components/heroScenes';
+import { EventSyncScene, EventSyncFloats } from '@/components/heroScenes';
 import {
   Calendar, QrCode, Users, BarChart3, MessageSquare, Layers,
   MapPin, Bell, CheckCircle, Flag,
@@ -10,6 +10,7 @@ const data: ProductPageData = {
   productName: 'EventSync',
   signInUrl: 'https://event-sync.pages.dev',
   heroBackdrop: <EventSyncScene />,
+  heroFloats: <EventSyncFloats />,
   navLinks: [
     { href: '#problem', label: 'Why EventSync' },
     { href: '#features', label: 'Features' },
@@ -27,10 +28,11 @@ const data: ProductPageData = {
     gradientFrom: 'from-teal-600',
     gradientTo: 'to-emerald-700',
     hero: {
-      base: 'linear-gradient(130deg, #0f766e 0%, #0d9488 30%, #0891b2 60%, #7c3aed 118%)',
-      glow1: 'rgba(232,121,249,0.32)',
-      glow2: 'rgba(45,212,191,0.45)',
+      base: 'linear-gradient(118deg, #0d9488 0%, #06b6d4 40%, #8b5cf6 85%, #ec4899 125%)',
+      glow1: 'rgba(232,121,249,0.45)',
+      glow2: 'rgba(45,212,191,0.55)',
     },
+    headlineAccent: 'from-amber-200 via-pink-200 to-fuchsia-200',
     textAccent: 'text-teal-600',
     bgLight: 'bg-teal-500/10',
     badgeBg: 'bg-teal-500/10',

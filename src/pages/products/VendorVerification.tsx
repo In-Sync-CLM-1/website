@@ -1,5 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
-import { VendorScene } from '@/components/heroScenes';
+import { VendorScene, VendorFloats } from '@/components/heroScenes';
 import { ShieldCheck, ScanSearch, Brain, AlertTriangle, Workflow, ClipboardCheck, Send, UserCheck, BadgeCheck, FileSearch, Landmark, Clock } from 'lucide-react';
 
 const data: ProductPageData = {
@@ -7,6 +7,7 @@ const data: ProductPageData = {
   productName: 'Vendor Verification',
   signInUrl: 'https://vendorverification.in-sync.co.in',
   heroBackdrop: <VendorScene />,
+  heroFloats: <VendorFloats />,
   navLinks: [
     { href: '#problem', label: 'Why Verify' },
     { href: '#features', label: 'Features' },
@@ -24,10 +25,11 @@ const data: ProductPageData = {
     gradientFrom: 'from-sky-700',
     gradientTo: 'to-blue-900',
     hero: {
-      base: 'linear-gradient(130deg, #082f49 0%, #075985 30%, #0369a1 60%, #1e40af 108%)',
-      glow1: 'rgba(56,189,248,0.45)',
-      glow2: 'rgba(251,146,60,0.3)',
+      base: 'linear-gradient(118deg, #0c4a6e 0%, #0284c7 45%, #3b82f6 85%, #6366f1 120%)',
+      glow1: 'rgba(56,189,248,0.5)',
+      glow2: 'rgba(251,146,60,0.4)',
     },
+    headlineAccent: 'from-sky-200 via-cyan-100 to-orange-200',
     textAccent: 'text-sky-700',
     bgLight: 'bg-sky-500/10',
     badgeBg: 'bg-sky-500/10',
