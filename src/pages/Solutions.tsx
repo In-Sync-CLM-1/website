@@ -111,10 +111,23 @@ export default function Solutions() {
       <div className="min-h-screen bg-background">
         <main>
           {/* Hero */}
-          <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(222,47%,20%)] via-[hsl(215,45%,15%)] to-[hsl(190,80%,16%)] py-24 lg:py-32 text-white">
-            <div className="absolute inset-0 opacity-10 pointer-events-none">
-              <div className="absolute -top-24 left-[12%] w-96 h-96 bg-white rounded-full blur-3xl" />
-              <div className="absolute bottom-0 right-[8%] w-[420px] h-[420px] bg-accent rounded-full blur-3xl" />
+          <section
+            className="relative overflow-hidden py-24 lg:py-32 text-white"
+            style={{ background: 'linear-gradient(135deg, hsl(222,47%,18%) 0%, hsl(218,50%,14%) 35%, hsl(200,65%,16%) 70%, hsl(190,85%,11%) 100%)' }}
+          >
+            <div className="absolute inset-0 pointer-events-none">
+              <div
+                className="absolute -top-32 right-[10%] w-[520px] h-[520px] rounded-full"
+                style={{ background: 'radial-gradient(circle, rgba(45,212,191,0.28), transparent 70%)', filter: 'blur(70px)' }}
+              />
+              <div
+                className="absolute -bottom-24 left-[6%] w-[420px] h-[420px] rounded-full"
+                style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.22), transparent 70%)', filter: 'blur(60px)' }}
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 20%, transparent 75%, rgba(0,0,0,0.2) 100%)' }}
+              />
             </div>
             <div
               className="absolute inset-0 opacity-[0.07] pointer-events-none"
@@ -182,9 +195,22 @@ export default function Solutions() {
           {/* Bottom CTA */}
           <section className="py-20 bg-muted/30">
             <div className="container mx-auto px-4 max-w-4xl">
-              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[hsl(222,47%,20%)] via-[hsl(215,45%,15%)] to-[hsl(190,80%,16%)] p-12 sm:p-16 text-center text-white">
-                <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/5 rounded-full blur-3xl" />
-                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-accent/20 rounded-full blur-3xl" />
+              <div
+                className="relative overflow-hidden rounded-3xl p-12 sm:p-16 text-center text-white"
+                style={{ background: 'linear-gradient(135deg, hsl(222,47%,18%) 0%, hsl(218,50%,14%) 35%, hsl(200,65%,16%) 70%, hsl(190,85%,11%) 100%)' }}
+              >
+                <div
+                  className="absolute -top-24 -right-16 w-72 h-72 rounded-full"
+                  style={{ background: 'radial-gradient(circle, rgba(45,212,191,0.3), transparent 70%)', filter: 'blur(50px)' }}
+                />
+                <div
+                  className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full"
+                  style={{ background: 'radial-gradient(circle, rgba(59,130,246,0.24), transparent 70%)', filter: 'blur(50px)' }}
+                />
+                <div
+                  className="absolute inset-0 opacity-[0.06]"
+                  style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+                />
                 <div className="relative z-10">
                   <h2 className="text-3xl font-heading font-bold mb-4">
                     Not sure which product fits?

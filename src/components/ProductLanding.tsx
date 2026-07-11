@@ -44,6 +44,8 @@ export interface HeroBadge {
 export interface ProductTheme {
   gradientFrom: string;
   gradientTo: string;
+  /** Layered hero background: multi-stop base gradient + two coloured radial glows */
+  hero: { base: string; glow1: string; glow2: string };
   textAccent: string;
   bgLight: string;
   badgeBg: string;
@@ -191,10 +193,20 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       </header>
 
       {/* ── Hero ─────────────────────────────── */}
-      <section className={`relative overflow-hidden bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} text-white`}>
-        <div className="absolute inset-0 opacity-10 pointer-events-none">
-          <div className="absolute -top-20 left-[15%] w-96 h-96 bg-white rounded-full blur-3xl" />
-          <div className="absolute bottom-0 right-[10%] w-[420px] h-[420px] bg-white rounded-full blur-3xl" />
+      <section className="relative overflow-hidden text-white" style={{ background: theme.hero.base }}>
+        <div className="absolute inset-0 pointer-events-none">
+          <div
+            className="absolute -top-32 right-[8%] w-[520px] h-[520px] rounded-full"
+            style={{ background: `radial-gradient(circle, ${theme.hero.glow1}, transparent 70%)`, filter: 'blur(70px)' }}
+          />
+          <div
+            className="absolute -bottom-24 left-[4%] w-[420px] h-[420px] rounded-full"
+            style={{ background: `radial-gradient(circle, ${theme.hero.glow2}, transparent 70%)`, filter: 'blur(60px)' }}
+          />
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 20%, transparent 75%, rgba(0,0,0,0.18) 100%)' }}
+          />
         </div>
         <div
           className="absolute inset-0 opacity-[0.07] pointer-events-none"
@@ -482,10 +494,21 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
           <Animated>
             <motion.div
               variants={fadeUp}
-              className={`relative overflow-hidden rounded-3xl bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} p-12 sm:p-16 text-center text-white`}
+              className="relative overflow-hidden rounded-3xl p-12 sm:p-16 text-center text-white"
+              style={{ background: theme.hero.base }}
             >
-              <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/5 rounded-full blur-3xl" />
-              <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-white/5 rounded-full blur-3xl" />
+              <div
+                className="absolute -top-24 -right-16 w-72 h-72 rounded-full"
+                style={{ background: `radial-gradient(circle, ${theme.hero.glow1}, transparent 70%)`, filter: 'blur(50px)' }}
+              />
+              <div
+                className="absolute -bottom-24 -left-16 w-72 h-72 rounded-full"
+                style={{ background: `radial-gradient(circle, ${theme.hero.glow2}, transparent 70%)`, filter: 'blur(50px)' }}
+              />
+              <div
+                className="absolute inset-0 opacity-[0.06]"
+                style={{ backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)', backgroundSize: '28px 28px' }}
+              />
               <div className="relative z-10">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-4">{ctaHeadline}</h2>
                 <p className="text-white/80 mb-10 max-w-md mx-auto text-lg">{ctaSubtext}</p>

@@ -21,6 +21,11 @@ const data: ProductPageData = {
   theme: {
     gradientFrom: 'from-emerald-600',
     gradientTo: 'to-green-700',
+    hero: {
+      base: 'linear-gradient(135deg, #047857 0%, #059669 40%, #16a34a 70%, #064e3b 100%)',
+      glow1: 'rgba(52,211,153,0.45)',
+      glow2: 'rgba(74,222,128,0.35)',
+    },
     textAccent: 'text-emerald-600',
     bgLight: 'bg-emerald-500/10',
     badgeBg: 'bg-emerald-500/10',
