@@ -1,7 +1,7 @@
 import { useRef, useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
-import { Star, AlertTriangle, Sparkles, LucideIcon } from 'lucide-react';
+import { Star, AlertTriangle, Sparkles, Play, LucideIcon } from 'lucide-react';
 import { HeroLeadForm } from '@/components/HeroLeadForm';
 import { LogoMarquee } from '@/components/LogoMarquee';
 import { captureAttribution } from '@/lib/attribution';
@@ -61,7 +61,10 @@ export interface ProductTheme {
 export interface ProductPageData {
   productKey: string;
   productName: string;
-  signInUrl: string;
+  /** Live app sign-in URL; omit to hide the Sign In link */
+  signInUrl?: string;
+  /** Hosted interactive HTML demo of the product (opens in a new tab) */
+  demoUrl?: string;
   /** Industry-specific decorative SVG scene layered into the hero */
   heroBackdrop?: ReactNode;
   /** Floating "live product" UI cards rendered around the demo form */
@@ -160,7 +163,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
   useEffect(() => { captureAttribution(); }, []);
 
   const {
-    productKey, productName, signInUrl, heroBackdrop, heroFloats, navLinks, headline1, headline2, description,
+    productKey, productName, signInUrl, demoUrl, heroBackdrop, heroFloats, navLinks, headline1, headline2, description,
     heroBadges, theme, painPoints, problemHeadline1, problemHeadline2, problemIntro,
     howItWorks, howItWorksHeadline, howItWorksFlow, features, featuresHeadline1,
     featuresHeadline2, featuresSubtext, stats, verticals, testimonial, reviews,
@@ -185,14 +188,16 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             ))}
           </nav>
           <div className="flex items-center gap-4">
-            <a
-              href={signInUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-            >
-              Sign In
-            </a>
+            {signInUrl && (
+              <a
+                href={signInUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+              >
+                Sign In
+              </a>
+            )}
             <a
               href="#demo-form"
               className={`text-sm font-semibold px-4 py-2 rounded-lg bg-gradient-to-r ${theme.gradientFrom} ${theme.gradientTo} text-white shadow-lg hover:opacity-90 transition-opacity`}
@@ -265,6 +270,27 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             >
               {description}
             </motion.p>
+
+            {demoUrl && (
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.42 }}
+                className="mt-8 flex justify-center lg:justify-start"
+              >
+                <a
+                  href={demoUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group inline-flex items-center gap-3 rounded-xl border border-white/30 bg-white/10 backdrop-blur-sm px-6 py-3.5 text-base font-semibold text-white shadow-lg hover:bg-white/20 transition-all hover:-translate-y-0.5"
+                >
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-slate-900 transition-transform group-hover:scale-110">
+                    <Play className="h-4 w-4 ml-0.5 fill-current" />
+                  </span>
+                  Watch the live demo
+                </a>
+              </motion.div>
+            )}
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -558,12 +584,25 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
               <div className="relative z-10">
                 <h2 className="text-3xl sm:text-4xl font-bold mb-4">{ctaHeadline}</h2>
                 <p className="text-white/80 mb-10 max-w-md mx-auto text-lg">{ctaSubtext}</p>
-                <a
-                  href="#demo-form"
-                  className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white font-semibold ${theme.textAccent} hover:bg-white/90 transition-all hover:scale-105 shadow-lg`}
-                >
-                  Book a Free Demo
-                </a>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <a
+                    href="#demo-form"
+                    className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white font-semibold ${theme.textAccent} hover:bg-white/90 transition-all hover:scale-105 shadow-lg`}
+                  >
+                    Book a Free Demo
+                  </a>
+                  {demoUrl && (
+                    <a
+                      href={demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl border border-white/30 bg-white/10 font-semibold text-white backdrop-blur-sm hover:bg-white/20 transition-all"
+                    >
+                      <Play className="h-4 w-4 fill-current" />
+                      Watch the live demo
+                    </a>
+                  )}
+                </div>
               </div>
             </motion.div>
           </Animated>

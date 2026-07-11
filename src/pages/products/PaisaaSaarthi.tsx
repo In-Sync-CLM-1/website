@@ -5,7 +5,6 @@ import { FileText, Shield, CheckCircle, BarChart3, Bell, Layers, Clock, Users, F
 const data: ProductPageData = {
   productKey: 'PaisaaSaarthi',
   productName: 'Paisaa Saarthi',
-  signInUrl: 'https://paisaasaarthi.pages.dev',
   heroBackdrop: <PaisaaScene />,
   heroFloats: <PaisaaFloats />,
   navLinks: [

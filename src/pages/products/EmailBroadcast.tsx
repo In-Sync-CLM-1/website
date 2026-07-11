@@ -6,6 +6,7 @@ const data: ProductPageData = {
   productKey: 'EmailBroadcast',
   productName: 'Email Broadcast',
   signInUrl: 'https://email-sync.pages.dev',
+  demoUrl: 'https://email-sync.pages.dev/demo',
   heroBackdrop: <EmailScene />,
   heroFloats: <EmailFloats />,
   navLinks: [
