@@ -82,7 +82,7 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
 
   if (done) {
     return (
-      <div className="rounded-2xl border bg-card/80 p-8 text-center shadow-xl shadow-black/5 backdrop-blur">
+      <div className="rounded-2xl border bg-card/95 p-8 text-center text-foreground shadow-xl shadow-black/5 backdrop-blur">
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/10">
           <CheckCircle className="h-6 w-6 text-emerald-500" />
         </div>
@@ -95,7 +95,7 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
   }
 
   return (
-    <div className="rounded-2xl border bg-card/80 p-6 shadow-xl shadow-black/5 backdrop-blur sm:p-7">
+    <div className="rounded-2xl border bg-card/95 p-6 text-foreground shadow-xl shadow-black/5 backdrop-blur sm:p-7">
       <h3 className="text-lg font-semibold">Get a free demo</h3>
       <p className="mt-1 text-sm text-muted-foreground">
         Leave your details — we'll call to arrange a time that suits you.

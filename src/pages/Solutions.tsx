@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import SEOHelmet from "@/components/SEOHelmet";
 import Footer from "@/components/Footer";
 import DemoRequestModal from "@/components/DemoRequestModal";
+import { LogoMarquee } from "@/components/LogoMarquee";
 
 const products = [
   {
@@ -110,27 +111,40 @@ export default function Solutions() {
       <div className="min-h-screen bg-background">
         <main>
           {/* Hero */}
-          <section className="relative overflow-hidden gradient-hero py-24 lg:py-32">
-            <div className="floating-blob floating-blob-primary w-[500px] h-[500px] -top-40 -left-40" />
-            <div className="floating-blob floating-blob-accent w-[350px] h-[350px] top-1/3 -right-24" />
-            <div className="absolute inset-0 dot-pattern opacity-40" />
+          <section className="relative overflow-hidden bg-gradient-to-br from-[hsl(222,47%,20%)] via-[hsl(215,45%,15%)] to-[hsl(190,80%,16%)] py-24 lg:py-32 text-white">
+            <div className="absolute inset-0 opacity-10 pointer-events-none">
+              <div className="absolute -top-24 left-[12%] w-96 h-96 bg-white rounded-full blur-3xl" />
+              <div className="absolute bottom-0 right-[8%] w-[420px] h-[420px] bg-accent rounded-full blur-3xl" />
+            </div>
+            <div
+              className="absolute inset-0 opacity-[0.07] pointer-events-none"
+              style={{
+                backgroundImage: "radial-gradient(circle, white 1px, transparent 1px)",
+                backgroundSize: "32px 32px",
+              }}
+            />
             <div className="container mx-auto px-4 relative z-10 text-center max-w-3xl">
-              <p className="text-sm font-semibold uppercase tracking-widest text-accent mb-4">Our Solutions</p>
-              <h1 className="text-4xl lg:text-5xl font-heading font-bold text-foreground mb-6 leading-tight">
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-sm font-semibold uppercase tracking-widest text-white/90 mb-6">
+                Our Solutions
+              </span>
+              <h1 className="text-4xl lg:text-5xl font-heading font-bold text-white mb-6 leading-tight">
                 Eight products. One platform.<br />
-                <span className="text-primary">Pick what you need.</span>
+                <span className="text-accent">Pick what you need.</span>
               </h1>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              <p className="text-lg text-white/80 mb-8 leading-relaxed">
                 Each In-Sync product is built to solve a specific operational problem — and all of them connect back to your CRM so nothing falls through the cracks.
               </p>
               <DemoRequestModal trigger={
-                <Button size="lg" className="btn-glow btn-premium rounded-xl px-8 py-6 text-lg">
+                <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl px-8 py-6 text-lg shadow-lg">
                   Request a Demo
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
               } />
             </div>
           </section>
+
+          {/* Client logos */}
+          <LogoMarquee />
 
           {/* Product Grid */}
           <section className="py-20 bg-background">
@@ -142,16 +156,21 @@ export default function Solutions() {
                     <Link
                       key={p.href}
                       to={p.href}
-                      className={`group relative rounded-2xl border ${p.border} bg-card p-6 shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 flex flex-col`}
+                      className={`group relative rounded-2xl border ${p.border} bg-card overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col`}
                     >
-                      <div className={`w-12 h-12 rounded-xl ${p.bg} flex items-center justify-center mb-4`}>
-                        <Icon className={`h-6 w-6 ${p.color}`} />
+                      <div className={`relative bg-gradient-to-br ${p.gradient} p-5 text-white`}>
+                        <div className="absolute -top-8 -right-8 w-28 h-28 bg-white/10 rounded-full blur-2xl pointer-events-none" />
+                        <div className="w-12 h-12 rounded-xl bg-white/15 border border-white/20 backdrop-blur-sm flex items-center justify-center mb-3">
+                          <Icon className="h-6 w-6 text-white" />
+                        </div>
+                        <p className="text-xs font-semibold uppercase tracking-wider text-white/85 mb-0.5">{p.tagline}</p>
+                        <h2 className="text-lg font-heading font-bold text-white">{p.name}</h2>
                       </div>
-                      <p className={`text-xs font-semibold uppercase tracking-wider ${p.color} mb-1`}>{p.tagline}</p>
-                      <h2 className="text-lg font-heading font-bold text-foreground mb-3">{p.name}</h2>
-                      <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.description}</p>
-                      <div className={`mt-5 flex items-center gap-1 text-sm font-semibold ${p.color} group-hover:gap-2 transition-all`}>
-                        Learn more <ArrowRight className="h-4 w-4" />
+                      <div className="p-6 flex flex-col flex-1">
+                        <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.description}</p>
+                        <div className={`mt-5 flex items-center gap-1 text-sm font-semibold ${p.color} group-hover:gap-2 transition-all`}>
+                          Learn more <ArrowRight className="h-4 w-4" />
+                        </div>
                       </div>
                     </Link>
                   );
@@ -162,19 +181,25 @@ export default function Solutions() {
 
           {/* Bottom CTA */}
           <section className="py-20 bg-muted/30">
-            <div className="container mx-auto px-4 text-center max-w-2xl">
-              <h2 className="text-3xl font-heading font-bold text-foreground mb-4">
-                Not sure which product fits?
-              </h2>
-              <p className="text-muted-foreground mb-8 text-lg">
-                Our team will listen to your workflow and recommend the right combination — no sales pressure.
-              </p>
-              <DemoRequestModal trigger={
-                <Button size="lg" className="btn-glow btn-premium rounded-xl px-8 py-6 text-lg">
-                  Talk to a solutions expert
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              } />
+            <div className="container mx-auto px-4 max-w-4xl">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[hsl(222,47%,20%)] via-[hsl(215,45%,15%)] to-[hsl(190,80%,16%)] p-12 sm:p-16 text-center text-white">
+                <div className="absolute -top-20 -right-20 w-60 h-60 bg-white/5 rounded-full blur-3xl" />
+                <div className="absolute -bottom-20 -left-20 w-60 h-60 bg-accent/20 rounded-full blur-3xl" />
+                <div className="relative z-10">
+                  <h2 className="text-3xl font-heading font-bold mb-4">
+                    Not sure which product fits?
+                  </h2>
+                  <p className="text-white/80 mb-8 text-lg max-w-2xl mx-auto">
+                    Our team will listen to your workflow and recommend the right combination — no sales pressure.
+                  </p>
+                  <DemoRequestModal trigger={
+                    <Button size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground rounded-xl px-8 py-6 text-lg shadow-lg">
+                      Talk to a solutions expert
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  } />
+                </div>
+              </div>
             </div>
           </section>
         </main>

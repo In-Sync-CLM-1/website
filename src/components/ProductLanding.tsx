@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { motion, useInView } from 'framer-motion';
 import { Star, AlertTriangle, Sparkles, LucideIcon } from 'lucide-react';
 import { HeroLeadForm } from '@/components/HeroLeadForm';
+import { LogoMarquee } from '@/components/LogoMarquee';
 import { captureAttribution } from '@/lib/attribution';
 
 /* ── Types ─────────────────────────────────── */
@@ -111,7 +112,7 @@ function Animated({ children, className = '' }: { children: ReactNode; className
 
 /* ── Animated Counter ───────────────────────── */
 
-function Counter({ target, suffix = '+', label }: { target: number; suffix?: string; label: string }) {
+function Counter({ target, suffix = '+', label, accentClass = '' }: { target: number; suffix?: string; label: string; accentClass?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const [display, setDisplay] = useState(0);
@@ -134,7 +135,7 @@ function Counter({ target, suffix = '+', label }: { target: number; suffix?: str
 
   return (
     <div ref={ref} className="text-center">
-      <p className="text-4xl font-bold">{display.toLocaleString('en-IN')}{suffix}</p>
+      <p className={`text-3xl sm:text-4xl font-bold ${accentClass}`}>{display.toLocaleString('en-IN')}{suffix}</p>
       <p className="text-sm text-muted-foreground mt-1">{label}</p>
     </div>
   );
@@ -190,31 +191,31 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       </header>
 
       {/* ── Hero ─────────────────────────────── */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <div className={`absolute -top-24 left-1/4 w-[500px] h-[500px] ${theme.bgLight} rounded-full blur-[120px] opacity-60`} />
-          <div className={`absolute bottom-0 right-1/4 w-96 h-96 ${theme.bgLight} rounded-full blur-[100px] opacity-40`} />
+      <section className={`relative overflow-hidden bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} text-white`}>
+        <div className="absolute inset-0 opacity-10 pointer-events-none">
+          <div className="absolute -top-20 left-[15%] w-96 h-96 bg-white rounded-full blur-3xl" />
+          <div className="absolute bottom-0 right-[10%] w-[420px] h-[420px] bg-white rounded-full blur-3xl" />
         </div>
         <div
-          className="absolute inset-0 -z-10 opacity-[0.025]"
+          className="absolute inset-0 opacity-[0.07] pointer-events-none"
           style={{
-            backgroundImage: 'linear-gradient(rgba(0,0,0,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(0,0,0,0.15) 1px, transparent 1px)',
-            backgroundSize: '60px 60px',
+            backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
+            backgroundSize: '32px 32px',
           }}
         />
 
-        <div id="demo-form" className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-32">
+        <div id="demo-form" className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
           {/* Left pitch */}
           <div className="text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, scale: 0.85, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.5, type: 'spring', stiffness: 200 }}
-              className={`inline-flex items-center gap-2 px-4 py-1.5 rounded-full ${theme.badgeBg} ${theme.badgeText} text-sm font-medium mb-8`}
+              className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm text-white/90 text-sm font-medium mb-8"
             >
               <span className="relative flex h-2 w-2">
-                <span className={`animate-ping absolute inline-flex h-full w-full rounded-full ${theme.bgLight} opacity-75`} />
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${theme.badgeBg.replace('/10', '')}`} />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
               </span>
               Part of the In-Sync family
             </motion.div>
@@ -223,10 +224,10 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.65, delay: 0.12 }}
-              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight"
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-tight text-white"
             >
               {headline1}{' '}
-              <span className={`bg-gradient-to-r ${theme.gradientFrom} ${theme.gradientTo} bg-clip-text text-transparent`}>
+              <span className="bg-gradient-to-r from-white via-white/85 to-white/55 bg-clip-text text-transparent">
                 {headline2}
               </span>
             </motion.h1>
@@ -235,7 +236,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
               initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.28 }}
-              className="mt-6 text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0"
+              className="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl mx-auto lg:mx-0"
             >
               {description}
             </motion.p>
@@ -244,11 +245,14 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.7, delay: 0.55 }}
-              className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-muted-foreground"
+              className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm"
             >
               {heroBadges.map((b) => (
-                <span key={b.label} className="flex items-center gap-2">
-                  <b.icon className={`h-4 w-4 ${b.color}`} />
+                <span
+                  key={b.label}
+                  className="flex items-center gap-2 rounded-full bg-white/10 border border-white/15 px-3.5 py-1.5 text-white/90 backdrop-blur-sm"
+                >
+                  <b.icon className="h-4 w-4 text-white" />
                   {b.label}
                 </span>
               ))}
@@ -260,31 +264,24 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.4 }}
-            className="mx-auto w-full max-w-md lg:mx-0"
+            className="mx-auto w-full max-w-md lg:mx-0 rounded-2xl shadow-2xl ring-1 ring-white/30"
           >
             <HeroLeadForm product={productKey} />
           </motion.div>
         </div>
       </section>
 
-      {/* ── Trust bar ───────────────────────── */}
-      <section className="border-t border-border/50 bg-muted/30 py-10 px-6">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-6">
-            Trusted by 100+ businesses across India
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3">
-            {['Quess Corp', 'Motherson', 'Hiranandani', 'Alice Blue', 'InCred', 'Zolve', 'Capital India', 'College Dekho', 'Ecofy', 'Zopper'].map((name) => (
-              <span
-                key={name}
-                className="px-4 py-1.5 rounded-full border border-border/50 bg-background text-xs font-medium text-muted-foreground hover:border-border hover:text-foreground transition-colors"
-              >
-                {name}
-              </span>
-            ))}
-          </div>
+      {/* ── Stats bar ───────────────────────── */}
+      <section className="bg-card border-b border-border py-8 px-6">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+          {stats.map((s) => (
+            <Counter key={s.label} target={s.target} suffix={s.suffix} label={s.label} accentClass={theme.textAccent} />
+          ))}
         </div>
       </section>
+
+      {/* ── Client logos ────────────────────── */}
+      <LogoMarquee />
 
       {/* ── Problem ─────────────────────────── */}
       <section id="problem" className="border-t border-border/50 py-24 sm:py-32 px-6">
@@ -398,17 +395,6 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
         </div>
       </section>
 
-      {/* ── Stats ───────────────────────────── */}
-      <section className="border-t border-border/50 bg-muted/30 py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {stats.map((s) => (
-              <Counter key={s.label} target={s.target} suffix={s.suffix} label={s.label} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Target verticals ────────────────── */}
       <section className="border-t border-border/50 py-16 px-6">
         <div className="max-w-4xl mx-auto text-center">
@@ -505,8 +491,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
                 <p className="text-white/80 mb-10 max-w-md mx-auto text-lg">{ctaSubtext}</p>
                 <a
                   href="#demo-form"
-                  className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white font-semibold hover:bg-white/90 transition-all hover:scale-105 shadow-lg"
-                  style={{ color: 'inherit' }}
+                  className={`inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-white font-semibold ${theme.textAccent} hover:bg-white/90 transition-all hover:scale-105 shadow-lg`}
                 >
                   Book a Free Demo
                 </a>
