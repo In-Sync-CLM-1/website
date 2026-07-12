@@ -5,7 +5,6 @@ import { Phone, Mail, Shield, CheckCircle, BarChart3, Bell, Flag, Users, Clock, 
 const data: ProductPageData = {
   productKey: 'WorkSync',
   productName: 'Work-Sync',
-  signInUrl: 'https://work-sync.pages.dev',
   demoUrl: 'https://work-sync.pages.dev/demo',
   heroBackdrop: <WorkSyncScene />,
   heroFloats: <WorkSyncFloats />,

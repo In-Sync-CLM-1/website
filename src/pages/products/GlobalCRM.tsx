@@ -5,7 +5,6 @@ import { Users, Kanban, Mail, MessageSquare, Phone, Brain, UserPlus, Upload, Sen
 const data: ProductPageData = {
   productKey: 'In-Sync CRM',
   productName: 'In-Sync CRM',
-  signInUrl: 'https://crm.in-sync.co.in/login',
   demoUrl: 'https://crm.in-sync.co.in/demo',
   heroBackdrop: <CRMScene />,
   heroFloats: <CRMFloats />,

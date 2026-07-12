@@ -5,7 +5,6 @@ import { Receipt, CheckCircle, Bell, BarChart3, Shield, Layers, Clock, Users, Fl
 const data: ProductPageData = {
   productKey: 'ExpenseClaims',
   productName: 'Expense Claims',
-  signInUrl: 'https://expense-sync.pages.dev',
   heroBackdrop: <ExpenseScene />,
   heroFloats: <ExpenseFloats />,
   navLinks: [

@@ -5,7 +5,6 @@ import { MapPin, Wifi, FileText, Clock, BarChart3, Shield, CheckCircle, Bell, Us
 const data: ProductPageData = {
   productKey: 'FieldSync',
   productName: 'Field-Sync',
-  signInUrl: 'https://field-sync.pages.dev',
   heroBackdrop: <FieldSyncScene />,
   heroFloats: <FieldSyncFloats />,
   navLinks: [

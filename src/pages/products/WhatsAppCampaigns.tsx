@@ -5,7 +5,6 @@ import { MessageSquare, BarChart3, CheckCircle, Bell, Shield, Layers, Users, Fla
 const data: ProductPageData = {
   productKey: 'WhatsAppCampaigns',
   productName: 'WhatsApp Campaigns',
-  signInUrl: 'https://wa-sync.pages.dev',
   demoUrl: 'https://wa-sync.pages.dev/demo',
   heroBackdrop: <WhatsAppScene />,
   heroFloats: <WhatsAppFloats />,

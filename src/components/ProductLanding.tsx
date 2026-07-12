@@ -61,8 +61,6 @@ export interface ProductTheme {
 export interface ProductPageData {
   productKey: string;
   productName: string;
-  /** Live app sign-in URL; omit to hide the Sign In link */
-  signInUrl?: string;
   /** Hosted interactive HTML demo of the product (opens in a new tab) */
   demoUrl?: string;
   /** Industry-specific decorative SVG scene layered into the hero */
@@ -163,7 +161,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
   useEffect(() => { captureAttribution(); }, []);
 
   const {
-    productKey, productName, signInUrl, demoUrl, heroBackdrop, heroFloats, navLinks, headline1, headline2, description,
+    productKey, productName, demoUrl, heroBackdrop, heroFloats, navLinks, headline1, headline2, description,
     heroBadges, theme, painPoints, problemHeadline1, problemHeadline2, problemIntro,
     howItWorks, howItWorksHeadline, howItWorksFlow, features, featuresHeadline1,
     featuresHeadline2, featuresSubtext, stats, verticals, testimonial, reviews,
@@ -188,16 +186,12 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             ))}
           </nav>
           <div className="flex items-center gap-4">
-            {signInUrl && (
-              <a
-                href={signInUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="hidden sm:block text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-              >
-                Sign In
-              </a>
-            )}
+            <Link
+              to="/"
+              className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
+            >
+              Home
+            </Link>
             <a
               href="#demo-form"
               className={`text-sm font-semibold px-4 py-2 rounded-lg bg-gradient-to-r ${theme.gradientFrom} ${theme.gradientTo} text-white shadow-lg hover:opacity-90 transition-opacity`}
@@ -620,6 +614,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             <span className="text-muted-foreground">· Part of In-Sync</span>
           </div>
           <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <Link to="/" className="hover:text-foreground transition-colors">Home</Link>
             <Link to="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
             <Link to="/terms" className="hover:text-foreground transition-colors">Terms</Link>
             <a href="mailto:delight@in-sync.co.in" className="hover:text-foreground transition-colors">Contact</a>

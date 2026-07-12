@@ -5,7 +5,6 @@ import { Users, FileText, Phone, Shield, BarChart3, CheckCircle, Bell, Layers, F
 const data: ProductPageData = {
   productKey: 'InSyncATS',
   productName: 'In-Sync ATS',
-  signInUrl: 'https://ats-6t2.pages.dev',
   demoUrl: 'https://ats-6t2.pages.dev/landing-demo',
   heroBackdrop: <ATSScene />,
   heroFloats: <ATSFloats />,

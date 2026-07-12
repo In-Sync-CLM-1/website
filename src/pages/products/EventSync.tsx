@@ -8,7 +8,6 @@ import {
 const data: ProductPageData = {
   productKey: 'EventSync',
   productName: 'EventSync',
-  signInUrl: 'https://event-sync.pages.dev',
   demoUrl: 'https://event-sync.pages.dev/demo',
   heroBackdrop: <EventSyncScene />,
   heroFloats: <EventSyncFloats />,

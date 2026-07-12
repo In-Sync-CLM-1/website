@@ -5,7 +5,6 @@ import { ShieldCheck, ScanSearch, Brain, AlertTriangle, Workflow, ClipboardCheck
 const data: ProductPageData = {
   productKey: 'Vendor Verification',
   productName: 'Vendor Verification',
-  signInUrl: 'https://vendorverification.in-sync.co.in',
   demoUrl: 'https://vendorverification.in-sync.co.in/walkthrough',
   heroBackdrop: <VendorScene />,
   heroFloats: <VendorFloats />,

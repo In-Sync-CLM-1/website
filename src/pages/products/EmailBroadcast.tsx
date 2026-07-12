@@ -5,7 +5,6 @@ import { Mail, BarChart3, Users, Zap, Shield, CheckCircle, Bell, Layers, Flag, C
 const data: ProductPageData = {
   productKey: 'EmailBroadcast',
   productName: 'Email Broadcast',
-  signInUrl: 'https://email-sync.pages.dev',
   demoUrl: 'https://email-sync.pages.dev/demo',
   heroBackdrop: <EmailScene />,
   heroFloats: <EmailFloats />,
