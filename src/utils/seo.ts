@@ -23,10 +23,10 @@ export const getOrganizationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "In-Sync",
-  "alternateName": "In-Sync CRM",
-  "url": "https://in-sync-crm.com",
-  "logo": "https://in-sync-crm.com/logo.png",
-  "description": "AI-powered CRM platform for sales, marketing, and customer service automation",
+  "alternateName": "In-Sync Platform",
+  "url": "https://in-sync.co.in",
+  "logo": "https://in-sync.co.in/logo.png",
+  "description": "Business operations platform for growing Indian companies — ten focused apps for CRM, campaigns, events, field force, expenses, vendor verification, recruitment, and lending on one platform",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+91-11-4084-1521",
@@ -55,7 +55,7 @@ export const getOrganizationSchema = () => ({
 export const getSoftwareApplicationSchema = () => ({
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  "name": "In-Sync CRM",
+  "name": "In-Sync Platform",
   "applicationCategory": "BusinessApplication",
   "operatingSystem": "Web, iOS, Android",
   "offers": {
@@ -71,7 +71,7 @@ export const getSoftwareApplicationSchema = () => ({
     "bestRating": "5",
     "worstRating": "1"
   },
-  "description": "All-in-one CRM platform with AI-powered automation, multi-channel communication, and field force management"
+  "description": "One platform, ten products: CRM, WhatsApp and email campaigns, event management, field force tracking, task management, expense claims, vendor verification, recruitment, and loan origination"
 });
 
 /**
@@ -111,13 +111,13 @@ export const getArticleSchema = (article: {
   },
   "datePublished": article.publishDate,
   "dateModified": article.modifiedDate || article.publishDate,
-  "image": article.imageUrl || "https://in-sync-crm.com/default-og-image.jpg",
+  "image": article.imageUrl || "https://in-sync.co.in/default-og-image.jpg",
   "publisher": {
     "@type": "Organization",
     "name": "In-Sync",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://in-sync-crm.com/logo.png"
+      "url": "https://in-sync.co.in/logo.png"
     }
   }
 });
@@ -166,40 +166,40 @@ export const getBreadcrumbSchema = (breadcrumbs: Array<{ name: string; url: stri
  */
 export const defaultSEOConfig: Record<string, SEOConfig> = {
   home: {
-    title: "In-Sync CRM - AI-Powered Customer Relationship Management Platform | India",
-    description: "Transform your business with In-Sync's AI-powered CRM platform. Features include sales automation, WhatsApp integration, field force tracking, and multi-channel marketing. Free forever plan available.",
-    keywords: "CRM software India, AI CRM, customer relationship management, sales automation, WhatsApp CRM, field force management, free CRM",
-    canonical: "https://in-sync-crm.com/",
+    title: "In-Sync - Run Your Entire Business on One Platform | India",
+    description: "Ten focused apps for growing Indian businesses: CRM, WhatsApp & email campaigns, event management, field force tracking, expense claims, vendor verification, recruitment, and loan origination — on one platform.",
+    keywords: "business software India, CRM software India, WhatsApp campaigns, event management software, field force management, vendor verification, applicant tracking system, loan origination system",
+    canonical: "https://in-sync.co.in/",
     ogType: "website",
-    ogImage: "https://in-sync-crm.com/og-home.jpg",
+    ogImage: "https://in-sync.co.in/og-home.jpg",
     twitterCard: "summary_large_image"
   },
   features: {
-    title: "In-Sync CRM Features - AI Automation, Multi-Channel Marketing & Field Force",
-    description: "Explore In-Sync CRM's powerful features: AI-powered calling with 99.8% cost reduction, WhatsApp automation, GPS field tracking, sales pipeline management, and 20+ native integrations.",
-    keywords: "CRM features, AI calling, WhatsApp automation, field force tracking, sales pipeline, CRM integrations, marketing automation",
-    canonical: "https://in-sync-crm.com/features",
+    title: "In-Sync CRM Features - AI Automation, Multi-Channel Marketing & Calling",
+    description: "Explore In-Sync CRM's features: AI-powered calling, WhatsApp automation, sales pipeline management, email campaigns, and AI lead scoring — the flagship product of the In-Sync platform.",
+    keywords: "CRM features, AI calling, WhatsApp automation, sales pipeline, AI lead scoring, marketing automation",
+    canonical: "https://in-sync.co.in/features",
     ogType: "website"
   },
   pricing: {
-    title: "In-Sync CRM Pricing - Free Forever Plan | Transparent Pricing",
-    description: "Simple, transparent pricing for In-Sync CRM. Start free forever with up to 1,000 records. Growth plans from ₹12,999/month. No hidden fees, unlimited users, scales with your business.",
-    keywords: "CRM pricing, free CRM, affordable CRM India, CRM plans, unlimited users CRM",
-    canonical: "https://in-sync-crm.com/pricing",
+    title: "In-Sync Pricing - Simple Per-User Pricing | Transparent Pricing",
+    description: "Simple, transparent per-user pricing for the In-Sync platform. No hidden fees, scales with your business. Prepaid communication wallet for WhatsApp, email, and calling.",
+    keywords: "CRM pricing, business software pricing India, per user pricing, transparent pricing",
+    canonical: "https://in-sync.co.in/pricing",
     ogType: "website"
   },
   industries: {
-    title: "Industry-Specific CRM Solutions | Healthcare, Finance, Manufacturing & More",
-    description: "Discover In-Sync CRM solutions tailored for your industry. Compliance-ready platforms for healthcare, financial services, manufacturing, real estate, technology, and professional services.",
-    keywords: "industry CRM, healthcare CRM, financial services CRM, manufacturing CRM, real estate CRM, compliance CRM",
-    canonical: "https://in-sync-crm.com/industries",
+    title: "Industry Solutions | Healthcare, Finance, Manufacturing, Real Estate & More",
+    description: "In-Sync platform solutions tailored for your industry — healthcare, financial services, manufacturing, real estate, technology, education, and professional services.",
+    keywords: "industry software, healthcare software, financial services software, manufacturing software, real estate software",
+    canonical: "https://in-sync.co.in/industries",
     ogType: "website"
   },
   resources: {
-    title: "CRM Resources - Guides, Whitepapers, Tutorials & Webinars | In-Sync",
-    description: "Access comprehensive CRM resources including implementation guides, industry whitepapers, video tutorials, and expert webinars. Learn best practices for CRM success.",
-    keywords: "CRM resources, CRM guides, CRM tutorials, CRM whitepapers, CRM webinars, CRM best practices",
-    canonical: "https://in-sync-crm.com/resources",
+    title: "Resources - Guides, Whitepapers, Tutorials & Webinars | In-Sync",
+    description: "Guides, whitepapers, video tutorials, and webinars on sales, marketing, operations, and the In-Sync platform.",
+    keywords: "business software resources, CRM guides, tutorials, whitepapers, webinars",
+    canonical: "https://in-sync.co.in/resources",
     ogType: "website"
   }
 };
@@ -208,7 +208,7 @@ export const defaultSEOConfig: Record<string, SEOConfig> = {
  * Generate canonical URL
  */
 export const getCanonicalUrl = (path: string): string => {
-  const baseUrl = "https://in-sync-crm.com";
+  const baseUrl = "https://in-sync.co.in";
   const cleanPath = path.startsWith('/') ? path : `/${path}`;
   return `${baseUrl}${cleanPath}`;
 };

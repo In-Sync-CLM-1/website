@@ -17,11 +17,10 @@ import { COMPANY } from "@/lib/company";
 const Footer = () => {
   const footerLinks = {
     platform: [
-      { name: "Solutions", href: "/solutions" },
-      { name: "Features", href: "/features" },
-      { name: "Integrations", href: "/integrations" },
+      { name: "All Products", href: "/solutions" },
       { name: "Pricing", href: "/pricing" },
-      { name: "Use Cases", href: "/use-cases" },
+      { name: "Partnership", href: "/partnership" },
+      { name: "Resources", href: "/resources" },
       { name: "FAQ", href: "/faq" }
     ],
     solutions: [
@@ -42,18 +41,19 @@ const Footer = () => {
       { name: "FAQs", href: "/resources?tab=faqs" }
     ],
     products: [
-      { name: "EventSync", href: "/products/eventsync" },
+      { name: "In-Sync CRM", href: "/products/crm" },
+      { name: "WhatsApp Campaigns", href: "/products/whatsapp-campaigns" },
       { name: "Email Broadcast", href: "/products/email-broadcast" },
+      { name: "EventSync", href: "/products/eventsync" },
       { name: "Field-Sync", href: "/products/field-sync" },
+      { name: "Work-Sync", href: "/products/worksync" },
+      { name: "Expense Claims", href: "/products/expense" },
+      { name: "Vendor Verification", href: "/products/vendor-verification" },
       { name: "In-Sync ATS", href: "/products/ats" },
       { name: "Paisaa Saarthi LOS", href: "/products/paisaa-saarthi" },
-      { name: "Expense Claims", href: "/products/expense" },
-      { name: "WhatsApp Campaigns", href: "/products/whatsapp-campaigns" },
-      { name: "Work-Sync", href: "/products/worksync" },
     ],
     company: [
       { name: "Partnership", href: "/partnership" },
-      { name: "Features", href: "/features" },
       { name: "Resources", href: "/resources" }
     ]
   };
@@ -79,7 +79,7 @@ const Footer = () => {
               <img src={insyncLogo} alt="In-Sync" className="h-12 w-auto brightness-0 invert" />
             </div>
             <p className="text-white/80 mb-8 leading-relaxed max-w-sm font-body text-base">
-              Making work life better with smart CRM that actually works. No fancy jargon, just results.
+              Ten focused apps — CRM, campaigns, events, field force, recruitment, and more — on one platform built for growing Indian businesses.
             </p>
 
             {/* Contact Information */}

@@ -6,7 +6,7 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://in-sync-crm.com/</loc>
+    <loc>https://in-sync.co.in/</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
@@ -14,49 +14,49 @@
 
   <!-- Main Pages -->
   <url>
-    <loc>https://in-sync-crm.com/features</loc>
+    <loc>https://in-sync.co.in/features</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/pricing</loc>
+    <loc>https://in-sync.co.in/pricing</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries</loc>
+    <loc>https://in-sync.co.in/industries</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/resources</loc>
+    <loc>https://in-sync.co.in/resources</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/integrations</loc>
+    <loc>https://in-sync.co.in/integrations</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/use-cases</loc>
+    <loc>https://in-sync.co.in/use-cases</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/partnership</loc>
+    <loc>https://in-sync.co.in/partnership</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -64,56 +64,56 @@
 
   <!-- Industry Pages -->
   <url>
-    <loc>https://in-sync-crm.com/industries/healthcare-life-sciences</loc>
+    <loc>https://in-sync.co.in/industries/healthcare-life-sciences</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries/financial-services</loc>
+    <loc>https://in-sync.co.in/industries/financial-services</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries/manufacturing</loc>
+    <loc>https://in-sync.co.in/industries/manufacturing</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries/real-estate</loc>
+    <loc>https://in-sync.co.in/industries/real-estate</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries/technology-saas</loc>
+    <loc>https://in-sync.co.in/industries/technology-saas</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries/professional-services</loc>
+    <loc>https://in-sync.co.in/industries/professional-services</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries/education</loc>
+    <loc>https://in-sync.co.in/industries/education</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/industries/retail-ecommerce</loc>
+    <loc>https://in-sync.co.in/industries/retail-ecommerce</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
@@ -121,21 +121,21 @@
 
   <!-- Legal Pages -->
   <url>
-    <loc>https://in-sync-crm.com/privacy</loc>
+    <loc>https://in-sync.co.in/privacy</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/terms</loc>
+    <loc>https://in-sync.co.in/terms</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://in-sync-crm.com/cookies</loc>
+    <loc>https://in-sync.co.in/cookies</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
@@ -143,10 +143,80 @@
 
   <!-- FAQ Page -->
   <url>
-    <loc>https://in-sync-crm.com/faq</loc>
+    <loc>https://in-sync.co.in/faq</loc>
     <lastmod>2025-09-29</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+
+  <!-- Products Overview -->
+  <url>
+    <loc>https://in-sync.co.in/solutions</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Product Pages -->
+  <url>
+    <loc>https://in-sync.co.in/products/crm</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/whatsapp-campaigns</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/email-broadcast</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/eventsync</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/field-sync</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/worksync</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/expense</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/vendor-verification</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/ats</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://in-sync.co.in/products/paisaa-saarthi</loc>
+    <lastmod>2026-07-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>

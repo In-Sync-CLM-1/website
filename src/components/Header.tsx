@@ -9,11 +9,8 @@ export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navigation = [
-    { name: "Solutions", href: "/solutions" },
-    { name: "Features", href: "/features" },
+    { name: "Products", href: "/solutions" },
     { name: "Industries", href: "/industries" },
-    { name: "Use Cases", href: "/use-cases" },
-    { name: "Integrations", href: "/integrations" },
     { name: "Pricing", href: "/pricing" },
     { name: "Partnership", href: "/partnership" },
     { name: "Resources", href: "/resources" },
@@ -47,16 +44,6 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center space-x-3">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="font-semibold text-foreground/70 hover:text-primary hover:bg-primary/5"
-              asChild
-            >
-              <a href="https://crm.in-sync.co.in/login" target="_blank" rel="noopener noreferrer">
-                CRM
-              </a>
-            </Button>
             <DemoRequestModal trigger={
               <Button variant="default" size="sm" className="font-semibold btn-glow rounded-lg">
                 Request Demo
@@ -90,16 +77,6 @@ export default function Header() {
                 </Link>
               ))}
               <div className="flex flex-col space-y-2 pt-4 border-t border-border/50 mt-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="w-full font-semibold"
-                  asChild
-                >
-                  <a href="https://crm.in-sync.co.in/login" target="_blank" rel="noopener noreferrer">
-                    CRM
-                  </a>
-                </Button>
                 <DemoRequestModal trigger={
                   <Button variant="default" size="sm" className="w-full btn-glow">
                     Request Demo

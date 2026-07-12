@@ -37,4 +37,4 @@ Disallow: /*.json$
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://in-sync-crm.com/sitemap.xml
+Sitemap: https://in-sync.co.in/sitemap.xml

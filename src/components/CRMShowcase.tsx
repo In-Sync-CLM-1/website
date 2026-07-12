@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Play, TrendingUp, Users, Clock, Phone, MessageSquare, Mail, Bot, Target, Headphones } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Play, TrendingUp, Users, Clock, Phone, MessageSquare, Mail, Bot, Target, Headphones, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -108,15 +109,15 @@ const CRMShowcase = () => {
         
         {/* Header */}
         <div className="text-center mb-16">
+          <p className="text-sm font-semibold uppercase tracking-widest text-accent mb-3">The Flagship</p>
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
-            See{" "}
+            Most teams start with{" "}
             <span className="text-primary">
               In-Sync CRM
-            </span>{" "}
-            Transform Your Business
+            </span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            Experience the complete customer management solution that helps thousands of businesses grow faster and serve customers better.
+            Pipeline, campaigns, calling, and AI lead scoring in one place — the product our customers adopt first, and the backbone the rest of the platform connects to.
           </p>
         </div>
 
@@ -129,7 +130,7 @@ const CRMShowcase = () => {
               <div>
                 <h3 className="text-2xl font-semibold mb-4">Real Results for Real Businesses</h3>
                 <p className="text-muted-foreground mb-8">
-                  Join thousands of companies already using In-Sync CRM to streamline operations, 
+                  Growing businesses across India use In-Sync CRM to streamline operations,
                   boost sales, and deliver exceptional customer experiences.
                 </p>
               </div>
@@ -155,9 +156,11 @@ const CRMShowcase = () => {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                <Button size="lg" className="hover-scale">
-                  <Play className="w-4 h-4 mr-2" />
-                  Watch Live Demo
+                <Button size="lg" className="hover-scale" asChild>
+                  <Link to="/products/crm">
+                    Explore In-Sync CRM
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -233,8 +236,8 @@ const CRMShowcase = () => {
               </div>
 
               <div className="absolute -top-6 -right-6 bg-card border rounded-xl p-4 shadow-lg">
-                <div className="text-2xl font-bold text-primary">10,000+</div>
-                <div className="text-sm text-muted-foreground">Happy Businesses</div>
+                <div className="text-2xl font-bold text-primary">50,000+</div>
+                <div className="text-sm text-muted-foreground">Contacts Managed</div>
               </div>
             </div>
 

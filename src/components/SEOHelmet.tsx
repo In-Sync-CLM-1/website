@@ -17,7 +17,7 @@ export const SEOHelmet: React.FC<SEOHelmetProps> = ({ config, children }) => {
     keywords,
     canonical,
     ogType = 'website',
-    ogImage = 'https://in-sync-crm.com/og-default.jpg',
+    ogImage = 'https://in-sync.co.in/og-default.jpg',
     twitterCard = 'summary_large_image',
     noindex,
     nofollow,

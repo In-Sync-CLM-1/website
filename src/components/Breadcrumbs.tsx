@@ -26,7 +26,7 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' 
 
   const structuredData = getBreadcrumbSchema(allItems.map(item => ({
     name: item.name,
-    url: `https://in-sync-crm.com${item.url}`
+    url: `https://in-sync.co.in${item.url}`
   })));
 
   return (
