@@ -245,6 +245,7 @@ const Footer = () => {
                   <Link to="/refund" className="hover:text-accent transition-colors">Refund Policy</Link>
                   <Link to="/shipping" className="hover:text-accent transition-colors">Shipping Policy</Link>
                   <Link to="/cookies" className="hover:text-accent transition-colors">Cookie Policy</Link>
+                  <Link to="/data-deletion" className="hover:text-accent transition-colors">Data Deletion</Link>
                   <Link to="/contact-us" className="hover:text-accent transition-colors">Contact Us</Link>
                 </div>
               </div>

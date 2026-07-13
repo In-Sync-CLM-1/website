@@ -25,6 +25,7 @@ import Partnership from "./pages/Partnership";
 import BlogPost from "./pages/BlogPost";
 import Cookies from "./pages/Cookies";
 import Privacy from "./pages/Privacy";
+import DataDeletion from "./pages/DataDeletion";
 import Terms from "./pages/Terms";
 import Refund from "./pages/Refund";
 import Shipping from "./pages/Shipping";
@@ -86,6 +87,7 @@ const App = () => (
           <Route path="/partnership" element={<Partnership />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/data-deletion" element={<DataDeletion />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/refund" element={<Refund />} />
           <Route path="/shipping" element={<Shipping />} />
