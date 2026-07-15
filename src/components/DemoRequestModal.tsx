@@ -46,6 +46,22 @@ const productOptions = [
   "Work-Sync — Task Management",
 ];
 
+// Routes each display option to the crm/globalcrm lead-routing key
+// (lead_assignment_rules.product). Must stay in sync with that table.
+const productRoutingKey: Record<string, string> = {
+  "General / Not sure yet": "General",
+  "In-Sync CRM — Sales Pipeline & Campaigns": "Globalcrm",
+  "Vendor Verification — Financial Due Diligence": "Vendorverification",
+  "EventSync — Event Management": "Eventsync",
+  "Email Broadcast": "Email",
+  "Field-Sync — Field Force Management": "Fieldsync",
+  "In-Sync ATS — Recruitment": "Ats",
+  "Paisaa Saarthi — Loan Origination": "Paisaasaarthi",
+  "Expense Claims": "Expense",
+  "WhatsApp Campaigns": "Whatsapp",
+  "Work-Sync — Task Management": "Worksync",
+};
+
 const problemOptions = [
   "Sales Monitoring",
   "Operation Efficiency", 
@@ -119,7 +135,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          product: 'In-Sync CRM',
+          product: productRoutingKey[data.productInterest || ''] || 'General',
           name: data.name,
           phone: data.phone,
           email: data.email,
