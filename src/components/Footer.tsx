@@ -1,10 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Link } from "react-router-dom";
-import { 
-  Linkedin, 
-  Twitter, 
+import {
+  Linkedin,
+  Twitter,
   Youtube,
+  Facebook,
+  Instagram,
   ArrowRight,
   Mail,
   Phone,
@@ -106,15 +108,19 @@ const Footer = () => {
 
             {/* Social Links */}
             <div className="flex gap-3">
-              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-white/10 hover:bg-accent/20 text-white hover:text-accent transition-all duration-300 hover:scale-110">
-                <Linkedin className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-white/10 hover:bg-accent/20 text-white hover:text-accent transition-all duration-300 hover:scale-110">
-                <Twitter className="h-4 w-4" />
-              </Button>
-              <Button size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-white/10 hover:bg-accent/20 text-white hover:text-accent transition-all duration-300 hover:scale-110">
-                <Youtube className="h-4 w-4" />
-              </Button>
+              {[
+                { href: "https://www.linkedin.com/company/35932282", label: "In-Sync on LinkedIn", Icon: Linkedin },
+                { href: "https://www.facebook.com/887430171125971", label: "In-Sync on Facebook", Icon: Facebook },
+                { href: "https://www.instagram.com/insyncclm", label: "In-Sync on Instagram", Icon: Instagram },
+                { href: "https://www.youtube.com/channel/UCiqsoz-ce9UxWWCf5wCOFKg", label: "In-Sync on YouTube", Icon: Youtube },
+                { href: "https://x.com/insyncclm", label: "In-Sync on X", Icon: Twitter },
+              ].map(({ href, label, Icon }) => (
+                <Button key={href} asChild size="sm" variant="ghost" className="w-10 h-10 p-0 rounded-xl bg-white/10 hover:bg-accent/20 text-white hover:text-accent transition-all duration-300 hover:scale-110">
+                  <a href={href} target="_blank" rel="noreferrer" aria-label={label}>
+                    <Icon className="h-4 w-4" />
+                  </a>
+                </Button>
+              ))}
             </div>
           </div>
 
