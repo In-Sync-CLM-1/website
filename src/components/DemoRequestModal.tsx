@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
 import { X } from "lucide-react";
+import { pixelLead } from "@/lib/metaPixel";
 
 const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
@@ -153,6 +154,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
+      pixelLead(data.productInterest || 'General', 'demo_request_modal');
       setIsSubmitted(true);
       toast({
         title: "Success",

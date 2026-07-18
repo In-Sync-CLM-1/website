@@ -42,14 +42,25 @@ import WorkSyncPage from "./pages/products/WorkSync";
 import GlobalCRMPage from "./pages/products/GlobalCRM";
 import VendorVerificationPage from "./pages/products/VendorVerification";
 import Solutions from "./pages/Solutions";
-import { type ReactNode } from "react";
+import { type ReactNode, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { pixelPageView } from "./lib/metaPixel";
 
 const queryClient = new QueryClient();
 
 function SiteShell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation();
   const isProductPage = pathname.startsWith('/products/');
+  // SPA route changes don't reload index.html, so the Pixel's initial
+  // PageView only covers the first page — re-fire on navigation.
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false;
+      return;
+    }
+    pixelPageView();
+  }, [pathname]);
   return (
     <>
       {!isProductPage && <Header />}

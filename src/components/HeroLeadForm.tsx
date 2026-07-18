@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { getAttribution } from '@/lib/attribution';
+import { pixelLead } from '@/lib/metaPixel';
 
 const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
@@ -72,6 +73,7 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
         });
         gtag('event', 'conversion_event_submit_lead_form');
       }
+      pixelLead(product, 'hero_inline_demo');
       setDone(true);
     } catch {
       toast.error('Something went wrong. Please try again, or email us at delight@in-sync.co.in.');
