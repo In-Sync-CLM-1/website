@@ -14,9 +14,9 @@ const data: ProductPageData = {
   headline1: 'Your team spent.',
   headline2: 'Do you know what was approved vs what wasn\'t?',
   description:
-    'Employee expense claim management with multi-level approvals, receipt capture, and auto-notifications. Multi-tenant, OTP-based onboarding, and PWA so your field teams can submit claims from the road.',
+    'Employee expense claim management with multi-level approvals, AI receipt capture, and auto-notifications. Multi-tenant, OTP-based onboarding, and PWA so your field teams can submit claims from the road.',
   heroBadges: [
-    { icon: Receipt, label: 'Receipt capture', color: 'text-rose-500' },
+    { icon: Receipt, label: 'AI receipt capture', color: 'text-rose-500' },
     { icon: CheckCircle, label: 'Multi-level approvals', color: 'text-pink-500' },
     { icon: Bell, label: 'Auto-notifications', color: 'text-red-500' },
   ],
@@ -49,7 +49,7 @@ const data: ProductPageData = {
   problemIntro:
     'Most companies run expense management over WhatsApp and Excel. Expense Claims gives every rupee a workflow — submitted, reviewed, approved, and reimbursed with a full audit trail.',
   howItWorks: [
-    { step: 1, title: 'Submit', desc: 'Employee opens the PWA on their phone, fills the claim, and attaches a photo of the receipt. Done in 2 minutes.', icon: Receipt },
+    { step: 1, title: 'Submit', desc: 'Employee opens the PWA on their phone and photographs the receipt — AI reads the amount, date, and category and fills the claim. Done in a minute.', icon: Receipt },
     { step: 2, title: 'Review', desc: 'Approver gets an email notification instantly. Approve, reject, or query from their phone without logging in.', icon: CheckCircle },
     { step: 3, title: 'Approve', desc: 'Multi-level approval chains route the claim to the right person at each stage automatically.', icon: Layers },
     { step: 4, title: 'Reimburse', desc: 'Finance marks claims as paid. Employees notified. Full audit log retained for every transaction.', icon: CreditCard },
@@ -57,7 +57,7 @@ const data: ProductPageData = {
   howItWorksHeadline: 'Submit → Review → Approve →',
   howItWorksFlow: 'Reimburse',
   features: [
-    { icon: Receipt, title: 'Mobile Receipt Capture', desc: 'PWA camera integration — photograph the receipt, fill amount and category, submit. Works offline, syncs on signal.', gradient: 'from-rose-500/10 to-pink-500/10' },
+    { icon: Receipt, title: 'AI Receipt Capture', desc: 'PWA camera integration — photograph the receipt and AI reads the amount, date, and category, filling the claim for you. Works offline, syncs on signal.', gradient: 'from-rose-500/10 to-pink-500/10' },
     { icon: Layers, title: 'Multi-Level Approval Workflows', desc: 'Configurable approval chains by department, amount, or category. No more email chains — structured routing.', gradient: 'from-violet-500/10 to-purple-500/10' },
     { icon: Bell, title: 'Transactional Email Notifications', desc: 'Approvers notified on submission. Employees notified on approval or rejection. All powered by Resend.', gradient: 'from-blue-500/10 to-indigo-500/10' },
     { icon: Shield, title: 'Policy Enforcement', desc: 'Per-category limits, max claim amounts, and mandatory fields enforced at submission — not discovered at audit.', gradient: 'from-emerald-500/10 to-green-500/10' },
