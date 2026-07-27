@@ -23,7 +23,7 @@ export default function RazorpayPayNowButton({ className }: { className?: string
       data-url="https://pages.razorpay.com/pl_TISeIrLPj3DG2I/view"
       data-text="Pay Now"
       data-color="#528FF0"
-      data-size="large"
+      data-size="small"
     />
   );
 }
