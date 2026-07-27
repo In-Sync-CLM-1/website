@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import insyncLogo from "@/assets/insync-logo-color.png";
 import DemoRequestModal from "./DemoRequestModal";
+import RazorpayPayNowButton from "./RazorpayPayNowButton";
 
 export default function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -44,6 +45,7 @@ export default function Header() {
 
           {/* Desktop CTAs */}
           <div className="hidden lg:flex items-center space-x-3">
+            <RazorpayPayNowButton />
             <DemoRequestModal trigger={
               <Button variant="default" size="sm" className="font-semibold btn-glow rounded-lg">
                 Request Demo
@@ -82,6 +84,7 @@ export default function Header() {
                     Request Demo
                   </Button>
                 } />
+                <RazorpayPayNowButton />
               </div>
             </nav>
           </div>

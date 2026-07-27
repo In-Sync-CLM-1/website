@@ -5,6 +5,7 @@ import { Star, AlertTriangle, Sparkles, Play, LucideIcon } from 'lucide-react';
 import { HeroLeadForm } from '@/components/HeroLeadForm';
 import { LogoMarquee } from '@/components/LogoMarquee';
 import { captureAttribution } from '@/lib/attribution';
+import RazorpayPayNowButton from '@/components/RazorpayPayNowButton';
 
 /* ── Types ─────────────────────────────────── */
 
@@ -186,6 +187,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             ))}
           </nav>
           <div className="flex items-center gap-4">
+            <RazorpayPayNowButton />
             <Link
               to="/"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
