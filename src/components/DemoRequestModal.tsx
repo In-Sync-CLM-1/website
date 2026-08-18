@@ -12,6 +12,7 @@ import { z } from "zod";
 import { toast } from "@/hooks/use-toast";
 import { X } from "lucide-react";
 import { pixelLead } from "@/lib/metaPixel";
+import { adsLeadConversion } from "@/lib/googleAds";
 
 const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
@@ -154,6 +155,7 @@ const DemoRequestModal = ({ trigger }: DemoRequestModalProps) => {
 
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
+      adsLeadConversion();
       pixelLead(data.productInterest || 'General', 'demo_request_modal');
       setIsSubmitted(true);
       toast({
