@@ -1,6 +1,12 @@
+import { useEffect } from 'react';
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
 import { WorkSyncScene, WorkSyncFloats } from '@/components/heroScenes';
 import { Phone, Mail, Shield, CheckCircle, BarChart3, Bell, Flag, Users, Clock, Sparkles } from 'lucide-react';
+import { loadClarity } from '@/lib/clarity';
+
+// Records mouse/scroll/click behaviour on this page only, so ad-traffic drop-off
+// analysis stays scoped to Work-Sync and isn't mixed with the other product pages.
+const CLARITY_PROJECT_ID = 'wcnm558k89';
 
 const data: ProductPageData = {
   productKey: 'WorkSync',
@@ -93,5 +99,6 @@ const data: ProductPageData = {
 };
 
 export default function WorkSyncPage() {
+  useEffect(() => { loadClarity(CLARITY_PROJECT_ID); }, []);
   return <ProductLanding data={data} />;
 }
