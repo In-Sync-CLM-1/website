@@ -9,6 +9,18 @@ import { adsLeadConversion } from '@/lib/googleAds';
 
 const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
+const FREE_EMAIL_DOMAINS = new Set([
+  'gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.co.in', 'ymail.com',
+  'hotmail.com', 'outlook.com', 'live.com', 'msn.com', 'icloud.com', 'me.com',
+  'rediffmail.com', 'aol.com', 'protonmail.com', 'proton.me', 'gmx.com', 'yandex.com', 'mail.com',
+]);
+
+const isValidPhone = (v: string) => /^[6-9]\d{9}$/.test(v.replace(/\D/g, ''));
+const isWorkEmail = (v: string) => {
+  const domain = v.trim().toLowerCase().split('@')[1];
+  return !!domain && !FREE_EMAIL_DOMAINS.has(domain);
+};
+
 const DESIGNATIONS = [
   'Founder / Owner / Director',
   'CXO / VP / Head of Department',
@@ -40,6 +52,14 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
     e.preventDefault();
     if (!form.name.trim() || !form.phone.trim() || !form.email.trim()) {
       toast.error('Please add your name, phone number and email.');
+      return;
+    }
+    if (!isValidPhone(form.phone)) {
+      toast.error('Please enter a valid 10-digit mobile number.');
+      return;
+    }
+    if (!isWorkEmail(form.email)) {
+      toast.error('Please use your work email address, not a personal Gmail/Yahoo one.');
       return;
     }
     setSubmitting(true);
@@ -107,10 +127,11 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
       <form onSubmit={submit} className="mt-4 space-y-3">
         <Input placeholder="Your name *" value={form.name} onChange={field('name')} required />
         <Input
-          placeholder="Phone *"
+          placeholder="10-digit mobile *"
           value={form.phone}
-          onChange={field('phone')}
+          onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value.replace(/\D/g, '').slice(0, 10) }))}
           inputMode="tel"
+          maxLength={10}
           required
         />
         <Input

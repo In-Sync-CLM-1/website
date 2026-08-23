@@ -231,8 +231,8 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
         {heroBackdrop}
 
         <div id="demo-form" className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
-          {/* Left pitch */}
-          <div className="text-center lg:text-left">
+          {/* Left pitch — shown second on mobile so the demo form is the first thing visible without scrolling (most ad traffic is mobile) */}
+          <div className="order-2 lg:order-1 text-center lg:text-left">
             <motion.div
               initial={{ opacity: 0, scale: 0.85, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -306,12 +306,12 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
             </motion.div>
           </div>
 
-          {/* Right: inline demo form + floating product cards */}
+          {/* Right: inline demo form + floating product cards — first on mobile */}
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.55, delay: 0.4 }}
-            className="relative mx-auto w-full max-w-md lg:mx-0"
+            className="order-1 lg:order-2 relative mx-auto w-full max-w-md lg:mx-0"
           >
             <div className="rounded-2xl shadow-2xl ring-1 ring-white/30">
               <HeroLeadForm
