@@ -41,29 +41,28 @@ function loadScript(): Promise<void> {
 
 /** Returns a fresh token for this submission, or null if Turnstile isn't
  * configured or fails to load — callers should treat null as "couldn't
- * check this one" and submit anyway, not as a block. Renders into a detached
- * (never-appended) container since invisible mode has nothing to show. */
+ * check this one" and submit anyway, not as a block. The container must
+ * actually be in the DOM for Turnstile to run its checks (a detached element
+ * silently never fires any callback) — invisible mode just means nothing is
+ * rendered to look at, not that the element can be left unattached. */
 export async function getTurnstileToken(): Promise<string | null> {
   if (!SITE_KEY) return null;
   try {
     await loadScript();
     if (!window.turnstile) return null;
+    const container = document.createElement('div');
+    container.style.cssText = 'position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden';
+    document.body.appendChild(container);
+    const cleanup = (widgetId: string) => {
+      window.turnstile!.remove(widgetId);
+      container.remove();
+    };
     return await new Promise<string>((resolve, reject) => {
-      const container = document.createElement('div');
       const widgetId = window.turnstile!.render(container, {
         sitekey: SITE_KEY,
-        callback: (token) => {
-          window.turnstile!.remove(widgetId);
-          resolve(token);
-        },
-        'error-callback': () => {
-          window.turnstile!.remove(widgetId);
-          reject(new Error('Turnstile error'));
-        },
-        'expired-callback': () => {
-          window.turnstile!.remove(widgetId);
-          reject(new Error('Turnstile token expired before use'));
-        },
+        callback: (token) => { cleanup(widgetId); resolve(token); },
+        'error-callback': () => { cleanup(widgetId); reject(new Error('Turnstile error')); },
+        'expired-callback': () => { cleanup(widgetId); reject(new Error('Turnstile token expired before use')); },
       });
     });
   } catch {
