@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { getAttribution } from '@/lib/attribution';
 import { pixelLead } from '@/lib/metaPixel';
 import { adsLeadConversion } from '@/lib/googleAds';
-import { getRecaptchaToken } from '@/lib/recaptcha';
+import { getTurnstileToken } from '@/lib/turnstile';
 
 const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
@@ -74,10 +74,10 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
     setSubmitting(true);
     try {
       const attr = getAttribution();
-      // Invisible — no challenge, no friction. Resolves to null if reCAPTCHA
+      // Invisible — no challenge, no friction. Resolves to null if Turnstile
       // isn't configured yet or fails to load; the backend treats a missing
-      // token as "can't score it" rather than blocking the lead.
-      const recaptchaToken = await getRecaptchaToken('lead_submit');
+      // token as "can't check it" rather than blocking the lead.
+      const turnstileToken = await getTurnstileToken();
       const res = await fetch(INTAKE_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -89,7 +89,7 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
           company: form.company,
           designation: form.designation,
           _hp: form._hp,
-          recaptcha_token: recaptchaToken,
+          turnstile_token: turnstileToken,
           gclid: attr.gclid,
           utm_source: attr.utm_source,
           utm_medium: attr.utm_medium,
