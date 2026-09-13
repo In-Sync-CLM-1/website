@@ -14,11 +14,23 @@
 // This script runs after `vite build`: serves the built dist/ locally,
 // visits each real route in a headless browser so SEOHelmet has injected
 // its per-route tags, captures the fully-rendered HTML, and writes it to
-// dist/<route>/index.html. Cloudflare Pages serves an exact static file
-// match before falling back to _redirects' wildcard rule, so each of these
-// routes now serves REAL per-route tags directly, no JS execution required.
-// React still hydrates over this HTML for real visitors exactly as before —
-// this only changes what's in the initial HTML payload, not the app.
+// dist/<route>.html (flat file, NOT dist/<route>/index.html). Cloudflare
+// Pages serves an exact static file match before falling back to
+// _redirects' wildcard rule, so each of these routes now serves REAL
+// per-route tags directly, no JS execution required. React still hydrates
+// over this HTML for real visitors exactly as before — this only changes
+// what's in the initial HTML payload, not the app.
+//
+// Flat filename matters: writing dist/products/worksync/index.html made
+// Cloudflare Pages 308-redirect the canonical URL (/products/worksync,
+// no trailing slash — the one in every canonical tag, Ads URL, and
+// internal link) to /products/worksync/ before serving content. That's a
+// canonical pointing at a URL that immediately redirects away from
+// itself, which Google explicitly flags as a bad signal. Verified live
+// 2026-09-13: `curl -A Googlebot https://in-sync.co.in/products/worksync`
+// returned a bare 308 with no body; only -L (follow redirects) showed the
+// tags. Naming the file dist/products/worksync.html instead makes
+// Cloudflare Pages match it directly with no redirect at all.
 import { preview } from 'vite';
 import { chromium } from 'playwright';
 import fs from 'node:fs';
@@ -70,10 +82,10 @@ async function main() {
       }
 
       const html = '<!doctype html>\n' + (await page.content());
-      const outDir = route === '/' ? 'dist' : path.join('dist', route);
-      fs.mkdirSync(outDir, { recursive: true });
-      fs.writeFileSync(path.join(outDir, 'index.html'), html, 'utf8');
-      console.log(`[prerender] ${route} -> ${path.join(outDir, 'index.html')} (canonical: ${canonical})`);
+      const outFile = route === '/' ? path.join('dist', 'index.html') : path.join('dist', `${route}.html`);
+      fs.mkdirSync(path.dirname(outFile), { recursive: true });
+      fs.writeFileSync(outFile, html, 'utf8');
+      console.log(`[prerender] ${route} -> ${outFile} (canonical: ${canonical})`);
     } catch (e) {
       console.error(`[prerender] FAILED ${route}:`, e instanceof Error ? e.message : String(e));
       failed++;
