@@ -56,7 +56,7 @@ const data: ProductPageData = {
   problemHeadline1: 'Tasks given.',
   problemHeadline2: 'Tasks forgotten.',
   problemIntro:
-    'In most Indian teams, task assignment happens over calls, WhatsApp, or verbal instructions. There\'s no system, no tracking, and no accountability. Work-Sync fixes that.',
+    'In most teams, task assignment happens over calls, WhatsApp, or verbal instructions. There\'s no system, no tracking, and no accountability. Work-Sync fixes that.',
   howItWorks: [
     { step: 1, title: 'Assign', desc: 'Create a task with deadline, priority, and assignee. Instant WhatsApp + email notification sent automatically.', icon: Flag },
     { step: 2, title: 'Notify', desc: 'Assignee gets notified on WhatsApp and email. No more "I didn\'t know about it."', icon: Bell },
@@ -67,7 +67,7 @@ const data: ProductPageData = {
   howItWorksFlow: 'Confirm',
   features: [
     { icon: Phone, title: 'WhatsApp Alerts', desc: 'Instant task notifications on WhatsApp at every lifecycle stage — the one accountability weapon most task trackers cannot match.', gradient: 'from-emerald-500/10 to-green-500/10' },
-    { icon: CheckCircle, title: 'Satisfaction Confirmation', desc: 'The task giver signs off on completion quality. "Done" is not done until the assigner confirms. No competitor has this.', gradient: 'from-violet-500/10 to-purple-500/10' },
+    { icon: CheckCircle, title: 'Satisfaction Confirmation', desc: 'The task giver signs off on completion quality. "Done" is not done until the assigner confirms. Most task trackers stop at "marked complete".', gradient: 'from-violet-500/10 to-purple-500/10' },
     { icon: Shield, title: 'Designation Hierarchy', desc: 'MD → VP → Manager → Executive. Approval chains that match your org structure, however many levels you run.', gradient: 'from-sky-500/10 to-blue-500/10' },
     { icon: Mail, title: 'Email + WhatsApp Fallback', desc: 'WhatsApp from wallet. Wallet empty? Notifications fall back to email automatically — no disruption, no surprise charges.', gradient: 'from-amber-500/10 to-orange-500/10' },
     { icon: Sparkles, title: 'AI Insights', desc: 'Smart analysis of overdue rates, workload imbalance, bottlenecks, and performer rankings across your team.', gradient: 'from-rose-500/10 to-pink-500/10' },
@@ -78,7 +78,7 @@ const data: ProductPageData = {
   featuresSubtext: 'WhatsApp-first notifications, designation hierarchies, and sign-off confirmation on every completed task.',
   stats: [
     { target: 5000, label: 'Tasks Tracked Daily' },
-    { target: 200, label: 'Teams Active' },
+    { target: 100, label: 'Teams Active' },
     { target: 99.9, suffix: '%', label: 'Uptime' },
     { target: 50, label: 'Cities' },
   ],

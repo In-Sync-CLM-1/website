@@ -130,7 +130,25 @@ async function main() {
           await new Promise((r) => setTimeout(r, delay));
         }
       });
-      await page.waitForTimeout(1500);
+      // Poll the counters' own settled signal instead of trusting a fixed
+      // delay. The count-up interval runs inside the captured page, so a
+      // slow/contended host can stretch its nominal ~1200ms run time well
+      // past any fixed wait picked here — verified live 2026-09-13, a
+      // 1500ms flat wait still froze all four stats at 0 on a loaded
+      // machine. waitForFunction returns immediately once every counter
+      // (if any) has settled, and the try/catch means a page that somehow
+      // never settles just proceeds with whatever's rendered after the
+      // timeout, rather than failing the whole build over one stat.
+      try {
+        await page.waitForFunction(
+          () => Array.from(document.querySelectorAll('[data-counter-settled]')).every(
+            (el) => el.getAttribute('data-counter-settled') === 'true',
+          ),
+          { timeout: 8000 },
+        );
+      } catch {
+        console.warn(`[prerender] ${route}: counters did not settle within 8s, capturing as-is`);
+      }
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 
       const canonical = await page.$eval('link[rel="canonical"]', (el) => el.href).catch(() => null);
