@@ -1,4 +1,5 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { EventSyncScene, EventSyncFloats } from '@/components/heroScenes';
 import {
   Calendar, QrCode, Users, BarChart3, MessageSquare, Layers,
@@ -7,6 +8,7 @@ import {
 
 const data: ProductPageData = {
   productKey: 'EventSync',
+  seo: defaultSEOConfig.eventSync,
   productName: 'EventSync',
   demoUrl: 'https://event-sync.pages.dev/demo',
   heroBackdrop: <EventSyncScene />,

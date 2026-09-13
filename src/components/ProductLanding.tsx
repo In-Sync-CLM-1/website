@@ -6,6 +6,8 @@ import { HeroLeadForm } from '@/components/HeroLeadForm';
 import { LogoMarquee } from '@/components/LogoMarquee';
 import { captureAttribution } from '@/lib/attribution';
 import RazorpayPayNowButton from '@/components/RazorpayPayNowButton';
+import SEOHelmet from '@/components/SEOHelmet';
+import type { SEOConfig } from '@/utils/seo';
 
 /* ── Types ─────────────────────────────────── */
 
@@ -62,6 +64,15 @@ export interface ProductTheme {
 export interface ProductPageData {
   productKey: string;
   productName: string;
+  /**
+   * Per-page SEO — title/description/keywords/canonical. Every product page
+   * shares this one render point (ProductLanding), so without this field a
+   * page silently inherits index.html's homepage <title> and canonical
+   * (self-referencing canonical + keyword-matched title is the highest-
+   * impact on-page SEO fix; found 2026-09-13 that ALL 10 product pages had
+   * this gap, not just Work-Sync).
+   */
+  seo: SEOConfig;
   /** Hosted interactive HTML demo of the product (opens in a new tab) */
   demoUrl?: string;
   /** Industry-specific decorative SVG scene layered into the hero */
@@ -162,7 +173,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
   useEffect(() => { captureAttribution(); }, []);
 
   const {
-    productKey, productName, demoUrl, heroBackdrop, heroFloats, navLinks, headline1, headline2, description,
+    productKey, productName, seo, demoUrl, heroBackdrop, heroFloats, navLinks, headline1, headline2, description,
     heroBadges, theme, painPoints, problemHeadline1, problemHeadline2, problemIntro,
     howItWorks, howItWorksHeadline, howItWorksFlow, features, featuresHeadline1,
     featuresHeadline2, featuresSubtext, stats, verticals, testimonial, reviews,
@@ -171,6 +182,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SEOHelmet config={seo} />
 
       {/* ── Header ──────────────────────────── */}
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">

@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { PaisaaScene, PaisaaFloats } from '@/components/heroScenes';
 import { FileText, Shield, CheckCircle, BarChart3, Bell, Layers, Clock, Users, Flag, CreditCard } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'PaisaaSaarthi',
+  seo: defaultSEOConfig.paisaaSaarthi,
   productName: 'Paisaa Saarthi',
   heroBackdrop: <PaisaaScene />,
   heroFloats: <PaisaaFloats />,

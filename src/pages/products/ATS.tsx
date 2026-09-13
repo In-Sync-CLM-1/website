@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { ATSScene, ATSFloats } from '@/components/heroScenes';
 import { Users, FileText, Phone, Shield, BarChart3, CheckCircle, Bell, Layers, Flag, Clock } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'InSyncATS',
+  seo: defaultSEOConfig.ats,
   productName: 'In-Sync ATS',
   demoUrl: 'https://ats-6t2.pages.dev/landing-demo',
   heroBackdrop: <ATSScene />,

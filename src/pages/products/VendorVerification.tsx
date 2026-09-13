@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { VendorScene, VendorFloats } from '@/components/heroScenes';
 import { ShieldCheck, ScanSearch, Brain, AlertTriangle, Workflow, ClipboardCheck, Send, UserCheck, BadgeCheck, FileSearch, Landmark, Clock } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'Vendor Verification',
+  seo: defaultSEOConfig.vendorVerification,
   productName: 'Vendor Verification',
   demoUrl: 'https://vendorverification.in-sync.co.in/walkthrough',
   heroBackdrop: <VendorScene />,

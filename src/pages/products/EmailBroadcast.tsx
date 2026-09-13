@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { EmailScene, EmailFloats } from '@/components/heroScenes';
 import { Mail, BarChart3, Users, Zap, Shield, CheckCircle, Bell, Layers, Flag, Clock } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'EmailBroadcast',
+  seo: defaultSEOConfig.emailBroadcast,
   productName: 'Email Broadcast',
   demoUrl: 'https://email-sync.pages.dev/demo',
   heroBackdrop: <EmailScene />,

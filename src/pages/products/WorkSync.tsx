@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { WorkSyncScene, WorkSyncFloats } from '@/components/heroScenes';
 import { Phone, Mail, Shield, CheckCircle, BarChart3, Bell, Flag, Users, Clock, Sparkles } from 'lucide-react';
 import { loadClarity } from '@/lib/clarity';
@@ -11,6 +12,7 @@ const CLARITY_PROJECT_ID = 'wcnm558k89';
 const data: ProductPageData = {
   productKey: 'WorkSync',
   productName: 'Work-Sync',
+  seo: defaultSEOConfig.worksync,
   demoUrl: 'https://work-sync.pages.dev/demo',
   heroBackdrop: <WorkSyncScene />,
   heroFloats: <WorkSyncFloats />,

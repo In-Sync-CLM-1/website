@@ -28,51 +28,40 @@
     
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <!-- Primary Meta Tags -->
-    <title>In-Sync - Run Your Entire Business on One Platform | India</title>
-    <meta name="title" content="In-Sync - Run Your Entire Business on One Platform | India" />
-    <meta name="description" content="Ten focused apps for growing Indian businesses: CRM, WhatsApp & email campaigns, event management, field force tracking, expense claims, vendor verification, recruitment, and loan origination — on one platform." />
-    <meta name="keywords" content="business software India, CRM software India, WhatsApp campaigns, event management software, field force management, vendor verification, applicant tracking system, loan origination system" />
-    <meta name="author" content="In-Sync" />
+
+    <!--
+      2026-09-13: every title/description/keywords/canonical/og:*/twitter:*/
+      geo tag used to be hardcoded here for the HOMEPAGE, and every route
+      that renders <SEOHelmet> (react-helmet-async) ADDS its own copy of
+      these tags on top rather than replacing them — Helmet only dedupes
+      tags it manages across route changes, it has no way to remove tags
+      that were already in the static HTML before React mounted. Result:
+      every Helmet-covered page (all 10 product pages plus home/features/
+      pricing/industries/resources/solutions) carried TWO of every one of
+      these tags simultaneously, canonical included — confirmed live via a
+      real duplicate-tag count in the rendered DOM. Removed here so
+      SEOHelmet's per-route config is the ONLY source for these; a route
+      with no <SEOHelmet> of its own currently falls back to nothing rather
+      than the (wrong) homepage values — a real gap, but a strictly better
+      one than a broken duplicate canonical, and the fix for it is giving
+      that route its own SEOHelmet, not restoring this block.
+    -->
     <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
-    
-    <!-- Geo Tags -->
-    <meta name="geo.region" content="IN" />
-    <meta name="geo.placename" content="India" />
-    <meta name="geo.position" content="20.5937;78.9629" />
-    <meta name="ICBM" content="20.5937, 78.9629" />
-    
-    <!-- Theme & Design -->
-    <meta name="theme-color" content="#1e40af" />
-    <meta name="format-detection" content="telephone=no" />
-    
+
+    <!-- Bare fallback title only — react-helmet-async DOES correctly replace
+         <title> (the DOM/document.title API is a real singleton, unlike
+         <meta>/<link> tags), so this never duplicates the way the removed
+         tags above did. Still generic/homepage-flavoured because this file
+         is served identically for every route (no SSR) — the per-route
+         title only takes effect after JS hydrates. -->
+    <title>In-Sync - Run Your Entire Business on One Platform | India</title>
+
     <!-- Fonts - Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <!-- Headings: Inter (clean, modern) | Body: Open Sans (highly readable) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://in-sync.co.in/" />
-    <meta property="og:title" content="In-Sync - Run Your Entire Business on One Platform" />
-    <meta property="og:description" content="Ten focused apps for growing Indian businesses: CRM, campaigns, events, field force, expenses, vendor verification, recruitment, and lending — on one platform." />
-    <meta property="og:image" content="https://in-sync.co.in/og-image.jpg" />
-    <meta property="og:site_name" content="In-Sync" />
-    <meta property="og:locale" content="en_IN" />
 
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://in-sync.co.in/" />
-    <meta name="twitter:title" content="In-Sync - One Platform, Ten Products" />
-    <meta name="twitter:description" content="CRM, campaigns, events, field force, expenses, vendor verification, recruitment, and lending — one platform for growing Indian businesses." />
-    <meta name="twitter:image" content="https://in-sync.co.in/twitter-image.jpg" />
-    <meta name="twitter:site" content="@insynccrm" />
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://in-sync.co.in/" />
-    
     <!-- RSS Feed -->
     <link rel="alternate" type="application/rss+xml" title="In-Sync Blog RSS Feed" href="https://upnhhrhobvdmpfnldvgb.supabase.co/functions/v1/rss-feed" />
     
