@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SEOHelmet from "@/components/SEOHelmet";
+import { defaultSEOConfig } from "@/utils/seo";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -27,11 +28,12 @@ const Resources = () => {
 
   return (
     <>
-      <SEOHelmet
-        title="Resources & Blog | In-Sync CRM"
-        description="Insights on CRM, AI, field force management, and sales automation from the In-Sync team."
-        keywords="CRM blog, sales automation, AI CRM, field force management"
-      />
+      {/* Was passing title/description/keywords as bare top-level props —
+          SEOHelmet only reads a `config` object, so this silently rendered
+          with config=undefined and fell through to the homepage canonical.
+          Caught by scripts/prerender.mjs's build-time canonical check,
+          2026-09-13. */}
+      <SEOHelmet config={defaultSEOConfig.resources} />
       <div className="min-h-screen bg-background">
         <div className="bg-primary/5 py-16">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">

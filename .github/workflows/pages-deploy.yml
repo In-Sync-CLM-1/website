@@ -28,6 +28,10 @@ jobs:
           node-version: '22'
           cache: 'npm'
       - run: npm ci
+      # Needed by scripts/prerender.mjs (runs as part of `npm run build`) —
+      # headless Chromium visits each route locally to capture SEOHelmet's
+      # rendered tags into real static HTML before deploy.
+      - run: npx playwright install --with-deps chromium
       # VITE_* values come from the committed .env.production (public keys only)
       - run: npm run build
       - name: Add SPA fallback
