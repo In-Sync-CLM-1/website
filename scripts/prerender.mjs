@@ -109,16 +109,29 @@ async function main() {
       // Scrolling to the bottom fires every observer on the page; the
       // wait after lets each counter's animation actually finish before
       // page.content() captures it.
+      //
+      // `behavior: 'instant'` is load-bearing, not decoration: this site's
+      // CSS sets `html { scroll-behavior: smooth }`, which hijacks every
+      // scrollBy/scrollTo call (including the legacy 2-arg form) into an
+      // animated scroll unless explicitly overridden. Under CI's slower
+      // rendering, repeated smooth-scroll calls every 50ms compounded
+      // into scrolling that never caught up to its target — the build
+      // step hung for 18+ minutes before this fix (two deploys, verified
+      // live 2026-09-13). A hard iteration cap is a second, independent
+      // backstop in case scrollHeight itself changes under us mid-loop.
       await page.evaluate(async () => {
-        const step = 400;
-        const delay = 50;
-        while (window.scrollY + window.innerHeight < document.body.scrollHeight) {
-          window.scrollBy(0, step);
+        const step = 600;
+        const delay = 30;
+        const maxIterations = 200;
+        for (let i = 0; i < maxIterations; i++) {
+          const max = document.body.scrollHeight - window.innerHeight;
+          if (window.scrollY >= max) break;
+          window.scrollTo({ top: Math.min(window.scrollY + step, max), behavior: 'instant' });
           await new Promise((r) => setTimeout(r, delay));
         }
       });
       await page.waitForTimeout(1500);
-      await page.evaluate(() => window.scrollTo(0, 0));
+      await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
 
       const canonical = await page.$eval('link[rel="canonical"]', (el) => el.href).catch(() => null);
       if (!canonical || !canonical.endsWith(route === '/' ? '/' : route)) {
