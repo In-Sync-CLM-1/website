@@ -188,9 +188,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-md">
         <div className="max-w-6xl mx-auto flex items-center justify-between h-16 px-6">
           <Link to="/" className={`flex items-center gap-2 font-bold text-lg ${theme.textAccent}`}>
-            <div className={`h-7 w-7 rounded-lg bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} flex items-center justify-center`}>
-              <Sparkles className="h-4 w-4 text-white" />
-            </div>
+            <img src="/favicon.png" alt="In-Sync" className="h-7 w-auto" />
             <span className="text-foreground">{productName}</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6 text-sm text-muted-foreground">
@@ -621,9 +619,7 @@ export function ProductLanding({ data }: { data: ProductPageData }) {
       <footer className="border-t py-8 px-6">
         <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2 text-sm font-medium">
-            <div className={`h-5 w-5 rounded bg-gradient-to-br ${theme.gradientFrom} ${theme.gradientTo} flex items-center justify-center`}>
-              <Sparkles className="h-3 w-3 text-white" />
-            </div>
+            <img src="/favicon.png" alt="In-Sync" className="h-5 w-auto" />
             <span>{productName}</span>
             <span className="text-muted-foreground">· Part of In-Sync</span>
           </div>
