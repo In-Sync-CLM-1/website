@@ -16,6 +16,8 @@ export const SEOHelmet: React.FC<SEOHelmetProps> = ({ config, children }) => {
     description,
     keywords,
     canonical,
+    ogTitle,
+    ogDescription,
     ogType = 'website',
     ogImage = 'https://in-sync.co.in/og-default.jpg',
     twitterCard = 'summary_large_image',
@@ -23,6 +25,8 @@ export const SEOHelmet: React.FC<SEOHelmetProps> = ({ config, children }) => {
     nofollow,
     structuredData
   } = config;
+  const finalOgTitle = ogTitle || title;
+  const finalOgDescription = ogDescription || description;
 
   const canonicalUrl = canonical || getCanonicalUrl(window.location.pathname);
   const robotsContent = getRobotsContent(noindex, nofollow);
@@ -45,8 +49,8 @@ export const SEOHelmet: React.FC<SEOHelmetProps> = ({ config, children }) => {
       {/* Open Graph / Facebook */}
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonicalUrl} />
-      <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
+      <meta property="og:title" content={finalOgTitle} />
+      <meta property="og:description" content={finalOgDescription} />
       <meta property="og:image" content={ogImage} />
       <meta property="og:site_name" content="In-Sync CRM" />
       <meta property="og:locale" content="en_IN" />
@@ -54,8 +58,8 @@ export const SEOHelmet: React.FC<SEOHelmetProps> = ({ config, children }) => {
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />
       <meta name="twitter:url" content={canonicalUrl} />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
+      <meta name="twitter:title" content={finalOgTitle} />
+      <meta name="twitter:description" content={finalOgDescription} />
       <meta name="twitter:image" content={ogImage} />
       <meta name="twitter:site" content="@insynccrm" />
       <meta name="twitter:creator" content="@insynccrm" />

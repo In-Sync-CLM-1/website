@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { CRMScene, CRMFloats } from '@/components/heroScenes';
 import { Users, Kanban, Mail, MessageSquare, Phone, Brain, UserPlus, Upload, Send, Target, FileSpreadsheet, Bell, EyeOff } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'In-Sync CRM',
+  seo: defaultSEOConfig.crm,
   productName: 'In-Sync CRM',
   demoUrl: 'https://crm.in-sync.co.in/demo',
   heroBackdrop: <CRMScene />,

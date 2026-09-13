@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { ExpenseScene, ExpenseFloats } from '@/components/heroScenes';
 import { Receipt, CheckCircle, Bell, BarChart3, Shield, Layers, Clock, Users, Flag, CreditCard } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'ExpenseClaims',
+  seo: defaultSEOConfig.expense,
   productName: 'Expense Claims',
   heroBackdrop: <ExpenseScene />,
   heroFloats: <ExpenseFloats />,

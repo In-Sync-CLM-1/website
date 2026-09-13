@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { FieldSyncScene, FieldSyncFloats } from '@/components/heroScenes';
 import { MapPin, Wifi, FileText, Clock, BarChart3, Shield, CheckCircle, Bell, Users, Flag } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'FieldSync',
+  seo: defaultSEOConfig.fieldSync,
   productName: 'Field-Sync',
   heroBackdrop: <FieldSyncScene />,
   heroFloats: <FieldSyncFloats />,

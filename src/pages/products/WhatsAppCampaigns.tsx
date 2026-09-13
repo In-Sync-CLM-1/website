@@ -1,9 +1,11 @@
 import { ProductLanding, type ProductPageData } from '@/components/ProductLanding';
+import { defaultSEOConfig } from '@/utils/seo';
 import { WhatsAppScene, WhatsAppFloats } from '@/components/heroScenes';
 import { MessageSquare, BarChart3, CheckCircle, Bell, Shield, Layers, Users, Flag, Phone, Zap } from 'lucide-react';
 
 const data: ProductPageData = {
   productKey: 'WhatsAppCampaigns',
+  seo: defaultSEOConfig.whatsappCampaigns,
   productName: 'WhatsApp Campaigns',
   demoUrl: 'https://wa-sync.pages.dev/demo',
   heroBackdrop: <WhatsAppScene />,
