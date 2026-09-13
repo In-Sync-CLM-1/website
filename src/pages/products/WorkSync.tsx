@@ -79,7 +79,7 @@ const data: ProductPageData = {
   stats: [
     { target: 5000, label: 'Tasks Tracked Daily' },
     { target: 200, label: 'Teams Active' },
-    { target: 99, suffix: '%', label: 'Uptime' },
+    { target: 99.9, suffix: '%', label: 'Uptime' },
     { target: 50, label: 'Cities' },
   ],
   verticals: ['NBFCs', 'DSA Networks', 'Trading Companies', 'Logistics Firms', 'Professional Services', 'Insurance', 'Real Estate', 'EdTech'],

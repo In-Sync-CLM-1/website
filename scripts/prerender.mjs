@@ -98,6 +98,28 @@ async function main() {
       // Small settle window for SEOHelmet's effect + any late-mounted content.
       await page.waitForTimeout(300);
 
+      // Product pages reveal stats/sections via IntersectionObserver
+      // (framer-motion's useInView) and count up numbers with a ~1200ms
+      // setInterval once triggered. A capture with no scroll never fires
+      // those observers for below-the-fold content, so counters freeze at
+      // their initial 0 (or, depending on exact timing, some other
+      // in-progress value) in the static HTML every visitor then loads
+      // first. Verified live 2026-09-13: production was serving "12%
+      // Uptime" — a mid-animation freeze-frame, not the real 99.9% target.
+      // Scrolling to the bottom fires every observer on the page; the
+      // wait after lets each counter's animation actually finish before
+      // page.content() captures it.
+      await page.evaluate(async () => {
+        const step = 400;
+        const delay = 50;
+        while (window.scrollY + window.innerHeight < document.body.scrollHeight) {
+          window.scrollBy(0, step);
+          await new Promise((r) => setTimeout(r, delay));
+        }
+      });
+      await page.waitForTimeout(1500);
+      await page.evaluate(() => window.scrollTo(0, 0));
+
       const canonical = await page.$eval('link[rel="canonical"]', (el) => el.href).catch(() => null);
       if (!canonical || !canonical.endsWith(route === '/' ? '/' : route)) {
         console.error(`[prerender] WRONG or MISSING canonical for ${route}: ${canonical}`);
