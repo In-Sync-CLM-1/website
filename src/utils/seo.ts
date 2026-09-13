@@ -215,7 +215,7 @@ export const defaultSEOConfig: Record<string, SEOConfig> = {
   // traffic.
   worksync: {
     title: "Task Tracking Software for Teams | WorkSync by In-Sync",
-    description: "WorkSync is task tracking and accountability software for Indian teams. Assign tasks, track progress to sign-off, and stop losing work in WhatsApp chats. Book a demo.",
+    description: "WorkSync is task tracking and accountability software for teams with a reporting hierarchy. Assign tasks, track progress to sign-off, and stop losing work in WhatsApp chats. Book a demo.",
     keywords: "task tracking software, task management software for teams, project and task management tools, employee task tracking, whatsapp task tracking",
     canonical: "https://in-sync.co.in/products/worksync",
     ogTitle: "WorkSync — Task Tracking Software for Teams",
