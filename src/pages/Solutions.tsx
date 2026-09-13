@@ -126,7 +126,7 @@ export default function Solutions() {
         config={{
           title: "Solutions | In-Sync",
           description: "Explore In-Sync's suite of products — from CRM and vendor verification to field force tracking, loan origination, and WhatsApp campaigns. One platform, ten focused tools.",
-          canonical: "/solutions",
+          canonical: "https://in-sync.co.in/solutions",
         }}
       />
 
