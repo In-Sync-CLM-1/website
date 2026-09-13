@@ -142,6 +142,7 @@ function Counter({ target, suffix = '+', label, accentClass = '' }: { target: nu
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
   const [display, setDisplay] = useState(0);
+  const [settled, setSettled] = useState(false);
 
   useEffect(() => {
     if (!inView) return;
@@ -151,6 +152,7 @@ function Counter({ target, suffix = '+', label, accentClass = '' }: { target: nu
       current += step;
       if (current >= target) {
         setDisplay(target);
+        setSettled(true);
         clearInterval(id);
       } else {
         setDisplay(current);
@@ -161,7 +163,17 @@ function Counter({ target, suffix = '+', label, accentClass = '' }: { target: nu
 
   return (
     <div ref={ref} className="text-center">
-      <p className={`text-3xl sm:text-4xl font-bold ${accentClass}`}>{display.toLocaleString('en-IN')}{suffix}</p>
+      {/*
+        data-counter-settled: scripts/prerender.mjs polls this instead of a
+        fixed wait. A flat delay after scrolling into view was flaky under
+        variable machine load — the count-up interval runs in the captured
+        page itself, so a slow/contended host can stretch a nominal 1200ms
+        animation well past whatever fixed wait we picked, freezing the
+        static HTML at 0 (verified live 2026-09-13, all four stats). This
+        attribute lets the script wait for the actual, deterministic signal
+        instead of guessing a duration.
+      */}
+      <p data-counter-settled={settled} className={`text-3xl sm:text-4xl font-bold ${accentClass}`}>{display.toLocaleString('en-IN')}{suffix}</p>
       <p className="text-sm text-muted-foreground mt-1">{label}</p>
     </div>
   );
