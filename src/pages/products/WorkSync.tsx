@@ -13,7 +13,7 @@ const data: ProductPageData = {
   productKey: 'WorkSync',
   productName: 'Work-Sync',
   seo: defaultSEOConfig.worksync,
-  demoUrl: 'https://work-sync.pages.dev/demo',
+  demoUrl: 'https://youtu.be/Z70s-hVYp4w',
   heroBackdrop: <WorkSyncScene />,
   heroFloats: <WorkSyncFloats />,
   navLinks: [
@@ -23,7 +23,7 @@ const data: ProductPageData = {
   headline1: 'You gave the task.',
   headline2: 'Do you know if it\'s done?',
   description:
-    'Hierarchical task accountability with WhatsApp + email alerts at every step — built for how Indian teams actually work. Assign, track, and confirm task completion across your full designation hierarchy.',
+    'Hierarchical task accountability with WhatsApp + email alerts at every step. Assign, track, and confirm task completion across your full designation hierarchy.',
   heroBadges: [
     { icon: Phone, label: 'WhatsApp alerts', color: 'text-emerald-500' },
     { icon: Mail, label: 'Email notifications', color: 'text-blue-500' },
@@ -66,16 +66,16 @@ const data: ProductPageData = {
   howItWorksHeadline: 'Assign → Notify → Update →',
   howItWorksFlow: 'Confirm',
   features: [
-    { icon: Phone, title: 'WhatsApp Alerts', desc: 'Instant task notifications on WhatsApp at every lifecycle stage — the one accountability weapon Asana cannot match.', gradient: 'from-emerald-500/10 to-green-500/10' },
+    { icon: Phone, title: 'WhatsApp Alerts', desc: 'Instant task notifications on WhatsApp at every lifecycle stage — the one accountability weapon most task trackers cannot match.', gradient: 'from-emerald-500/10 to-green-500/10' },
     { icon: CheckCircle, title: 'Satisfaction Confirmation', desc: 'The task giver signs off on completion quality. "Done" is not done until the assigner confirms. No competitor has this.', gradient: 'from-violet-500/10 to-purple-500/10' },
-    { icon: Shield, title: 'Designation Hierarchy', desc: 'MD → VP → Manager → Executive. Built for how Indian organisations are actually structured, not flat western teams.', gradient: 'from-sky-500/10 to-blue-500/10' },
+    { icon: Shield, title: 'Designation Hierarchy', desc: 'MD → VP → Manager → Executive. Approval chains that match your org structure, however many levels you run.', gradient: 'from-sky-500/10 to-blue-500/10' },
     { icon: Mail, title: 'Email + WhatsApp Fallback', desc: 'WhatsApp from wallet. Wallet empty? Notifications fall back to email automatically — no disruption, no surprise charges.', gradient: 'from-amber-500/10 to-orange-500/10' },
     { icon: Sparkles, title: 'AI Insights', desc: 'Smart analysis of overdue rates, workload imbalance, bottlenecks, and performer rankings across your team.', gradient: 'from-rose-500/10 to-pink-500/10' },
     { icon: BarChart3, title: 'Team Analytics', desc: 'Completion rates, stacked workload charts, and performance dashboards by designation level.', gradient: 'from-cyan-500/10 to-teal-500/10' },
   ],
   featuresHeadline1: 'Built for',
-  featuresHeadline2: 'Indian teams.',
-  featuresSubtext: 'WhatsApp-first notifications, designation hierarchies, and the satisfaction confirmation that Asana and ClickUp don\'t have.',
+  featuresHeadline2: 'teams with a chain of command.',
+  featuresSubtext: 'WhatsApp-first notifications, designation hierarchies, and sign-off confirmation on every completed task.',
   stats: [
     { target: 5000, label: 'Tasks Tracked Daily' },
     { target: 200, label: 'Teams Active' },
@@ -93,7 +93,6 @@ const data: ProductPageData = {
     { name: 'Meera S.', role: 'Operations Head, DSA Network', rating: 5, text: 'The WhatsApp notifications changed everything. My field agents actually respond now because they see it where they already work.' },
     { name: 'Anil P.', role: 'VP Operations, Trading Co.', rating: 5, text: 'We moved from Excel tracking to Work-Sync in one day. The designation hierarchy matched our org structure perfectly.' },
     { name: 'Priya D.', role: 'Team Lead, Logistics', rating: 5, text: 'The satisfaction confirmation feature is a game-changer. Earlier, tasks were marked "done" but the quality was never verified.' },
-    { name: 'Vikram M.', role: 'CEO, Professional Services', rating: 5, text: 'Tried Asana and ClickUp — both built for American startups. Work-Sync understands Indian team dynamics.' },
     { name: 'Sonal R.', role: 'Regional Manager, Insurance', rating: 4, text: 'My agents across 3 states get WhatsApp alerts the moment a task is assigned. Response time dropped from 2 days to 4 hours.' },
   ],
   ctaHeadline: 'Stop losing tasks in WhatsApp groups.',
