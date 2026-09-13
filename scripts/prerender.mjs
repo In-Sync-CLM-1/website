@@ -66,6 +66,30 @@ async function main() {
   const browser = await chromium.launch();
   const page = await browser.newPage();
 
+  // Ad/analytics loaders (gtag.js, GTM, Meta Pixel) run real tracking code
+  // once fetched — including Google Ads' conversion-linker logic, which
+  // dynamically creates a viewthroughconversion <script> pixel tag with
+  // this specific page load's URL, UA fingerprint, and a random id baked
+  // into its query string. page.content() captures whatever's in the DOM
+  // at that moment, so an unblocked crawl bakes a one-off pixel pointing
+  // at localhost:4173 and a HeadlessChrome UA into the static file every
+  // real visitor then loads — corrupting live conversion data. Verified
+  // live 2026-09-13: the first deploy's dist/products/worksync.html
+  // contained a frozen googleads.g.doubleclick.net script with
+  // `url=http://localhost:4173/products/worksync` hardcoded in it.
+  // Blocking these domains keeps SEOHelmet's tags (unrelated to any of
+  // this) intact while preventing the loaders from ever executing during
+  // the local capture. Real visitors still get real tracking — nothing
+  // here touches the app itself, only what this script captures.
+  // cdn.razorpay.com's embed button is the same problem from a different
+  // vendor: it renders a live iframe with `referrer=` set to the current
+  // page URL, which was localhost during the capture. Blocked for the
+  // same reason — real visitors still get it live via hydration.
+  await page.route(
+    /doubleclick\.net|googletagmanager\.com|google-analytics\.com|googleadservices\.com|googlesyndication\.com|connect\.facebook\.net|clarity\.ms|cdn\.razorpay\.com/i,
+    (route) => route.abort(),
+  );
+
   let failed = 0;
   for (const route of ROUTES) {
     try {
