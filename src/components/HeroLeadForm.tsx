@@ -10,25 +10,8 @@ import { getTurnstileToken } from '@/lib/turnstile';
 
 const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
-const FREE_EMAIL_DOMAINS = new Set([
-  'gmail.com', 'googlemail.com', 'yahoo.com', 'yahoo.co.in', 'ymail.com',
-  'hotmail.com', 'outlook.com', 'live.com', 'msn.com', 'icloud.com', 'me.com',
-  'rediffmail.com', 'aol.com', 'protonmail.com', 'proton.me', 'gmx.com', 'yandex.com', 'mail.com',
-]);
-
 const isValidPhone = (v: string) => /^[6-9]\d{9}$/.test(v.replace(/\D/g, ''));
-const isWorkEmail = (v: string) => {
-  const parts = v.trim().toLowerCase().split('@');
-  if (parts.length !== 2) return false;
-  const domain = parts[1];
-  if (!/^[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/.test(domain)) return false;
-  // startsWith catches garbage appended straight after a real free-mail domain
-  // (e.g. "gmail.comcg"); endsWith catches a subdomain of one (e.g. "mail.gmail.com").
-  for (const free of FREE_EMAIL_DOMAINS) {
-    if (domain.startsWith(free) || domain.endsWith('.' + free)) return false;
-  }
-  return true;
-};
+const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
 const DESIGNATIONS = [
   'Founder / Owner / Director',
@@ -59,16 +42,16 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    if (!form.name.trim() || !form.phone.trim() || !form.email.trim()) {
-      toast.error('Please add your name, phone number and email.');
+    if (!form.name.trim() || !form.phone.trim() || !form.email.trim() || !form.company.trim()) {
+      toast.error('Please add your name, phone number, email and company name.');
       return;
     }
     if (!isValidPhone(form.phone)) {
       toast.error('Please enter a valid 10-digit mobile number.');
       return;
     }
-    if (!isWorkEmail(form.email)) {
-      toast.error('Please use your work email address, not a personal Gmail/Yahoo one.');
+    if (!isValidEmail(form.email)) {
+      toast.error('Please enter a valid email address.');
       return;
     }
     setSubmitting(true);
@@ -150,12 +133,12 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
         />
         <Input
           type="email"
-          placeholder="Work email *"
+          placeholder="Email *"
           value={form.email}
           onChange={field('email')}
           required
         />
-        <Input placeholder="Company" value={form.company} onChange={field('company')} />
+        <Input placeholder="Company *" value={form.company} onChange={field('company')} required />
         <select
           value={form.designation}
           onChange={field('designation')}
