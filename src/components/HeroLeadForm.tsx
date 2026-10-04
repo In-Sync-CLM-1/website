@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { AlertCircle, ArrowRight, CheckCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -23,6 +23,49 @@ const normalizePhone = (v: string) => {
 };
 const isValidPhone = (v: string) => /^[6-9]\d{9}$/.test(normalizePhone(v));
 const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
+
+type FieldKey = 'name' | 'phone' | 'email' | 'company';
+
+// Names every problem in plain words so a visitor always knows what to fix.
+function validate(f: { name: string; phone: string; email: string; company: string }): {
+  messages: string[];
+  fields: FieldKey[];
+  event: string;
+} {
+  const messages: string[] = [];
+  const fields: FieldKey[] = [];
+  let event = 'missing_fields';
+  if (!f.name.trim()) {
+    messages.push('Please enter your name.');
+    fields.push('name');
+  }
+  if (!f.phone.trim()) {
+    messages.push('Please enter your mobile number.');
+    fields.push('phone');
+  } else if (!isValidPhone(f.phone)) {
+    const digits = normalizePhone(f.phone);
+    messages.push(
+      digits.length !== 10
+        ? `Your mobile number has ${digits.length} digit${digits.length === 1 ? '' : 's'}. It needs to be exactly 10.`
+        : 'Indian mobile numbers start with 6, 7, 8 or 9. Please check your number.',
+    );
+    fields.push('phone');
+    event = 'phone_invalid';
+  }
+  if (!f.email.trim()) {
+    messages.push('Please enter your email address.');
+    fields.push('email');
+  } else if (!isValidEmail(f.email)) {
+    messages.push("That email address doesn't look right. It should look like name@company.com.");
+    fields.push('email');
+    event = 'email_invalid';
+  }
+  if (!f.company.trim()) {
+    messages.push('Please enter your company name.');
+    fields.push('company');
+  }
+  return { messages, fields, event };
+}
 
 const DESIGNATIONS = [
   'Founder / Owner / Director',
@@ -63,32 +106,37 @@ interface HeroLeadFormProps {
 export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  // Every reason the form can't be sent is listed in plain words above the
+  // button, and the offending fields are outlined in red.
+  const [errors, setErrors] = useState<string[]>([]);
+  const [badFields, setBadFields] = useState<FieldKey[]>([]);
   const [form, setForm] = useState({ ...EMPTY });
+  const refs = useRef<Partial<Record<FieldKey, HTMLInputElement | null>>>({});
+
+  const clearErrors = () => {
+    setErrors([]);
+    setBadFields([]);
+  };
 
   const field =
     (k: keyof typeof form) =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-      setError(null);
+      clearErrors();
       setForm((f) => ({ ...f, [k]: e.target.value }));
     };
 
+  const bad = (k: FieldKey) => badFields.includes(k);
+  const fieldClass = (k: FieldKey) => (bad(k) ? 'border-red-500 focus-visible:ring-red-500' : '');
+
   async function submit(e: FormEvent) {
     e.preventDefault();
-    setError(null);
-    if (!form.name.trim() || !form.phone.trim() || !form.email.trim() || !form.company.trim()) {
-      setError('Please add your name, phone number, email and company name.');
-      reportClientError(product, 'missing_fields');
-      return;
-    }
-    if (!isValidPhone(form.phone)) {
-      setError('Please enter a valid 10-digit mobile number.');
-      reportClientError(product, 'phone_invalid');
-      return;
-    }
-    if (!isValidEmail(form.email)) {
-      setError('Please enter a valid email address.');
-      reportClientError(product, 'email_invalid');
+    clearErrors();
+    const found = validate(form);
+    if (found.messages.length) {
+      setErrors(found.messages);
+      setBadFields(found.fields);
+      refs.current[found.fields[0]]?.focus();
+      reportClientError(product, found.event);
       return;
     }
     setSubmitting(true);
@@ -133,7 +181,10 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
           }
         }
         reportClientError(product, 'server_error');
-        setError(reason ?? 'Something went wrong, please try again.');
+        setErrors([
+          reason ??
+            'Our server had a problem saving your request. Please try again in a minute, or email us at delight@in-sync.co.in.',
+        ]);
         return;
       }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -149,9 +200,14 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
       adsLeadConversion();
       pixelLead(product, 'hero_inline_demo');
       setDone(true);
-    } catch {
+    } catch (err) {
       reportClientError(product, 'network_error');
-      setError('Something went wrong, please try again. If it keeps failing, email us at delight@in-sync.co.in.');
+      const timedOut = err instanceof DOMException && (err.name === 'TimeoutError' || err.name === 'AbortError');
+      setErrors([
+        timedOut
+          ? 'The request took too long. Please check your internet connection and try again.'
+          : "We couldn't reach our server. Please check your internet connection and try again, or email us at delight@in-sync.co.in.",
+      ]);
     } finally {
       setSubmitting(false);
     }
@@ -177,29 +233,47 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
       <p className="mt-1 text-sm text-muted-foreground">
         Leave your details — we'll call to arrange a time that suits you.
       </p>
-      <form onSubmit={submit} className="mt-4 space-y-3">
-        <Input placeholder="Your name *" value={form.name} onChange={field('name')} required />
+      <form onSubmit={submit} noValidate className="mt-4 space-y-3">
         <Input
+          ref={(el) => { refs.current.name = el; }}
+          placeholder="Your name *"
+          value={form.name}
+          onChange={field('name')}
+          aria-invalid={bad('name')}
+          className={fieldClass('name')}
+        />
+        <Input
+          ref={(el) => { refs.current.phone = el; }}
           placeholder="10-digit mobile *"
           value={form.phone}
+          aria-invalid={bad('phone')}
+          className={fieldClass('phone')}
           onChange={(e) => {
-            setError(null);
+            clearErrors();
             // Up to 13 digits so a pasted "+91 …" or "0 …" number isn't cut short;
             // it is normalised to 10 digits on submit.
             setForm((f) => ({ ...f, phone: e.target.value.replace(/\D/g, '').slice(0, 13) }));
           }}
           inputMode="tel"
           autoComplete="tel-national"
-          required
         />
         <Input
+          ref={(el) => { refs.current.email = el; }}
           type="email"
           placeholder="Email *"
           value={form.email}
           onChange={field('email')}
-          required
+          aria-invalid={bad('email')}
+          className={fieldClass('email')}
         />
-        <Input placeholder="Company *" value={form.company} onChange={field('company')} required />
+        <Input
+          ref={(el) => { refs.current.company = el; }}
+          placeholder="Company *"
+          value={form.company}
+          onChange={field('company')}
+          aria-invalid={bad('company')}
+          className={fieldClass('company')}
+        />
         <select
           value={form.designation}
           onChange={field('designation')}
@@ -226,14 +300,18 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
           data-form-type="other"
           style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
         />
-        {error && (
+        {errors.length > 0 && (
           <div
             role="alert"
             aria-live="assertive"
             className="flex items-start gap-2 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800"
           >
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-            <span>{error}</span>
+            <ul className="space-y-0.5">
+              {errors.map((m) => (
+                <li key={m}>{m}</li>
+              ))}
+            </ul>
           </div>
         )}
         <Button type="submit" className={`w-full ${accentClass}`} disabled={submitting}>
