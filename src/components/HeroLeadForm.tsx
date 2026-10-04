@@ -1,6 +1,5 @@
 import { useState, type FormEvent } from 'react';
-import { toast } from 'sonner';
-import { ArrowRight, CheckCircle } from 'lucide-react';
+import { AlertCircle, ArrowRight, CheckCircle } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { getAttribution } from '@/lib/attribution';
@@ -10,7 +9,19 @@ import { getTurnstileToken } from '@/lib/turnstile';
 
 const INTAKE_URL = 'https://ejzjrvazegaxrhqizgaa.supabase.co/functions/v1/web-lead-intake';
 
-const isValidPhone = (v: string) => /^[6-9]\d{9}$/.test(v.replace(/\D/g, ''));
+// Visitors paste or autofill "+91 98765 43210" / "098765 43210". Strip a leading
+// country code or trunk 0 so those become the 10-digit number they meant,
+// instead of being cut to the first 10 digits (a wrong number) or rejected.
+const normalizePhone = (v: string) => {
+  let d = v.replace(/\D/g, '');
+  while (d.length > 10) {
+    if (d.startsWith('0')) d = d.slice(1);
+    else if (d.startsWith('91')) d = d.slice(2);
+    else break;
+  }
+  return d;
+};
+const isValidPhone = (v: string) => /^[6-9]\d{9}$/.test(normalizePhone(v));
 const isValidEmail = (v: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
 
 const DESIGNATIONS = [
@@ -23,6 +34,25 @@ const DESIGNATIONS = [
   'Other',
 ];
 
+const TURNSTILE_WAIT_MS = 4000;
+const REQUEST_TIMEOUT_MS = 15000;
+
+// The browser tells the server when it refuses to send (validation, network):
+// those never reach the server otherwise, which is how a form can fail for
+// many visitors with nothing on record. Event names only, never values.
+function reportClientError(product: string, event: string) {
+  try {
+    void fetch(INTAKE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ _client_event: event, product, source_url: window.location.href }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {
+    /* logging must never get in the way of the form */
+  }
+}
+
 const EMPTY = { name: '', phone: '', email: '', company: '', designation: '', _hp: '' };
 
 interface HeroLeadFormProps {
@@ -33,41 +63,53 @@ interface HeroLeadFormProps {
 export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFormProps) {
   const [submitting, setSubmitting] = useState(false);
   const [done, setDone] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [form, setForm] = useState({ ...EMPTY });
 
   const field =
     (k: keyof typeof form) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      setError(null);
       setForm((f) => ({ ...f, [k]: e.target.value }));
+    };
 
   async function submit(e: FormEvent) {
     e.preventDefault();
+    setError(null);
     if (!form.name.trim() || !form.phone.trim() || !form.email.trim() || !form.company.trim()) {
-      toast.error('Please add your name, phone number, email and company name.');
+      setError('Please add your name, phone number, email and company name.');
+      reportClientError(product, 'missing_fields');
       return;
     }
     if (!isValidPhone(form.phone)) {
-      toast.error('Please enter a valid 10-digit mobile number.');
+      setError('Please enter a valid 10-digit mobile number.');
+      reportClientError(product, 'phone_invalid');
       return;
     }
     if (!isValidEmail(form.email)) {
-      toast.error('Please enter a valid email address.');
+      setError('Please enter a valid email address.');
+      reportClientError(product, 'email_invalid');
       return;
     }
     setSubmitting(true);
     try {
       const attr = getAttribution();
       // Invisible — no challenge, no friction. Resolves to null if Turnstile
-      // isn't configured yet or fails to load; the backend treats a missing
-      // token as "can't check it" rather than blocking the lead.
-      const turnstileToken = await getTurnstileToken();
+      // isn't configured yet or fails to load; the backend only logs the
+      // result and never rejects a lead over it. Capped so a stalled check on
+      // a slow phone can't hold the lead back.
+      const turnstileToken = await Promise.race([
+        getTurnstileToken(),
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), TURNSTILE_WAIT_MS)),
+      ]);
       const res = await fetch(INTAKE_URL, {
         method: 'POST',
+        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           product,
           name: form.name,
-          phone: form.phone,
+          phone: normalizePhone(form.phone),
           email: form.email,
           company: form.company,
           designation: form.designation,
@@ -80,7 +122,20 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
           source_url: window.location.href,
         }),
       });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      if (!res.ok) {
+        // A 4xx carries a specific reason from the server (e.g. a bad number): show it.
+        let reason: string | null = null;
+        if (res.status >= 400 && res.status < 500) {
+          try {
+            reason = ((await res.json()) as { error?: string }).error ?? null;
+          } catch {
+            /* no readable body */
+          }
+        }
+        reportClientError(product, 'server_error');
+        setError(reason ?? 'Something went wrong, please try again.');
+        return;
+      }
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const gtag = (window as any).gtag;
       if (typeof gtag === 'function') {
@@ -95,7 +150,8 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
       pixelLead(product, 'hero_inline_demo');
       setDone(true);
     } catch {
-      toast.error('Something went wrong. Please try again, or email us at delight@in-sync.co.in.');
+      reportClientError(product, 'network_error');
+      setError('Something went wrong, please try again. If it keeps failing, email us at delight@in-sync.co.in.');
     } finally {
       setSubmitting(false);
     }
@@ -126,9 +182,14 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
         <Input
           placeholder="10-digit mobile *"
           value={form.phone}
-          onChange={(e) => setForm((f) => ({ ...f, phone: e.target.value.replace(/\D/g, '').slice(0, 10) }))}
+          onChange={(e) => {
+            setError(null);
+            // Up to 13 digits so a pasted "+91 …" or "0 …" number isn't cut short;
+            // it is normalised to 10 digits on submit.
+            setForm((f) => ({ ...f, phone: e.target.value.replace(/\D/g, '').slice(0, 13) }));
+          }}
           inputMode="tel"
-          maxLength={10}
+          autoComplete="tel-national"
           required
         />
         <Input
@@ -150,16 +211,31 @@ export function HeroLeadForm({ product, accentClass = 'bg-primary' }: HeroLeadFo
             <option key={d} value={d}>{d}</option>
           ))}
         </select>
+        {/* Honeypot: real visitors never see or fill it. The name is deliberately
+            meaningless so browser/password-manager autofill has nothing to match. */}
         <input
           type="text"
-          name="company_website"
+          name="hp_field_x7"
           value={form._hp}
           onChange={field('_hp')}
           tabIndex={-1}
           autoComplete="off"
           aria-hidden="true"
+          data-lpignore="true"
+          data-1p-ignore="true"
+          data-form-type="other"
           style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }}
         />
+        {error && (
+          <div
+            role="alert"
+            aria-live="assertive"
+            className="flex items-start gap-2 rounded-md border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800"
+          >
+            <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{error}</span>
+          </div>
+        )}
         <Button type="submit" className={`w-full ${accentClass}`} disabled={submitting}>
           {submitting ? 'Sending…' : <><span>Request my demo</span><ArrowRight className="ml-1 h-4 w-4" /></>}
         </Button>
