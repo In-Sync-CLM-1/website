@@ -222,6 +222,15 @@ export const defaultSEOConfig: Record<string, SEOConfig> = {
     ogDescription: "Assign tasks, track progress to sign-off, and stop losing work in WhatsApp chats.",
     ogType: "website"
   },
+  aiinterviewer: {
+    title: "Free AI Mock Interview Practice for Freshers | AI Interviewer by In-Sync",
+    description: "AI Interviewer is free mock interview practice for freshers. It asks your questions aloud, records you answering, transcribes and scores every answer. Get it free.",
+    keywords: "free mock interview, AI mock interview, interview practice for freshers, fresher interview preparation, practice interview questions",
+    canonical: "https://in-sync.co.in/products/ai-interviewer",
+    ogTitle: "AI Interviewer — Free Mock Interview Practice for Freshers",
+    ogDescription: "Free for freshers. Get asked out loud, record your answers, and see a score for every one.",
+    ogType: "website"
+  },
   crm: {
     title: "AI Sales CRM Software for Closing Deals | In-Sync CRM",
     description: "In-Sync CRM is AI-powered sales CRM software for Indian teams. Score every lead, know who to call next, and see exactly where a deal is stalling. Book a demo.",

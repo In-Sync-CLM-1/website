@@ -53,6 +53,7 @@ const Footer = () => {
       { name: "Vendor Verification", href: "/products/vendor-verification" },
       { name: "In-Sync ATS", href: "/products/ats" },
       { name: "Paisaa Saarthi LOS", href: "/products/paisaa-saarthi" },
+      { name: "AI Interviewer (Free)", href: "/products/ai-interviewer" },
     ],
     company: [
       { name: "Partnership", href: "/partnership" },
