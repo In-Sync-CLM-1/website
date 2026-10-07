@@ -48,6 +48,7 @@ const ROUTES = [
   '/resources',
   '/solutions',
   '/products/worksync',
+  '/products/ai-interviewer',
   '/products/crm',
   '/products/ats',
   '/products/expense',

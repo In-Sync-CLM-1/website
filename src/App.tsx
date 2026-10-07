@@ -39,6 +39,7 @@ import PaisaaSaarthiPage from "./pages/products/PaisaaSaarthi";
 import ExpensePage from "./pages/products/Expense";
 import WhatsAppCampaignsPage from "./pages/products/WhatsAppCampaigns";
 import WorkSyncPage from "./pages/products/WorkSync";
+import AIInterviewerPage from "./pages/products/AIInterviewer";
 import GlobalCRMPage from "./pages/products/GlobalCRM";
 import VendorVerificationPage from "./pages/products/VendorVerification";
 import Solutions from "./pages/Solutions";
@@ -112,6 +113,7 @@ const App = () => (
           <Route path="/products/expense" element={<ExpensePage />} />
           <Route path="/products/whatsapp-campaigns" element={<WhatsAppCampaignsPage />} />
           <Route path="/products/worksync" element={<WorkSyncPage />} />
+          <Route path="/products/ai-interviewer" element={<AIInterviewerPage />} />
           <Route path="/products/crm" element={<GlobalCRMPage />} />
           <Route path="/products/vendor-verification" element={<VendorVerificationPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
