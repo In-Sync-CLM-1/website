@@ -96,7 +96,7 @@ function DownloadCard({ id }: { id?: string }) {
       </p>
       <div className="mt-5 rounded-lg border border-border bg-muted/40 p-3 text-xs leading-relaxed text-muted-foreground">
         <strong className="text-foreground">If Windows shows a blue "protected your PC" screen:</strong> click{' '}
-        <em>More info</em>, then <em>Run anyway</em>. This appears for every new app that is not yet widely downloaded.
+        <em>More info</em>, then <em>Run anyway</em>.
       </div>
     </div>
   );
