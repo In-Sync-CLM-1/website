@@ -223,11 +223,11 @@ export const defaultSEOConfig: Record<string, SEOConfig> = {
     ogType: "website"
   },
   aiinterviewer: {
-    title: "Free AI Mock Interview Practice for Freshers | AI Interviewer by In-Sync",
-    description: "AI Interviewer is free mock interview practice for freshers. It asks your questions aloud, records you answering, transcribes and scores every answer. Get it free.",
+    title: "Free AI Mock Interview Practice for Freshers | PrepRound by In-Sync — Ready, Set, Hired",
+    description: "PrepRound is free mock interview practice for freshers. It asks your questions aloud, records you answering, transcribes and scores every answer. Get it free.",
     keywords: "free mock interview, AI mock interview, interview practice for freshers, fresher interview preparation, practice interview questions",
     canonical: "https://in-sync.co.in/products/ai-interviewer",
-    ogTitle: "AI Interviewer — Free Mock Interview Practice for Freshers",
+    ogTitle: "PrepRound — Ready, Set, Hired. Free Mock Interview Practice for Freshers",
     ogDescription: "Free for freshers. Get asked out loud, record your answers, and see a score for every one.",
     ogType: "website"
   },
