@@ -32,11 +32,11 @@ function Reveal({ children, className = '' }: { children: ReactNode; className?:
 /* ── Content ───────────────────────────────── */
 
 const IMG = {
-  laugh: '/ai-interviewer/hero-laugh.jpg',
-  library: '/ai-interviewer/library.jpg',
-  friends: '/ai-interviewer/friends.jpg',
-  candidate: '/ai-interviewer/candidate.jpg',
-  laptop: '/ai-interviewer/laptop.jpg',
+  laugh: '/prepround/hero-laugh.jpg',
+  library: '/prepround/library.jpg',
+  friends: '/prepround/friends.jpg',
+  candidate: '/prepround/candidate.jpg',
+  laptop: '/prepround/laptop.jpg',
 };
 
 const PAIN = [
@@ -87,7 +87,7 @@ function DownloadButton({ className = '' }: { className?: string }) {
   const onClick = () => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const gtag = (window as any).gtag;
-    if (typeof gtag === 'function') gtag('event', 'file_download', { file_name: 'AI-Interviewer-Setup.exe', product_key: 'ai_interviewer' });
+    if (typeof gtag === 'function') gtag('event', 'file_download', { file_name: 'PrepRound-Setup.exe', product_key: 'prepround' });
   };
   return (
     <a
@@ -144,12 +144,12 @@ function AppMockup() {
 
 /* ── Page ──────────────────────────────────── */
 
-export default function AIInterviewerPage() {
+export default function PrepRoundPage() {
   useEffect(() => { captureAttribution(); }, []);
 
   return (
     <div className="min-h-screen bg-[#fffdf8] text-[#1b294b]">
-      <SEOHelmet config={defaultSEOConfig.aiinterviewer} />
+      <SEOHelmet config={defaultSEOConfig.prepround} />
 
       <header className="sticky top-0 z-50 border-b border-[#1b294b]/10 bg-[#fffdf8]/85 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">

@@ -222,11 +222,11 @@ export const defaultSEOConfig: Record<string, SEOConfig> = {
     ogDescription: "Assign tasks, track progress to sign-off, and stop losing work in WhatsApp chats.",
     ogType: "website"
   },
-  aiinterviewer: {
+  prepround: {
     title: "Free AI Mock Interview Practice for Freshers | PrepRound by In-Sync — Ready, Set, Hired",
     description: "PrepRound is free mock interview practice for freshers. It asks your questions aloud, records you answering, transcribes and scores every answer. Get it free.",
     keywords: "free mock interview, AI mock interview, interview practice for freshers, fresher interview preparation, practice interview questions",
-    canonical: "https://in-sync.co.in/products/ai-interviewer",
+    canonical: "https://in-sync.co.in/products/prepround",
     ogTitle: "PrepRound — Ready, Set, Hired. Free Mock Interview Practice for Freshers",
     ogDescription: "Free for freshers. Get asked out loud, record your answers, and see a score for every one.",
     ogType: "website"
