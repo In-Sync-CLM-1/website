@@ -109,7 +109,7 @@ function AppMockup() {
         <span className="h-2.5 w-2.5 rounded-full bg-[#ff6b6b]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#ffb703]" />
         <span className="h-2.5 w-2.5 rounded-full bg-[#00b8a8]" />
-        <span className="ml-3 text-xs font-semibold text-white/70">AI Interviewer · Campus Placement Drive</span>
+        <span className="ml-3 text-xs font-semibold text-white/70">PrepRound · Campus Placement Drive</span>
       </div>
       <div className="grid gap-0 sm:grid-cols-5">
         <div className="relative sm:col-span-3">
@@ -155,7 +155,7 @@ export default function AIInterviewerPage() {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
           <Link to="/" className="flex items-center gap-2 text-lg font-extrabold">
             <img src="/favicon.png" alt="In-Sync" className="h-7 w-auto" />
-            <span>AI Interviewer</span>
+            <span>PrepRound</span><span className="hidden ml-1 text-xs font-semibold text-[#1b294b]/50 sm:inline">Ready, Set, Hired.</span>
           </Link>
           <nav className="hidden items-center gap-6 text-sm font-medium text-[#1b294b]/70 md:flex">
             <a href="#how-it-works" className="hover:text-[#1b294b]">How it works</a>
@@ -366,7 +366,7 @@ export default function AIInterviewerPage() {
               { q: 'Is there a limit?', a: 'You can start up to 5 interviews a day, each with as many questions as you like. The count resets every day.' },
               { q: 'Do I have to write my own questions?', a: 'No. 7 ready-made sets are included — HR, behavioural, campus drive, IT, sales, finance and more. You can add your own for any role or round.' },
               { q: 'Where are my recordings kept?', a: 'Your sessions are saved on your own computer. To transcribe and score an answer, the audio and text are sent to AI services.' },
-              { q: 'What does it cost?', a: 'Nothing. AI Interviewer is free for freshers — no card, no trial period, no hidden charges.' },
+              { q: 'What does it cost?', a: 'Nothing. PrepRound is free for freshers — no card, no trial period, no hidden charges.' },
             ].map((item) => (
               <details key={item.q} className="group rounded-2xl border-2 border-[#1b294b]/10 bg-white p-5 open:border-[#00b8a8]">
                 <summary className="cursor-pointer list-none font-bold">{item.q}</summary>
@@ -394,7 +394,7 @@ export default function AIInterviewerPage() {
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 sm:flex-row">
           <div className="flex items-center gap-2 text-sm font-medium">
             <img src="/favicon.png" alt="In-Sync" className="h-5 w-auto" />
-            <span>AI Interviewer</span>
+            <span>PrepRound</span><span className="ml-1 text-xs font-semibold text-[#1b294b]/50">Ready, Set, Hired.</span>
             <span className="text-[#1b294b]/60">· Part of In-Sync</span>
           </div>
           <div className="flex items-center gap-4 text-xs text-[#1b294b]/60">
