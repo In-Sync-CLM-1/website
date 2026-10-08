@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import Header from "@/components/Header";
 import Index from "./pages/Index";
@@ -39,7 +39,7 @@ import PaisaaSaarthiPage from "./pages/products/PaisaaSaarthi";
 import ExpensePage from "./pages/products/Expense";
 import WhatsAppCampaignsPage from "./pages/products/WhatsAppCampaigns";
 import WorkSyncPage from "./pages/products/WorkSync";
-import AIInterviewerPage from "./pages/products/AIInterviewer";
+import PrepRoundPage from "./pages/products/PrepRound";
 import GlobalCRMPage from "./pages/products/GlobalCRM";
 import VendorVerificationPage from "./pages/products/VendorVerification";
 import Solutions from "./pages/Solutions";
@@ -113,7 +113,8 @@ const App = () => (
           <Route path="/products/expense" element={<ExpensePage />} />
           <Route path="/products/whatsapp-campaigns" element={<WhatsAppCampaignsPage />} />
           <Route path="/products/worksync" element={<WorkSyncPage />} />
-          <Route path="/products/ai-interviewer" element={<AIInterviewerPage />} />
+          <Route path="/products/prepround" element={<PrepRoundPage />} />
+          <Route path="/products/ai-interviewer" element={<Navigate to="/products/prepround" replace />} />
           <Route path="/products/crm" element={<GlobalCRMPage />} />
           <Route path="/products/vendor-verification" element={<VendorVerificationPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
