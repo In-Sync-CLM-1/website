@@ -188,9 +188,9 @@ export default function PrepRoundPage() {
               transition={{ delay: 0.1, duration: 0.6 }}
               className="mt-6 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl lg:text-6xl"
             >
-              Fail your first interview{' '}
+              Practise today.{' '}
               <span className="relative inline-block text-[#00a395]">
-                here, not there.
+                Get hired tomorrow.
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 300 12" preserveAspectRatio="none" aria-hidden="true">
                   <path d="M2 8 Q 75 0 150 6 T 298 5" fill="none" stroke="#ffb703" strokeWidth="5" strokeLinecap="round" />
                 </svg>
