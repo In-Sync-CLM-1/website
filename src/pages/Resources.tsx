@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SEOHelmet from "@/components/SEOHelmet";
 import { defaultSEOConfig } from "@/utils/seo";
@@ -8,13 +7,14 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Calendar, Clock, User, Search } from "lucide-react";
 import { blogData } from "./BlogPost";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const categories = ["All", ...Array.from(new Set(blogData.map(b => b.category)))];
 
 const Resources = () => {
   const navigate = useNavigate();
-  const [search, setSearch] = useState("");
-  const [activeCategory, setActiveCategory] = useState("All");
+  const [search, setSearch] = useUrlState("q", "");
+  const [activeCategory, setActiveCategory] = useUrlState("category", "All");
 
   const filtered = blogData.filter(b => {
     const matchesSearch =

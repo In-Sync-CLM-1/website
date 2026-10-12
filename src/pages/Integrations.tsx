@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,9 +22,10 @@ import {
   Target
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const Integrations = () => {
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useUrlState("category", "all");
 
   const integrationCategories = [
     {

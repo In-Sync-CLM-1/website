@@ -36,11 +36,12 @@ import {
   Calculator,
   ArrowLeft
 } from "lucide-react";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const Features = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [activeTab, setActiveTab] = useState("overview");
+  const [activeTab, setActiveTab] = useUrlState("tab", "overview");
   const [selectedFeature, setSelectedFeature] = useState(0);
   const [calculatorValues, setCalculatorValues] = useState({
     employees: 50,

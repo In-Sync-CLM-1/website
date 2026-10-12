@@ -27,6 +27,7 @@ import {
   Sparkles
 } from "lucide-react";
 import Footer from "@/components/Footer";
+import { useUrlState } from "@/hooks/useUrlState";
 
 const GRAIN =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E\")";
@@ -45,7 +46,7 @@ const productPricing: Record<string, string> = {
 };
 
 const Pricing = () => {
-  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+  const [billingCycle, setBillingCycle] = useUrlState<"monthly" | "annual">("billing", "monthly");
   const [showCalculator, setShowCalculator] = useState(false);
 
   const crmPlans = [
