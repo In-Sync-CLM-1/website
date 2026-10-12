@@ -22,10 +22,11 @@ import {
   Shield
 } from "lucide-react";
 import { Helmet } from 'react-helmet-async';
+import { useUrlState } from "@/hooks/useUrlState";
 
 const FAQ = () => {
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [searchTerm, setSearchTerm] = useUrlState("q", "");
+  const [selectedCategory, setSelectedCategory] = useUrlState("category", "all");
   const [faqQuery, setFaqQuery] = useState("");
   const [faqResponse, setFaqResponse] = useState("");
 
