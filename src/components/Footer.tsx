@@ -50,7 +50,7 @@ const Footer = () => {
       { name: "Field-Sync", href: "/products/field-sync" },
       { name: "Work-Sync", href: "/products/worksync" },
       { name: "Expense Claims", href: "/products/expense" },
-      { name: "Vendor Verification", href: "/products/vendor-verification" },
+      { name: "Vendorsync", href: "/products/vendorsync" },
       { name: "In-Sync ATS", href: "/products/ats" },
       { name: "Paisaa Saarthi LOS", href: "/products/paisaa-saarthi" },
       { name: "PrepRound (Free)", href: "/products/prepround" },

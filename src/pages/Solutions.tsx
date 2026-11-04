@@ -19,8 +19,8 @@ const products = [
     gradient: "from-slate-800 to-teal-700",
   },
   {
-    name: "Vendor Verification",
-    href: "/products/vendor-verification",
+    name: "Vendorsync",
+    href: "/products/vendorsync",
     icon: ShieldCheck,
     tagline: "Financial due diligence",
     description: "Credit score, bank statement, GST & PAN checks against live government APIs — know your vendor's financial health before you commit.",
@@ -125,7 +125,7 @@ export default function Solutions() {
       <SEOHelmet
         config={{
           title: "Solutions | In-Sync",
-          description: "Explore In-Sync's suite of products — from CRM and vendor verification to field force tracking, loan origination, and WhatsApp campaigns. One platform, ten focused tools.",
+          description: "Explore In-Sync's suite of products — from CRM and vendor onboarding to field force tracking, loan origination, and WhatsApp campaigns. One platform, ten focused tools.",
           canonical: "https://in-sync.co.in/solutions",
         }}
       />

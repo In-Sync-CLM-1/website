@@ -51,7 +51,7 @@ const DataDeletion = () => {
                     with the subject line <strong>"Data Deletion Request"</strong> from the email address or phone number registered on your account, and include:
                   </p>
                   <ul className="space-y-2 text-muted-foreground mb-4">
-                    <li>• The name of the {COMPANY.brandName} app or product you used (e.g. globalcrm, Work-Sync, Field-Sync, Vendor Verification, ATS, Expense, Event-Sync, Email Broadcast, WhatsApp Campaigns).</li>
+                    <li>• The name of the {COMPANY.brandName} app or product you used (e.g. globalcrm, Work-Sync, Field-Sync, Vendorsync, ATS, Expense, Event-Sync, Email Broadcast, WhatsApp Campaigns).</li>
                     <li>• Your registered email address and/or phone number.</li>
                     <li>• Your organisation/company name, if applicable.</li>
                   </ul>

@@ -41,7 +41,7 @@ import WhatsAppCampaignsPage from "./pages/products/WhatsAppCampaigns";
 import WorkSyncPage from "./pages/products/WorkSync";
 import PrepRoundPage from "./pages/products/PrepRound";
 import GlobalCRMPage from "./pages/products/GlobalCRM";
-import VendorVerificationPage from "./pages/products/VendorVerification";
+import VendorsyncPage from "./pages/products/Vendorsync";
 import Solutions from "./pages/Solutions";
 import { type ReactNode, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
@@ -116,7 +116,7 @@ const App = () => (
           <Route path="/products/prepround" element={<PrepRoundPage />} />
           <Route path="/products/ai-interviewer" element={<Navigate to="/products/prepround" replace />} />
           <Route path="/products/crm" element={<GlobalCRMPage />} />
-          <Route path="/products/vendor-verification" element={<VendorVerificationPage />} />
+          <Route path="/products/vendorsync" element={<VendorsyncPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
