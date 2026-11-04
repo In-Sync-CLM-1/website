@@ -53,7 +53,7 @@ const ROUTES = [
   '/products/ats',
   '/products/expense',
   '/products/field-sync',
-  '/products/vendor-verification',
+  '/products/vendorsync',
   '/products/eventsync',
   '/products/email-broadcast',
   '/products/whatsapp-campaigns',

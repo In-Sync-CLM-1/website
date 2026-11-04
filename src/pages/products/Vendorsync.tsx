@@ -4,9 +4,9 @@ import { VendorScene, VendorFloats } from '@/components/heroScenes';
 import { ShieldCheck, ScanSearch, Brain, AlertTriangle, Workflow, ClipboardCheck, Send, UserCheck, BadgeCheck, FileSearch, Landmark, Clock } from 'lucide-react';
 
 const data: ProductPageData = {
-  productKey: 'Vendor Verification',
-  seo: defaultSEOConfig.vendorVerification,
-  productName: 'Vendor Verification',
+  productKey: 'Vendorsync',
+  seo: defaultSEOConfig.vendorsync,
+  productName: 'Vendorsync',
   demoUrl: 'https://vendor.in-sync.co.in/walkthrough',
   heroBackdrop: <VendorScene />,
   heroFloats: <VendorFloats />,
@@ -50,7 +50,7 @@ const data: ProductPageData = {
   problemHeadline1: 'You verify employees.',
   problemHeadline2: 'Why not vendors?',
   problemIntro:
-    'Most vendor onboarding is a form and a prayer. Vendor Verification runs credit, bank, GST, PAN, and document checks against live government and financial APIs — in minutes, not weeks.',
+    'Most vendor onboarding is a form and a prayer. Vendorsync runs credit, bank, GST, PAN, and document checks against live government and financial APIs — in minutes, not weeks.',
   howItWorks: [
     { step: 1, title: 'Invite', desc: 'Share a secure link. The vendor verifies identity via OTP and submits documents with DPDP consent — all in one flow.', icon: Send },
     { step: 2, title: 'Analyse', desc: 'AI reads every document, cross-checks fields, flags tampering, and runs live API verifications on GST, PAN, and bank details.', icon: ScanSearch },
@@ -94,6 +94,6 @@ const data: ProductPageData = {
   ctaSubtext: 'Book a free demo and see the full financial picture of any vendor in under 5 minutes.',
 };
 
-export default function VendorVerificationPage() {
+export default function VendorsyncPage() {
   return <ProductLanding data={data} />;
 }

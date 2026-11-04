@@ -40,7 +40,7 @@ const productPricing: Record<string, string> = {
   "Field-Sync": "Priced per field user",
   "Work-Sync": "Priced per user",
   "Expense Claims": "Priced per user",
-  "Vendor Verification": "Priced per verification volume",
+  "Vendorsync": "Priced per verification volume",
   "In-Sync ATS": "Priced per recruiter seat",
   "Paisaa Saarthi": "Priced per branch & application volume",
 };

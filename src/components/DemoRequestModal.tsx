@@ -37,7 +37,7 @@ interface DemoRequestModalProps {
 const productOptions = [
   "General / Not sure yet",
   "In-Sync CRM — Sales Pipeline & Campaigns",
-  "Vendor Verification — Financial Due Diligence",
+  "Vendorsync — Financial Due Diligence",
   "EventSync — Event Management",
   "Email Broadcast",
   "Field-Sync — Field Force Management",
@@ -53,7 +53,7 @@ const productOptions = [
 const productRoutingKey: Record<string, string> = {
   "General / Not sure yet": "General",
   "In-Sync CRM — Sales Pipeline & Campaigns": "Globalcrm",
-  "Vendor Verification — Financial Due Diligence": "Vendorverification",
+  "Vendorsync — Financial Due Diligence": "Vendorsync",
   "EventSync — Event Management": "Eventsync",
   "Email Broadcast": "Email",
   "Field-Sync — Field Force Management": "Fieldsync",

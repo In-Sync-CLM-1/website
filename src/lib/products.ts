@@ -42,7 +42,7 @@ export const PILLARS: Pillar[] = [
       { name: "Field-Sync", href: "/products/field-sync", icon: MapPin, tagline: "GPS field force tracking & visit logs", color: "text-green-600", bg: "bg-green-500/10" },
       { name: "Work-Sync", href: "/products/worksync", icon: CheckCircle, tagline: "Task accountability for teams", color: "text-purple-600", bg: "bg-purple-500/10" },
       { name: "Expense Claims", href: "/products/expense", icon: Receipt, tagline: "Claims & approval workflows", color: "text-rose-600", bg: "bg-rose-500/10" },
-      { name: "Vendor Verification", href: "/products/vendor-verification", icon: ShieldCheck, tagline: "Financial due diligence & KYC", color: "text-sky-700", bg: "bg-sky-500/10" },
+      { name: "Vendorsync", href: "/products/vendorsync", icon: ShieldCheck, tagline: "Financial due diligence & KYC", color: "text-sky-700", bg: "bg-sky-500/10" },
     ],
   },
   {

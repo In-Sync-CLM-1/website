@@ -29,7 +29,7 @@ export const getOrganizationSchema = () => ({
   "alternateName": "In-Sync Platform",
   "url": "https://in-sync.co.in",
   "logo": "https://in-sync.co.in/logo.png",
-  "description": "Business operations platform for growing Indian companies — ten focused apps for CRM, campaigns, events, field force, expenses, vendor verification, recruitment, and lending on one platform",
+  "description": "Business operations platform for growing Indian companies — ten focused apps for CRM, campaigns, events, field force, expenses, vendor onboarding, recruitment, and lending on one platform",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+91-11-4084-1521",
@@ -74,7 +74,7 @@ export const getSoftwareApplicationSchema = () => ({
     "bestRating": "5",
     "worstRating": "1"
   },
-  "description": "One platform, ten products: CRM, WhatsApp and email campaigns, event management, field force tracking, task management, expense claims, vendor verification, recruitment, and loan origination"
+  "description": "One platform, ten products: CRM, WhatsApp and email campaigns, event management, field force tracking, task management, expense claims, vendor onboarding, recruitment, and loan origination"
 });
 
 /**
@@ -170,8 +170,8 @@ export const getBreadcrumbSchema = (breadcrumbs: Array<{ name: string; url: stri
 export const defaultSEOConfig: Record<string, SEOConfig> = {
   home: {
     title: "In-Sync - Run Your Entire Business on One Platform | India",
-    description: "Ten focused apps for growing Indian businesses: CRM, WhatsApp & email campaigns, event management, field force tracking, expense claims, vendor verification, recruitment, and loan origination — on one platform.",
-    keywords: "business software India, CRM software India, WhatsApp campaigns, event management software, field force management, vendor verification, applicant tracking system, loan origination system",
+    description: "Ten focused apps for growing Indian businesses: CRM, WhatsApp & email campaigns, event management, field force tracking, expense claims, vendor onboarding, recruitment, and loan origination — on one platform.",
+    keywords: "business software India, CRM software India, WhatsApp campaigns, event management software, field force management, vendor onboarding, applicant tracking system, loan origination system",
     canonical: "https://in-sync.co.in/",
     ogType: "website",
     ogImage: "https://in-sync.co.in/og-home.jpg",
@@ -259,11 +259,11 @@ export const defaultSEOConfig: Record<string, SEOConfig> = {
     canonical: "https://in-sync.co.in/products/field-sync",
     ogType: "website"
   },
-  vendorVerification: {
-    title: "Vendor Verification & Onboarding Software | Vendor-Sync by In-Sync",
-    description: "Vendor-Sync is vendor verification and onboarding software with automated KYC — PAN, GST and bank checks before you commit. Book a demo.",
-    keywords: "vendor verification software, vendor onboarding software, vendor KYC software, supplier verification, vendor management system",
-    canonical: "https://in-sync.co.in/products/vendor-verification",
+  vendorsync: {
+    title: "Vendor Onboarding Software | Vendorsync by In-Sync",
+    description: "Vendorsync is vendor onboarding software with automated KYC — PAN, GST and bank checks before you commit. Book a demo.",
+    keywords: "vendor onboarding software, vendor KYC software, supplier verification, vendor management system",
+    canonical: "https://in-sync.co.in/products/vendorsync",
     ogType: "website"
   },
   eventSync: {

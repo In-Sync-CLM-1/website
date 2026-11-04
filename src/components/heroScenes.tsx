@@ -316,7 +316,7 @@ export function CRMScene() {
   );
 }
 
-/* ── Vendor Verification: shield, fingerprint, scan ──────── */
+/* ── Vendorsync: shield, fingerprint, scan ──────── */
 export function VendorScene() {
   return (
     <Scene>
