@@ -1507,7 +1507,7 @@ export const blogData: BlogPostEntry[] = [
 
       <h2>From Point-in-Time Checks to Continuous Intelligence</h2>
       <p>The macro shift happening right now is the move from point-in-time verification to continuous vendor intelligence. Global supply chain regulations — from the EU's Corporate Sustainability Due Diligence Directive to India's evolving ESG disclosure norms — are demanding that enterprises demonstrate ongoing oversight, not just a one-time check at onboarding.</p>
-      <p>This is exactly the gap Vendorverification by In-Sync is built to close — a structured, auditable, continuously updated verification layer that procurement, legal, and finance teams can operate from a single dashboard, without rebuilding the process from scratch every quarter.</p>
+      <p>This is exactly the gap Vendor-Sync by In-Sync is built to close — a structured, auditable, continuously updated verification layer that procurement, legal, and finance teams can operate from a single dashboard, without rebuilding the process from scratch every quarter.</p>
       <p>If your vendor onboarding still depends on someone remembering to follow up, you don't have a process. You have a habit.</p>
 
       <h2>The Question Worth Sitting With</h2>

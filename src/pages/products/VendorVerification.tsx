@@ -7,7 +7,7 @@ const data: ProductPageData = {
   productKey: 'Vendor Verification',
   seo: defaultSEOConfig.vendorVerification,
   productName: 'Vendor Verification',
-  demoUrl: 'https://vendorverification.in-sync.co.in/walkthrough',
+  demoUrl: 'https://vendor.in-sync.co.in/walkthrough',
   heroBackdrop: <VendorScene />,
   heroFloats: <VendorFloats />,
   navLinks: [
