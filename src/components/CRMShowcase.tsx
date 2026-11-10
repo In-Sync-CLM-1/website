@@ -104,7 +104,7 @@ const CRMShowcase = () => {
   const activeScreenData = screens.find(screen => screen.id === activeScreen) || screens[0];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-background overflow-x-hidden">
       <div className="container mx-auto px-4">
         
         {/* Header */}
