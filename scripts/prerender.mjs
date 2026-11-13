@@ -66,6 +66,8 @@ async function main() {
 
   const browser = await chromium.launch();
   const page = await browser.newPage();
+  // The home page hero's 3D build is for real visitors only; the static capture keeps just its heading.
+  await page.addInitScript(() => { window.__PRERENDER__ = true; });
 
   // Ad/analytics loaders (gtag.js, GTM, Meta Pixel) run real tracking code
   // once fetched — including Google Ads' conversion-linker logic, which
