@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import Header from "@/components/Header";
+import ChatWidget from "@/components/ChatWidget";
 import Index from "./pages/Index";
 import Features from "./pages/Features";
 import UseCases from "./pages/UseCases";
@@ -66,6 +67,7 @@ function SiteShell({ children }: { children: ReactNode }) {
     <>
       {!isProductPage && <Header />}
       {children}
+      <ChatWidget />
     </>
   );
 }
